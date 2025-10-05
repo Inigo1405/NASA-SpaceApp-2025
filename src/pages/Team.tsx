@@ -6,7 +6,7 @@ interface TeamMember {
   role: string;
   specialty: string;
   bio: string;
-  avatar: string;
+  avatar: React.ReactNode;
   links: {
     linkedin?: string;
     github?: string;
@@ -24,7 +24,13 @@ const Team = () => {
       role: 'Desarrollador Frontend',
       specialty: 'React & Node.js',
       bio: 'Ingeniero de software especializado en aplicaciones web interactivas y visualización de datos científicos.',
-      avatar: '👩‍💻',
+      avatar: (
+        <img
+          src="/Alfredo.jpg"
+          alt="Alfredo Barranco Ahued"
+          className="w-28 h-28 rounded-full object-cover"
+        />
+      ),
       links: {
         linkedin: 'https://www.linkedin.com/in/alfredo-barranco-ahued-135221294/',
         github: 'https://github.com/AlfredoB14',
@@ -36,7 +42,13 @@ const Team = () => {
       role: 'Desarrollador ',
       specialty: 'Astrofísica & Ciencias de Datos',
       bio: 'Especialista en análisis de datos astronómicos con 10 años de experiencia en investigación de exoplanetas.',
-      avatar: '👨‍🚀',
+      avatar: (
+        <img
+          src="/Pingul.jpg"
+          alt="Iñigo Quintana Delgadillo"
+          className="w-28 h-28 rounded-full object-cover"
+        />
+      ),
       links: {
         linkedin: 'www.linkedin.com/in/inigo-quintana',
         github: 'https://github.com/Inigo1405'
@@ -45,10 +57,16 @@ const Team = () => {
     {
       id: 3,
       name: 'Daniel Martínez Maimone',
-      role: 'Científica de Datos',
+      role: 'Científico de Datos',
       specialty: 'Astrofísica & Machine Learning',
-      bio: 'Experta en modelos de inteligencia artificial para clasificación y predicción de fenómenos astronómicos.',
-      avatar: '👨‍🔬',
+      bio: 'Experto en modelos de inteligencia artificial para clasificación y predicción de fenómenos astronómicos.',
+      avatar: (
+        <img
+          src="/Dani.png"
+          alt="Daniel Martínez Maimone"
+          className="w-28 h-28 rounded-full object-cover"
+        />
+      ),
       links: {
         linkedin: 'https://www.linkedin.com/in/daniel-marmone/'
       },
@@ -59,7 +77,13 @@ const Team = () => {
       role: 'Especialista en Astronomía',
       specialty: 'Análisis Espectroscópico',
       bio: 'Astrónoma con experiencia en caracterización de atmósferas planetarias y búsqueda de biosignaturas.',
-      avatar: '🔭',
+      avatar: (
+        <img
+          src="/Isma.jpg"
+          alt="Ismael Ricardo López Delgado"
+          className="w-28 h-28 rounded-full object-cover"
+        />
+      ),
       links: {
         linkedin: 'https://linkedin.com',
         email: 'laura@example.com',
@@ -71,7 +95,13 @@ const Team = () => {
       role: 'Diseñador UX/UI',
       specialty: 'Diseño de Interfaces',
       bio: 'Diseñador creativo enfocado en crear experiencias de usuario intuitivas para aplicaciones científicas.',
-      avatar: '🎨',
+      avatar: (
+        <img
+          src="/JP.jpg"
+          alt="José Pablo Alonso Hernández"
+          className="w-28 h-28 rounded-full object-cover"
+        />
+      ),
       links: {
         linkedin: 'https://linkedin.com',
       },
