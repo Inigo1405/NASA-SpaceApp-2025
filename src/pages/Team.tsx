@@ -128,7 +128,7 @@ const Team = () => {
             </h1>
             
             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Un equipo multidisciplinario de científicos, desarrolladores y diseñadores unidos por la pasión de descubrir nuevos mundos más allá de nuestro sistema solar.
+              Un equipo multidisciplinario de Sistemas Computacionales, Mecatrónica y Mecánica unidos por la pasión de descubrir nuevos mundos más allá de nuestro sistema solar.
             </p>
 
             {/* Stats */}
@@ -138,7 +138,7 @@ const Team = () => {
                 <div className="text-sm text-slate-400 mt-1">Miembros</div>
               </div>
               <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 rounded-2xl px-8 py-4">
-                <div className="text-3xl font-bold text-indigo-400">5+</div>
+                <div className="text-3xl font-bold text-indigo-400">3+</div>
                 <div className="text-sm text-slate-400 mt-1">Especialidades</div>
               </div>
               <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 rounded-2xl px-8 py-4">

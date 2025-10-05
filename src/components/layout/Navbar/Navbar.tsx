@@ -66,17 +66,17 @@ const Navbar = () => {
               {/* Bandera de España */}
               <div 
                 className={`flex items-center space-x-1 cursor-pointer transition-all duration-200 px-2 py-1 rounded-md ${
-                  currentLanguage === 'ES' 
+                  currentLanguage === 'EN' 
                     ? 'bg-slate-700/50 shadow-inner' 
                     : 'hover:bg-slate-700/30 opacity-50'
                 }`}
-                onClick={() => setCurrentLanguage('ES')}
-                title="Cambiar a Español"
-              >
+                onClick={() => setCurrentLanguage('EN')}
+                title="Switch to English"
+                >
                 <US className="h-5 w-5 rounded-sm shadow-lg" />
                 <span className={`text-sm font-medium transition-colors ${
-                  currentLanguage === 'ES' ? 'text-white' : 'text-slate-300'
-                }`}>ES</span>
+                  currentLanguage === 'EN' ? 'text-white' : 'text-slate-300'
+                }`}>EN</span>
               </div>
               
               <span className="text-slate-500">|</span>
@@ -84,17 +84,17 @@ const Navbar = () => {
               {/* Bandera de Estados Unidos */}
               <div 
                 className={`flex items-center space-x-1 cursor-pointer transition-all duration-200 px-2 py-1 rounded-md ${
-                  currentLanguage === 'EN' 
-                    ? 'bg-slate-700/50 shadow-inner' 
-                    : 'hover:bg-slate-700/30 opacity-50'
+                  currentLanguage === 'ES' 
+                  ? 'bg-slate-700/50 shadow-inner' 
+                  : 'hover:bg-slate-700/30 opacity-50'
                 }`}
-                onClick={() => setCurrentLanguage('EN')}
-                title="Switch to English"
+                onClick={() => setCurrentLanguage('ES')}
+                title="Cambiar a Español"
               >
                 <MX className="h-5 w-5 rounded-sm shadow-lg" />
                 <span className={`text-sm font-medium transition-colors ${
-                  currentLanguage === 'EN' ? 'text-white' : 'text-slate-400'
-                }`}>EN</span>
+                  currentLanguage === 'ES' ? 'text-white' : 'text-slate-400'
+                }`}>ES</span>
               </div>
             </div>
           </div>
@@ -145,32 +145,32 @@ const Navbar = () => {
                 <div className="flex items-center space-x-1">
                   <div 
                     className={`flex items-center space-x-1 cursor-pointer transition-all duration-200 px-2 py-1 rounded-md ${
-                      currentLanguage === 'ES' 
-                        ? 'bg-slate-700/50 shadow-inner' 
-                        : 'hover:bg-slate-700/30 opacity-50'
-                    }`}
-                    onClick={() => setCurrentLanguage('ES')}
-                  >
-                    <US className="h-4 w-4 rounded-sm shadow-lg" />
-                    <span className={`text-xs font-medium transition-colors ${
-                      currentLanguage === 'ES' ? 'text-white' : 'text-slate-300'
-                    }`}>ES</span>
-                  </div>
-                  
-                  <span className="text-slate-500 text-xs">|</span>
-                  
-                  <div 
-                    className={`flex items-center space-x-1 cursor-pointer transition-all duration-200 px-2 py-1 rounded-md ${
                       currentLanguage === 'EN' 
                         ? 'bg-slate-700/50 shadow-inner' 
                         : 'hover:bg-slate-700/30 opacity-50'
                     }`}
                     onClick={() => setCurrentLanguage('EN')}
                   >
+                    <US className="h-4 w-4 rounded-sm shadow-lg" />
+                    <span className={`text-xs font-medium transition-colors ${
+                      currentLanguage === 'EN' ? 'text-white' : 'text-slate-300'
+                    }`}>EN</span>
+                  </div>
+                  
+                  <span className="text-slate-500 text-xs">|</span>
+                  
+                  <div 
+                    className={`flex items-center space-x-1 cursor-pointer transition-all duration-200 px-2 py-1 rounded-md ${
+                      currentLanguage === 'ES' 
+                        ? 'bg-slate-700/50 shadow-inner' 
+                        : 'hover:bg-slate-700/30 opacity-50'
+                    }`}
+                    onClick={() => setCurrentLanguage('ES')}
+                  >
                     <MX className="h-4 w-4 rounded-sm shadow-lg" />
                     <span className={`text-xs font-medium transition-colors ${
-                      currentLanguage === 'EN' ? 'text-white' : 'text-slate-400'
-                    }`}>EN</span>
+                      currentLanguage === 'ES' ? 'text-white' : 'text-slate-400'
+                    }`}>ES</span>
                   </div>
                 </div>
               </div>
