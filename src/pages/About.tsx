@@ -68,7 +68,7 @@ const About = () => {
                 <h2 className="text-2xl font-bold text-white">Nuestra Misión</h2>
               </div>
               <p className="text-slate-300 leading-relaxed mb-4">
-                EXOD-IA es un proyecto innovador que combina la potencia de la inteligencia artificial con los datos astronómicos de las misiones Kepler y TESS para identificar y clasificar exoplanetas.
+                EXOD-IA es un proyecto innovador que combina la potencia de la inteligencia artificial con los datos astronómicos de las misiones Kepler, K2 y TESS para identificar y clasificar exoplanetas.
               </p>
               <p className="text-slate-300 leading-relaxed">
                 Nuestro objetivo es democratizar el descubrimiento de exoplanetas, permitiendo a investigadores y entusiastas acceder a análisis avanzados de manera intuitiva y visual.
@@ -86,16 +86,16 @@ const About = () => {
                 <h2 className="text-2xl font-bold text-white">Tecnología</h2>
               </div>
               <p className="text-slate-300 leading-relaxed mb-4">
-                Utilizamos algoritmos de aprendizaje profundo entrenados con miles de curvas de luz para detectar patrones que indican la presencia de exoplanetas mediante el método de tránsito.
+                Utilizamos algoritmos de Random Forest entrenados con +15,000 registros de tránsito para detectar patrones que indican la presencia de exoplanetas.
               </p>
               <div className="space-y-2">
                 <div className="flex items-center">
                   <div className="w-2 h-2 rounded-full bg-emerald-400 mr-3"></div>
-                  <span className="text-slate-400">Redes Neuronales Convolucionales</span>
+                  <span className="text-slate-400">Métodos de Random Forest</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 rounded-full bg-amber-400 mr-3"></div>
-                  <span className="text-slate-400">Análisis de Curvas de Luz</span>
+                  <span className="text-slate-400">Registros de 3 telescopios</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 rounded-full bg-blue-400 mr-3"></div>
