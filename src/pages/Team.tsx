@@ -26,33 +26,31 @@ const Team = () => {
       bio: 'Ingeniero de software especializado en aplicaciones web interactivas y visualización de datos científicos.',
       avatar: '👩‍💻',
       links: {
-        linkedin: 'https://linkedin.com',
-        github: 'https://github.com',
+        linkedin: 'https://www.linkedin.com/in/alfredo-barranco-ahued-135221294/',
+        github: 'https://github.com/AlfredoB14',
       },
     },
     {
       id: 2,
       name: 'Iñigo Quintana Delgadillo',
       role: 'Desarrollador ',
-      specialty: 'Astrofísica & Machine Learning',
+      specialty: 'Astrofísica & Ciencias de Datos',
       bio: 'Especialista en análisis de datos astronómicos con 10 años de experiencia en investigación de exoplanetas.',
       avatar: '👨‍🚀',
       links: {
-        linkedin: 'https://linkedin.com',
-        github: 'https://github.com',
-        email: 'maria@example.com',
+        linkedin: 'www.linkedin.com/in/inigo-quintana',
+        github: 'https://github.com/Inigo1405'
       },
     },
     {
       id: 3,
       name: 'Daniel Martínez Maimone',
       role: 'Científica de Datos',
-      specialty: 'Python & Deep Learning',
+      specialty: 'Astrofísica & Machine Learning',
       bio: 'Experta en modelos de inteligencia artificial para clasificación y predicción de fenómenos astronómicos.',
       avatar: '👨‍🔬',
       links: {
-        github: 'https://github.com',
-        email: 'ana@example.com',
+        linkedin: 'https://www.linkedin.com/in/daniel-marmone/'
       },
     },
     {
@@ -214,7 +212,7 @@ const Team = () => {
                       <div className="flex justify-center space-x-4 pt-4 border-t border-slate-700/30">
                         {member.links.linkedin && (
                           <a
-                            href={member.links.linkedin}
+                            href={member.links.linkedin.startsWith('http') ? member.links.linkedin : `https://${member.links.linkedin}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-10 h-10 rounded-full bg-slate-800/50 border border-slate-700/50 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300"
@@ -227,7 +225,7 @@ const Team = () => {
                         )}
                         {member.links.github && (
                           <a
-                            href={member.links.github}
+                            href={member.links.github.startsWith('http') ? member.links.github : `https://${member.links.github}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-10 h-10 rounded-full bg-slate-800/50 border border-slate-700/50 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:border-purple-500/50 hover:bg-purple-500/10 transition-all duration-300"

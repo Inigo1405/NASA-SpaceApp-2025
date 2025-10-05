@@ -210,50 +210,63 @@ const Home = () => {
             </div>
           </div>
 
-            {/* Statistics Card */}
-            <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40">
+            {/* Statistics Card - Compact Design */}
+            <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-6 border border-slate-700/30 shadow-2xl shadow-black/40">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-white mb-2">Estadísticas</h2>
-                <p className="text-slate-400">Resumen del análisis universal</p>
+                <h2 className="text-2xl font-bold text-white mb-2">Estadísticas del Análisis</h2>
+                <p className="text-slate-400">Resumen de objetos clasificados</p>
               </div>
 
-              <div className="space-y-4">
-                <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-slate-300 font-semibold">Confirmados Exoplanetas</span>
-                    <span className="text-3xl font-bold text-emerald-400">
-                      {exoplanets.filter(p => p.status === 'confirmed').length}
-                    </span>
+              {/* Compact Stats Grid */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold text-emerald-400 mb-1">
+                    {exoplanets.filter(p => p.status === 'confirmed').length}
                   </div>
-                  <div className="text-slate-400 text-sm">Exoplanetas verificados</div>
+                  <div className="text-slate-300 text-sm font-medium">Confirmados Exoplanetas</div>
+                  <div className="text-slate-500 text-xs">Verificados</div>
                 </div>
 
-                <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-slate-300 font-semibold">Candidatos Planetarios</span>
-                    <span className="text-3xl font-bold text-amber-400">
-                      {exoplanets.filter(p => p.status === 'candidate').length}
-                    </span>
+                <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold text-amber-400 mb-1">
+                    {exoplanets.filter(p => p.status === 'candidate').length}
                   </div>
-                  <div className="text-slate-400 text-sm">En proceso de análisis</div>
+                  <div className="text-slate-300 text-sm font-medium">Candidatos Planetarios</div>
+                  <div className="text-slate-500 text-xs">En análisis</div>
                 </div>
 
-                <div className="bg-rose-500/5 border border-rose-500/20 rounded-2xl p-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-slate-300 font-semibold">Falsos Positivos</span>
-                    <span className="text-3xl font-bold text-rose-400">
-                      {exoplanets.filter(p => p.status === 'false_positive').length}
-                    </span>
+                <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold text-rose-400 mb-1">
+                    {exoplanets.filter(p => p.status === 'false_positive').length}
                   </div>
-                  <div className="text-slate-400 text-sm">Señales descartadas</div>
+                  <div className="text-slate-300 text-sm font-medium">Falsos Positivo</div>
+                  <div className="text-slate-500 text-xs">Descartados</div>
                 </div>
 
-                <div className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-6 mt-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-slate-300 font-semibold">Total Analizado</span>
-                    <span className="text-3xl font-bold text-blue-400">{exoplanets.length}</span>
+                <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold text-blue-400 mb-1">
+                    {exoplanets.length}
                   </div>
-                  <div className="text-slate-400 text-sm">Objetos procesados</div>
+                  <div className="text-slate-300 text-sm font-medium">Total Analizado</div>
+                  <div className="text-slate-500 text-xs">Procesados</div>
+                </div>
+              </div>
+
+              {/* Success Rate Indicator */}
+              <div className="mt-4 p-4 bg-slate-800/30 rounded-xl border border-slate-700/20">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-slate-300 text-sm font-medium">Tasa de Confirmación</span>
+                  <span className="text-emerald-400 font-bold">
+                    {Math.round((exoplanets.filter(p => p.status === 'confirmed').length / exoplanets.length) * 100)}%
+                  </span>
+                </div>
+                <div className="w-full bg-slate-700/50 rounded-full h-2">
+                  <div 
+                    className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-2 rounded-full transition-all duration-500"
+                    style={{ 
+                      width: `${(exoplanets.filter(p => p.status === 'confirmed').length / exoplanets.length) * 100}%` 
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>

@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound';
 import PlanetInformation from './pages/PlanetInformation';
 import Team from './pages/Team';
 import Methodology from './pages/Methodology';
+import About from './pages/About';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/planet-information/:id" element={<MainLayout><PlanetInformation /></MainLayout>} />
         <Route path="/team" element={<MainLayout><Team /></MainLayout>} />
         <Route path="/methodology" element={<MainLayout><Methodology /></MainLayout>} />
+        <Route path="/about" element={<MainLayout><About /></MainLayout>} />
         <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
       </Routes>
     </BrowserRouter>

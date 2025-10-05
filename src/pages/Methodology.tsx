@@ -97,6 +97,15 @@ const Methodology = () => {
     },
   ];
 
+  const tools = [
+    { name: 'Python'},
+    { name: 'Scikit-learn'},
+    { name: 'Pandas'},
+    { name: 'NumPy'},
+    { name: 'Matplotlib'},
+    { name: 'Jupyter'},
+  ];
+
   const modelMetrics = [
     { label: 'Accuracy', value: '94.2%', color: 'text-emerald-400' },
     { label: 'Precision', value: '92.8%', color: 'text-blue-400' },
@@ -223,20 +232,10 @@ const Methodology = () => {
           {/* Technologies Used */}
           <div className="mt-16 bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-lg rounded-3xl p-8 border border-slate-700/30 shadow-2xl">
             <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-              <span className="text-4xl">🛠️</span>
               Tecnologías Utilizadas
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { name: 'Python'},
-                { name: 'TensorFlow'},
-                { name: 'Scikit-learn'},
-                { name: 'Pandas'},
-                { name: 'NumPy'},
-                { name: 'Matplotlib'},
-                { name: 'Jupyter'},
-                { name: 'React'},
-              ].map((tech, index) => (
+              {tools.map((tech, index) => (
                 <div
                   key={index}
                   className="bg-slate-900/50 rounded-xl p-4 border border-slate-700/30 hover:border-slate-600/50 transition-all duration-300 hover:scale-105 flex items-center gap-3"
