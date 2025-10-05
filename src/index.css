@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Asegurar comportamiento consistente de scroll */
+html {
+  scroll-behavior: auto !important; /* Deshabilitar smooth scroll para evitar interferencias */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevenir scroll horizontal no deseado */
+}
+
+/* Prevenir flash content durante navegación */
+* {
+  scroll-behavior: auto !important; /* Forzar scroll instantáneo en todos los elementos */
+}
+
 /* Custom animations for hero section */
 @keyframes spin-slow {
   from {
