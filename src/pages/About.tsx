@@ -86,19 +86,19 @@ const About = () => {
                 <h2 className="text-2xl font-bold text-white">Tecnología</h2>
               </div>
               <p className="text-slate-300 leading-relaxed mb-4">
-                Utilizamos algoritmos de Random Forest entrenados con +15,000 registros de tránsito para detectar patrones que indican la presencia de exoplanetas.
+                Se utilizó el algoritmo de Random Forest entrenado con +15,000 registros de Exoplanetas en tránsito para detectar patrones de clasificación.
               </p>
               <div className="space-y-2">
                 <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400 mr-3"></div>
-                  <span className="text-slate-400">Métodos de Random Forest</span>
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 mr-3" />
+                  <span className="text-slate-400">Algoritmo Random Forest</span>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-amber-400 mr-3"></div>
-                  <span className="text-slate-400">Registros de 3 telescopios</span>
+                  <div className="w-2 h-2 rounded-full bg-amber-400 mr-3" />
+                  <span className="text-slate-400">Registros de 3 telescopios espaciales</span>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-blue-400 mr-3"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-400 mr-3" />
                   <span className="text-slate-400">Visualización de Datos Astronómicos</span>
                 </div>
               </div>

@@ -6,7 +6,7 @@ import type { NavItem } from '../../../types';
 
 const navItems: NavItem[] = [
   { path: '/', label: 'Inicio' },
-  { path: '/dashboard', label: 'Dashboard' },
+  { path: '/predict', label: 'Predicción' },
   { path: '/about', label: 'Acerca de' },
   { path: '/methodology', label: 'Metodología' },
   { path: '/team', label: 'Equipo' },

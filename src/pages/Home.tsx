@@ -47,7 +47,7 @@ const Home = () => {
   }, []);
 
   const [hoveredPlanet, setHoveredPlanet] = useState<Planet | null>(null);
-  const [activeTab, setActiveTab] = useState<'kepler' | 'exodia'>('exodia');
+  const [activeTab, setActiveTab] = useState<'kepler' | 'exodia' | 'k2' | 'tess'>('exodia');
 
   const getStatusColor = (status: string) => {
     switch(status) {
@@ -302,6 +302,26 @@ const Home = () => {
                   >
                     Kepler
                   </button>
+                  <button
+                    onClick={() => setActiveTab('k2')}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                      activeTab === 'k2'
+                        ? 'border-blue-400 text-blue-400'
+                        : 'border-transparent text-slate-400 hover:text-slate-300 hover:border-slate-300'
+                    }`}
+                  >
+                    K2
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('tess')}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                      activeTab === 'tess'
+                        ? 'border-blue-400 text-blue-400'
+                        : 'border-transparent text-slate-400 hover:text-slate-300 hover:border-slate-300'
+                    }`}
+                  >
+                    TESS
+                  </button>
                 </nav>
               </div>
             </div>
@@ -349,7 +369,7 @@ const Home = () => {
                         </tr>
                       );
                     })
-                  ) : (
+                  ) : activeTab === 'exodia' ? (
                     <tr>
                       <td colSpan={5} className="py-12 text-center">
                         <div className="flex flex-col items-center space-y-3">
@@ -360,6 +380,34 @@ const Home = () => {
                           </div>
                           <div className="text-slate-400 font-medium">No hay datos EXODIA disponibles</div>
                           <div className="text-slate-500 text-sm">Los datos de EXODIA estarán disponibles próximamente</div>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : activeTab === 'k2' ? (
+                    <tr>
+                      <td colSpan={5} className="py-12 text-center">
+                        <div className="flex flex-col items-center space-y-3">
+                          <div className="w-16 h-16 rounded-full bg-slate-700/30 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                            </svg>
+                          </div>
+                          <div className="text-slate-400 font-medium">No hay datos K2 disponibles</div>
+                          <div className="text-slate-500 text-sm">Los datos de K2 estarán disponibles próximamente</div>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td colSpan={5} className="py-12 text-center">
+                        <div className="flex flex-col items-center space-y-3">
+                          <div className="w-16 h-16 rounded-full bg-slate-700/30 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                            </svg>
+                          </div>
+                          <div className="text-slate-400 font-medium">No hay datos TESS disponibles</div>
+                          <div className="text-slate-500 text-sm">Los datos de TESS estarán disponibles próximamente</div>
                         </div>
                       </td>
                     </tr>
