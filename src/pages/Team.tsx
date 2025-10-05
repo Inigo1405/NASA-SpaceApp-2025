@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface TeamMember {
   id: number;
@@ -16,14 +17,15 @@ interface TeamMember {
 
 const Team = () => {
   const [hoveredMember, setHoveredMember] = useState<number | null>(null);
+  const { t } = useTranslation();
 
   const teamMembers: TeamMember[] = [
     {
       id: 1,
-      name: 'Alfredo Barranco Ahued',
-      role: 'Desarrollador Frontend',
-      specialty: 'React & Node.js',
-      bio: 'Ingeniero de software especializado en aplicaciones web interactivas y visualización de datos científicos.',
+      name: t('team.members.member1.name'),
+      role: t('team.members.member1.role'),
+      specialty: t('team.members.member1.specialty'),
+      bio: t('team.members.member1.bio'),
       avatar: (
         <img
           src="/Alfredo.jpg"
@@ -38,10 +40,10 @@ const Team = () => {
     },
     {
       id: 2,
-      name: 'Iñigo Quintana Delgadillo',
-      role: 'Desarrollador ',
-      specialty: 'Astrofísica & Ciencias de Datos',
-      bio: 'Especialista en análisis de datos astronómicos con 10 años de experiencia en investigación de exoplanetas.',
+      name: t('team.members.member2.name'),
+      role: t('team.members.member2.role'),
+      specialty: t('team.members.member2.specialty'),
+      bio: t('team.members.member2.bio'),
       avatar: (
         <img
           src="/Pingul.jpg"
@@ -56,10 +58,10 @@ const Team = () => {
     },
     {
       id: 3,
-      name: 'Ing. Daniel Martínez Maimone',
-      role: 'Científico de Datos',
-      specialty: 'Astrofísica & Machine Learning',
-      bio: 'Experto en modelos de inteligencia artificial para clasificación y predicción de fenómenos astronómicos.',
+      name: t('team.members.member3.name'),
+      role: t('team.members.member3.role'),
+      specialty: t('team.members.member3.specialty'),
+      bio: t('team.members.member3.bio'),
       avatar: (
         <img
           src="/Dani.png"
@@ -73,10 +75,10 @@ const Team = () => {
     },
     {
       id: 4,
-      name: 'Ing. Ismael Ricardo López Delgado',
-      role: 'Especialista en Astronomía',
-      specialty: 'Análisis Espectroscópico',
-      bio: 'Astrónoma con experiencia en caracterización de atmósferas planetarias y búsqueda de biosignaturas.',
+      name: t('team.members.member4.name'),
+      role: t('team.members.member4.role'),
+      specialty: t('team.members.member4.specialty'),
+      bio: t('team.members.member4.bio'),
       avatar: (
         <img
           src="/Isma.jpg"
@@ -91,10 +93,10 @@ const Team = () => {
     },
     {
       id: 5,
-      name: 'José Pablo Alonso Hernández',
-      role: 'Diseñador UX/UI',
-      specialty: 'Diseño de Interfaces',
-      bio: 'Diseñador creativo enfocado en crear experiencias de usuario intuitivas para aplicaciones científicas.',
+      name: t('team.members.member5.name'),
+      role: t('team.members.member5.role'),
+      specialty: t('team.members.member5.specialty'),
+      bio: t('team.members.member5.bio'),
       avatar: (
         <img
           src="/JP.jpg"
@@ -146,32 +148,32 @@ const Team = () => {
               <div className="flex items-center justify-center space-x-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full">
                 <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
                 <span className="text-purple-300 text-sm font-semibold tracking-wider uppercase">
-                  Nuestro Equipo
+                  {t('team.header.badge')}
                 </span>
               </div>
             </div>
             
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-purple-100 to-indigo-200 bg-clip-text text-transparent animate-gradient">
-              Exploradores del Cosmos
+              {t('team.header.title')}
             </h1>
             
             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Un equipo multidisciplinario de Sistemas Computacionales, Mecatrónica y Mecánica unidos por la pasión de descubrir nuevos mundos más allá de nuestro sistema solar.
+              {t('team.header.subtitle')}
             </p>
 
             {/* Stats */}
             <div className="flex flex-wrap justify-center gap-6 mt-10">
               <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 rounded-2xl px-8 py-4">
                 <div className="text-3xl font-bold text-purple-400">{teamMembers.length}</div>
-                <div className="text-sm text-slate-400 mt-1">Miembros</div>
+                <div className="text-sm text-slate-400 mt-1">{t('team.stats.members')}</div>
               </div>
               <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 rounded-2xl px-8 py-4">
                 <div className="text-3xl font-bold text-indigo-400">3+</div>
-                <div className="text-sm text-slate-400 mt-1">Especialidades</div>
+                <div className="text-sm text-slate-400 mt-1">{t('team.stats.specialties')}</div>
               </div>
               <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 rounded-2xl px-8 py-4">
                 <div className="text-3xl font-bold text-blue-400">∞</div>
-                <div className="text-sm text-slate-400 mt-1">Dedicación</div>
+                <div className="text-sm text-slate-400 mt-1">{t('team.stats.dedication')}</div>
               </div>
             </div>
           </div>

@@ -2,20 +2,25 @@
 import { Link, useLocation } from 'react-router-dom';
 import { US, MX } from 'country-flag-icons/react/3x2'
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { NavItem } from '../../../types';
-
-const navItems: NavItem[] = [
-  { path: '/', label: 'Inicio' },
-  { path: '/predict', label: 'Predicción' },
-  { path: '/about', label: 'Acerca de' },
-  { path: '/methodology', label: 'Metodología' },
-  { path: '/team', label: 'Equipo' },
-];
 
 const Navbar = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState('ES');
+  const { t, i18n } = useTranslation();
+  
+  const navItems: NavItem[] = [
+    { path: '/', label: t('nav.home') },
+    { path: '/predict', label: t('nav.predict') },
+    { path: '/about', label: t('nav.about') },
+    { path: '/methodology', label: t('nav.methodology') },
+    { path: '/team', label: t('nav.team') },
+  ];
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
   
   return (
     <nav className="backdrop-blur-lg bg-gradient-to-br from-black via-slate-950 to-slate-900 sticky top-0 z-50 border-b border-slate-800/30 h-30">
@@ -66,16 +71,16 @@ const Navbar = () => {
               {/* Bandera de España */}
               <div 
                 className={`flex items-center space-x-1 cursor-pointer transition-all duration-200 px-2 py-1 rounded-md ${
-                  currentLanguage === 'EN' 
+                  i18n.language === 'en' 
                     ? 'bg-slate-700/50 shadow-inner' 
                     : 'hover:bg-slate-700/30 opacity-50'
                 }`}
-                onClick={() => setCurrentLanguage('EN')}
+                onClick={() => changeLanguage('en')}
                 title="Switch to English"
                 >
                 <US className="h-5 w-5 rounded-sm shadow-lg" />
                 <span className={`text-sm font-medium transition-colors ${
-                  currentLanguage === 'EN' ? 'text-white' : 'text-slate-300'
+                  i18n.language === 'en' ? 'text-white' : 'text-slate-300'
                 }`}>EN</span>
               </div>
               
@@ -84,16 +89,16 @@ const Navbar = () => {
               {/* Bandera de Estados Unidos */}
               <div 
                 className={`flex items-center space-x-1 cursor-pointer transition-all duration-200 px-2 py-1 rounded-md ${
-                  currentLanguage === 'ES' 
+                  i18n.language === 'es' 
                   ? 'bg-slate-700/50 shadow-inner' 
                   : 'hover:bg-slate-700/30 opacity-50'
                 }`}
-                onClick={() => setCurrentLanguage('ES')}
+                onClick={() => changeLanguage('es')}
                 title="Cambiar a Español"
               >
                 <MX className="h-5 w-5 rounded-sm shadow-lg" />
                 <span className={`text-sm font-medium transition-colors ${
-                  currentLanguage === 'ES' ? 'text-white' : 'text-slate-400'
+                  i18n.language === 'es' ? 'text-white' : 'text-slate-400'
                 }`}>ES</span>
               </div>
             </div>
@@ -141,19 +146,19 @@ const Navbar = () => {
             {/* Language Selector Mobile */}
             <div className="mt-4 pt-3 border-t border-slate-800/30">
               <div className="flex items-center space-x-2 px-3 py-2">
-                <span className="text-xs text-slate-500 font-medium">Idioma:</span>
+                <span className="text-xs text-slate-500 font-medium">{t('language.label')}:</span>
                 <div className="flex items-center space-x-1">
                   <div 
                     className={`flex items-center space-x-1 cursor-pointer transition-all duration-200 px-2 py-1 rounded-md ${
-                      currentLanguage === 'EN' 
+                      i18n.language === 'en' 
                         ? 'bg-slate-700/50 shadow-inner' 
                         : 'hover:bg-slate-700/30 opacity-50'
                     }`}
-                    onClick={() => setCurrentLanguage('EN')}
+                    onClick={() => changeLanguage('en')}
                   >
                     <US className="h-4 w-4 rounded-sm shadow-lg" />
                     <span className={`text-xs font-medium transition-colors ${
-                      currentLanguage === 'EN' ? 'text-white' : 'text-slate-300'
+                      i18n.language === 'en' ? 'text-white' : 'text-slate-300'
                     }`}>EN</span>
                   </div>
                   
@@ -161,15 +166,15 @@ const Navbar = () => {
                   
                   <div 
                     className={`flex items-center space-x-1 cursor-pointer transition-all duration-200 px-2 py-1 rounded-md ${
-                      currentLanguage === 'ES' 
+                      i18n.language === 'es' 
                         ? 'bg-slate-700/50 shadow-inner' 
                         : 'hover:bg-slate-700/30 opacity-50'
                     }`}
-                    onClick={() => setCurrentLanguage('ES')}
+                    onClick={() => changeLanguage('es')}
                   >
                     <MX className="h-4 w-4 rounded-sm shadow-lg" />
                     <span className={`text-xs font-medium transition-colors ${
-                      currentLanguage === 'ES' ? 'text-white' : 'text-slate-400'
+                      i18n.language === 'es' ? 'text-white' : 'text-slate-400'
                     }`}>ES</span>
                   </div>
                 </div>

@@ -1,9 +1,11 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { Planet } from '../types';
 
 const Home = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   // Datos de ejemplo de exoplanetas con coordenadas celestes más realistas
   const [exoplanets] = useState<Planet[]>([
@@ -60,10 +62,21 @@ const Home = () => {
 
   const getStatusLabel = (status: string) => {
     switch(status) {
-      case 'confirmed': return 'Confirmado';
-      case 'candidate': return 'Candidato';
-      case 'false_positive': return 'Falso Positivo';
-      default: return 'Desconocido';
+      case 'confirmed': return t('home.status.confirmed');
+      case 'candidate': return t('home.status.candidate');
+      case 'false_positive': return t('home.status.falsePositive');
+      default: return t('home.status.unknown');
+    }
+  };
+
+  const getPlanetTypeLabel = (type: string) => {
+    switch(type) {
+      case 'Super-Tierra': return t('home.planetTypes.superEarth');
+      case 'Terrestre': return t('home.planetTypes.terrestrial');
+      case 'Mini-Neptuno': return t('home.planetTypes.miniNeptune');
+      case 'Desconocido': return t('home.planetTypes.unknown');
+      case '---': return '---';
+      default: return type;
     }
   };
 
@@ -123,15 +136,14 @@ const Home = () => {
                 <div className="space-y-5">
                   
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                    Predice
+                    {t('home.hero.title')}
                     <span className="block mt-2 bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
-                      Exoplanetas
+                      {t('home.hero.titleHighlight')}
                     </span>
                   </h1>
                   
                   <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
-                    Utiliza nuestra IA avanzada para predecir y analizar exoplanetas potenciales en el universo. 
-                    Descubre nuevos mundos con tecnología de vanguardia.
+                    {t('home.hero.description')}
                   </p>
 
                   <div className="flex flex-wrap gap-4 pt-4">
@@ -143,7 +155,7 @@ const Home = () => {
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
-                        Comenzar Predicción
+                        {t('home.hero.startPrediction')}
                       </span>
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
                     </button>
@@ -152,23 +164,23 @@ const Home = () => {
                       onClick={() => navigate('/methodology')}
                       className="px-8 py-4 bg-slate-800/50 backdrop-blur-sm text-slate-200 font-semibold rounded-xl border border-slate-600/50 hover:bg-slate-700/50 hover:border-slate-500 transition-all duration-300"
                     >
-                      Ver Metodología
+                      {t('home.hero.viewMethodology')}
                     </button>
                   </div>
 
                   {/* Stats */}
                   <div className="grid grid-cols-3 gap-4 pt-6">
                     <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-purple-400">+15,000</div>
-                      <div className="text-xs md:text-sm text-slate-400 mt-1">Registros de Exoplanetas en Tránsito</div>
+                      <div className="text-2xl md:text-3xl font-bold text-purple-400">{t('home.stats.records')}</div>
+                      <div className="text-xs md:text-sm text-slate-400 mt-1">{t('home.stats.recordsLabel')}</div>
                     </div>
                     <div className="text-center border-x border-slate-700">
-                      <div className="text-2xl md:text-3xl font-bold text-indigo-400">+72%</div>
-                      <div className="text-xs md:text-sm text-slate-400 mt-1">Precisión</div>
+                      <div className="text-2xl md:text-3xl font-bold text-indigo-400">{t('home.stats.accuracy')}</div>
+                      <div className="text-xs md:text-sm text-slate-400 mt-1">{t('home.stats.accuracyLabel')}</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-blue-400">24/7</div>
-                      <div className="text-xs md:text-sm text-slate-400 mt-1">Disponible</div>
+                      <div className="text-2xl md:text-3xl font-bold text-blue-400">{t('home.stats.availability')}</div>
+                      <div className="text-xs md:text-sm text-slate-400 mt-1">{t('home.stats.availabilityLabel')}</div>
                     </div>
                   </div>
                 </div>
@@ -298,7 +310,7 @@ const Home = () => {
 
           {/* Scroll Indicator - TESS Telescope Theme */}
           <div className="flex flex-col items-center justify-center mb-8 opacity-70 hover:opacity-100 transition-opacity duration-500">
-            <div className="text-slate-400 text-sm font-medium mb-3">Explora más</div>
+            <div className="text-slate-400 text-sm font-medium mb-3">{t('home.scroll.exploreMore')}</div>
             <div className="relative flex flex-col items-center">
               {/* TESS Telescope SVG */}
               <svg width="64" height="64" viewBox="0 0 64 64" className="block" fill="none">
@@ -346,7 +358,7 @@ const Home = () => {
               </svg>
             </div>
             {/* Subtle hint text */}
-            <div className="mt-3 text-slate-500 text-xs">Desliza para ver el mapa</div>
+            <div className="mt-3 text-slate-500 text-xs">{t('home.scroll.scrollHint')}</div>
           </div>
 
           {/* Main Cards Container */}
@@ -354,8 +366,8 @@ const Home = () => {
             {/* Star Map Card */}
             <div className=" rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-white mb-2">Mapa Estelar</h2>
-                <p className="text-slate-400">Distribución de exoplanetas detectados</p>
+                <h2 className="text-2xl font-bold text-white mb-2">{t('home.starMap.title')}</h2>
+                <p className="text-slate-400">{t('home.starMap.subtitle')}</p>
               </div>
 
                 {/* Star Map */}
@@ -451,15 +463,15 @@ const Home = () => {
               <div className="mt-6 flex flex-wrap gap-4 justify-center">
                 <div className="flex items-center space-x-2">
                   <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50" />
-                  <span className="text-slate-300 text-sm">Confirmados</span>
+                  <span className="text-slate-300 text-sm">{t('home.legend.confirmed')}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-3 h-3 rounded-full bg-amber-400 shadow-lg shadow-amber-400/50" />
-                  <span className="text-slate-300 text-sm">Candidatos</span>
+                  <span className="text-slate-300 text-sm">{t('home.legend.candidates')}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-3 h-3 rounded-full bg-rose-400 shadow-lg shadow-rose-400/50" />
-                  <span className="text-slate-300 text-sm">Falsos Positivos</span>
+                  <span className="text-slate-300 text-sm">{t('home.legend.falsePositives')}</span>
                 </div>
               </div>
             </div>
@@ -468,8 +480,8 @@ const Home = () => {
             {/* Statistics Card - Compact Design */}
             <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-6 border border-slate-700/30 shadow-2xl shadow-black/40">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-white mb-2">Estadísticas del Análisis</h2>
-                <p className="text-slate-400">Resumen de objetos clasificados</p>
+                <h2 className="text-2xl font-bold text-white mb-2">{t('home.statistics.title')}</h2>
+                <p className="text-slate-400">{t('home.statistics.subtitle')}</p>
               </div>
 
               {/* Compact Stats Grid */}
@@ -478,32 +490,32 @@ const Home = () => {
                   <div className="text-2xl font-bold text-emerald-400 mb-1">
                     {exoplanets.filter(p => p.status === 'confirmed').length}
                   </div>
-                  <div className="text-slate-300 text-sm font-medium">Confirmados Exoplanetas</div>
-                  <div className="text-slate-500 text-xs">Verificados</div>
+                  <div className="text-slate-300 text-sm font-medium">{t('home.statistics.confirmedExoplanets')}</div>
+                  <div className="text-slate-500 text-xs">{t('home.statistics.verified')}</div>
                 </div>
 
                 <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-amber-400 mb-1">
                     {exoplanets.filter(p => p.status === 'candidate').length}
                   </div>
-                  <div className="text-slate-300 text-sm font-medium">Candidatos Planetarios</div>
-                  <div className="text-slate-500 text-xs">En análisis</div>
+                  <div className="text-slate-300 text-sm font-medium">{t('home.statistics.candidatePlanets')}</div>
+                  <div className="text-slate-500 text-xs">{t('home.statistics.inAnalysis')}</div>
                 </div>
 
                 <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-rose-400 mb-1">
                     {exoplanets.filter(p => p.status === 'false_positive').length}
                   </div>
-                  <div className="text-slate-300 text-sm font-medium">Falsos Positivo</div>
-                  <div className="text-slate-500 text-xs">Descartados</div>
+                  <div className="text-slate-300 text-sm font-medium">{t('home.statistics.falsePositive')}</div>
+                  <div className="text-slate-500 text-xs">{t('home.statistics.discarded')}</div>
                 </div>
 
                 <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-blue-400 mb-1">
                     {exoplanets.length}
                   </div>
-                  <div className="text-slate-300 text-sm font-medium">Total Analizado</div>
-                  <div className="text-slate-500 text-xs">Procesados</div>
+                  <div className="text-slate-300 text-sm font-medium">{t('home.statistics.totalAnalyzed')}</div>
+                  <div className="text-slate-500 text-xs">{t('home.statistics.processed')}</div>
                 </div>
               </div>
             </div>
@@ -511,8 +523,8 @@ const Home = () => {
           {/* Exoplanets List Card */}
           <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40 mt-12 mb-20">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-white mb-2">Exoplanetas Analizados</h2>
-              <p className="text-slate-400">Click en cualquier exoplaneta para ver sus detalles</p>
+              <h2 className="text-2xl font-bold text-white mb-2">{t('home.exoplanetsList.title')}</h2>
+              <p className="text-slate-400">{t('home.exoplanetsList.subtitle')}</p>
             </div>
 
             {/* Tabs */}
@@ -568,10 +580,10 @@ const Home = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-slate-700/30">
-                    <th className="text-left text-slate-400 font-semibold py-4 px-4">Nombre</th>
-                    <th className="text-left text-slate-400 font-semibold py-4 px-4">Estado</th>
-                    <th className="text-left text-slate-400 font-semibold py-4 px-4">Distancia (años luz)</th>
-                    <th className="text-left text-slate-400 font-semibold py-4 px-4">Tipo</th>
+                    <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.name')}</th>
+                    <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.status')}</th>
+                    <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.distance')}</th>
+                    <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.type')}</th>
                     <th className="text-left text-slate-400 font-semibold py-4 px-4"></th>
                   </tr>
                 </thead>
@@ -597,7 +609,7 @@ const Home = () => {
                             </span>
                           </td>
                           <td className="py-4 px-4 text-slate-300">{planet.distance}</td>
-                          <td className="py-4 px-4 text-slate-300">{planet.type}</td>
+                          <td className="py-4 px-4 text-slate-300">{getPlanetTypeLabel(planet.type)}</td>
                           <td className="py-4 px-4">
                             <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -615,8 +627,8 @@ const Home = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                             </svg>
                           </div>
-                          <div className="text-slate-400 font-medium">No hay datos EXODIA disponibles</div>
-                          <div className="text-slate-500 text-sm">Los datos de EXODIA estarán disponibles próximamente</div>
+                          <div className="text-slate-400 font-medium">{t('home.exoplanetsList.noData.exodia')}</div>
+                          <div className="text-slate-500 text-sm">{t('home.exoplanetsList.noData.exodiaDesc')}</div>
                         </div>
                       </td>
                     </tr>
@@ -629,8 +641,8 @@ const Home = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                             </svg>
                           </div>
-                          <div className="text-slate-400 font-medium">No hay datos K2 disponibles</div>
-                          <div className="text-slate-500 text-sm">Los datos de K2 estarán disponibles próximamente</div>
+                          <div className="text-slate-400 font-medium">{t('home.exoplanetsList.noData.k2')}</div>
+                          <div className="text-slate-500 text-sm">{t('home.exoplanetsList.noData.k2Desc')}</div>
                         </div>
                       </td>
                     </tr>
@@ -643,8 +655,8 @@ const Home = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                             </svg>
                           </div>
-                          <div className="text-slate-400 font-medium">No hay datos TESS disponibles</div>
-                          <div className="text-slate-500 text-sm">Los datos de TESS estarán disponibles próximamente</div>
+                          <div className="text-slate-400 font-medium">{t('home.exoplanetsList.noData.tess')}</div>
+                          <div className="text-slate-500 text-sm">{t('home.exoplanetsList.noData.tessDesc')}</div>
                         </div>
                       </td>
                     </tr>

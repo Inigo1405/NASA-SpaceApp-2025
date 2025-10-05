@@ -1,8 +1,10 @@
 
 
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const About = () => {
+  const { t } = useTranslation();
   // Generar estrellas del fondo solo una vez
   const backgroundStars = useMemo(() => {
     return Array.from({ length: 100 }, () => ({
@@ -48,10 +50,10 @@ const About = () => {
               </div>
             </div>
             <h1 className="text-5xl font-bold text-white mb-4">
-              Acerca de <span className="bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">EXOD-IA</span>
+              {t('about.header.title')} <span className="bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">{t('about.header.titleHighlight')}</span>
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Explorando el universo con inteligencia artificial para descubrir nuevos mundos
+              {t('about.header.subtitle')}
             </p>
           </div>
 
@@ -65,13 +67,13 @@ const About = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
-                <h2 className="text-2xl font-bold text-white">Nuestra Misión</h2>
+                <h2 className="text-2xl font-bold text-white">{t('about.mission.title')}</h2>
               </div>
               <p className="text-slate-300 leading-relaxed mb-4">
-                EXOD-IA es un proyecto innovador que combina la potencia de la inteligencia artificial con los datos astronómicos de las misiones Kepler, K2 y TESS para identificar y clasificar exoplanetas.
+                {t('about.mission.description1')}
               </p>
               <p className="text-slate-300 leading-relaxed">
-                Nuestro objetivo es democratizar el descubrimiento de exoplanetas, permitiendo a investigadores y entusiastas acceder a análisis avanzados de manera intuitiva y visual.
+                {t('about.mission.description2')}
               </p>
             </div>
 
@@ -83,23 +85,23 @@ const About = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 </div>
-                <h2 className="text-2xl font-bold text-white">Tecnología</h2>
+                <h2 className="text-2xl font-bold text-white">{t('about.technology.title')}</h2>
               </div>
               <p className="text-slate-300 leading-relaxed mb-4">
-                Se utilizó el algoritmo de Random Forest entrenado con +15,000 registros de Exoplanetas en tránsito para detectar patrones de clasificación.
+                {t('about.technology.description')}
               </p>
               <div className="space-y-2">
                 <div className="flex items-center">
                   <div className="w-2 h-2 rounded-full bg-emerald-400 mr-3" />
-                  <span className="text-slate-400">Algoritmo Random Forest</span>
+                  <span className="text-slate-400">{t('about.technology.item1')}</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 rounded-full bg-amber-400 mr-3" />
-                  <span className="text-slate-400">Registros de 3 telescopios espaciales</span>
+                  <span className="text-slate-400">{t('about.technology.item2')}</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 rounded-full bg-blue-400 mr-3" />
-                  <span className="text-slate-400">Visualización de Datos Astronómicos</span>
+                  <span className="text-slate-400">{t('about.technology.item3')}</span>
                 </div>
               </div>
             </div>
@@ -114,9 +116,9 @@ const About = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Análisis Preciso</h3>
+              <h3 className="text-lg font-bold text-white mb-2">{t('about.features.feature1.title')}</h3>
               <p className="text-slate-400 text-sm">
-                Precisión superior al 72% en la clasificación de exoplanetas confirmados, candidatos planetarios y falsos positivos.
+                {t('about.features.feature1.description')}
               </p>
             </div>
 
@@ -128,9 +130,9 @@ const About = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Visualización Intuitiva</h3>
+              <h3 className="text-lg font-bold text-white mb-2">{t('about.features.feature2.title')}</h3>
               <p className="text-slate-400 text-sm">
-                Mapas estelares interactivos y gráficos detallados de curvas de luz
+                {t('about.features.feature2.description')}
               </p>
             </div>
 
@@ -141,25 +143,25 @@ const About = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Datos Reales</h3>
+              <h3 className="text-lg font-bold text-white mb-2">{t('about.features.feature3.title')}</h3>
               <p className="text-slate-400 text-sm">
-                Información actualizada de las misiones Kepler, K2 y TESS proporcionadas por la NASA.
+                {t('about.features.feature3.description')}
               </p>
             </div>
           </div>
 
           {/* Impact Section */}
           <div className="bg-gradient-to-br from-purple-900/30 to-indigo-900/30 backdrop-blur-xl rounded-3xl p-8 border border-purple-500/20 shadow-2xl shadow-purple-500/10">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">Impacto del Proyecto</h2>
+            <h2 className="text-2xl font-bold text-white mb-6 text-center">{t('about.impact.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-start">
                 <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center mr-4 mt-1">
                   <span className="text-purple-400 font-bold">1</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Accesibilidad Científica</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">{t('about.impact.item1.title')}</h3>
                   <p className="text-slate-300 text-sm">
-                    Facilitamos el acceso a herramientas de análisis avanzadas para estudiantes, investigadores y entusiastas de la astronomía.
+                    {t('about.impact.item1.description')}
                   </p>
                 </div>
               </div>
@@ -168,9 +170,9 @@ const About = () => {
                   <span className="text-indigo-400 font-bold">2</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Educación e Inspiración</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">{t('about.impact.item2.title')}</h3>
                   <p className="text-slate-300 text-sm">
-                    Inspiramos a la próxima generación de científicos mostrando cómo la IA puede revolucionar la astronomía.
+                    {t('about.impact.item2.description')}
                   </p>
                 </div>
               </div>
@@ -179,9 +181,9 @@ const About = () => {
                   <span className="text-purple-400 font-bold">3</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Descubrimiento Colaborativo</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">{t('about.impact.item3.title')}</h3>
                   <p className="text-slate-300 text-sm">
-                    Promovemos la colaboración entre científicos ciudadanos y profesionales en el descubrimiento de nuevos mundos.
+                    {t('about.impact.item3.description')}
                   </p>
                 </div>
               </div>
@@ -190,9 +192,9 @@ const About = () => {
                   <span className="text-indigo-400 font-bold">4</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Innovación Tecnológica</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">{t('about.impact.item4.title')}</h3>
                   <p className="text-slate-300 text-sm">
-                    Demostramos el poder de la inteligencia artificial aplicada a la exploración espacial y el análisis de big data.
+                    {t('about.impact.item4.description')}
                   </p>
                 </div>
               </div>

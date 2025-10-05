@@ -1,0 +1,182 @@
+{
+  "nav": {
+    "home": "Home",
+    "predict": "Prediction",
+    "about": "About",
+    "methodology": "Methodology",
+    "team": "Team"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "home": {
+    "hero": {
+      "title": "Predict",
+      "titleHighlight": "Exoplanets",
+      "description": "Use our advanced AI to predict and analyze potential exoplanets in the universe. Discover new worlds with cutting-edge technology.",
+      "startPrediction": "Start Prediction",
+      "viewMethodology": "View Methodology"
+    },
+    "stats": {
+      "records": "+15,000",
+      "recordsLabel": "Exoplanet Transit Records",
+      "accuracy": "+72%",
+      "accuracyLabel": "Accuracy",
+      "availability": "24/7",
+      "availabilityLabel": "Available"
+    },
+    "scroll": {
+      "exploreMore": "Explore more",
+      "scrollHint": "Scroll to see the map"
+    },
+    "starMap": {
+      "title": "Star Map",
+      "subtitle": "Distribution of detected exoplanets"
+    },
+    "legend": {
+      "confirmed": "Confirmed",
+      "candidates": "Candidates",
+      "falsePositives": "False Positives"
+    },
+    "statistics": {
+      "title": "Analysis Statistics",
+      "subtitle": "Summary of classified objects",
+      "confirmedExoplanets": "Confirmed Exoplanets",
+      "verified": "Verified",
+      "candidatePlanets": "Planetary Candidates",
+      "inAnalysis": "In analysis",
+      "falsePositive": "False Positives",
+      "discarded": "Discarded",
+      "totalAnalyzed": "Total Analyzed",
+      "processed": "Processed"
+    },
+    "exoplanetsList": {
+      "title": "Analyzed Exoplanets",
+      "subtitle": "Click on any exoplanet to see its details",
+      "table": {
+        "name": "Name",
+        "status": "Status",
+        "distance": "Distance (ly)",
+        "type": "Type",
+        "actions": "Actions",
+        "viewDetails": "View Details"
+      },
+      "noData": {
+        "exodia": "No EXODIA data available",
+        "exodiaDesc": "EXODIA data will be available soon",
+        "k2": "No K2 data available",
+        "k2Desc": "K2 data will be available soon",
+        "tess": "No TESS data available",
+        "tessDesc": "TESS data will be available soon"
+      }
+    },
+    "status": {
+      "confirmed": "Confirmed",
+      "candidate": "Candidate",
+      "falsePositive": "False Positive",
+      "unknown": "Unknown"
+    },
+    "planetTypes": {
+      "superEarth": "Super-Earth",
+      "terrestrial": "Terrestrial",
+      "miniNeptune": "Mini-Neptune",
+      "unknown": "Unknown"
+    }
+  },
+  "about": {
+    "header": {
+      "title": "About",
+      "titleHighlight": "EXOD-IA",
+      "subtitle": "Exploring the universe with artificial intelligence to discover new worlds"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description1": "EXOD-IA is an innovative project that combines the power of artificial intelligence with astronomical data from the Kepler, K2, and TESS missions to identify and classify exoplanets.",
+      "description2": "Our goal is to democratize exoplanet discovery, allowing researchers and enthusiasts to access advanced analysis in an intuitive and visual way."
+    },
+    "technology": {
+      "title": "Technology",
+      "description": "We used the Random Forest algorithm trained with +15,000 records of transiting exoplanets to detect classification patterns.",
+      "item1": "Random Forest Algorithm",
+      "item2": "Records from 3 space telescopes",
+      "item3": "Astronomical Data Visualization"
+    },
+    "features": {
+      "feature1": {
+        "title": "Accurate Analysis",
+        "description": "Accuracy above 72% in the classification of confirmed exoplanets, planetary candidates, and false positives."
+      },
+      "feature2": {
+        "title": "Intuitive Visualization",
+        "description": "Interactive star maps and detailed light curve graphs"
+      },
+      "feature3": {
+        "title": "Real Data",
+        "description": "Updated information from Kepler, K2, and TESS missions provided by NASA."
+      }
+    },
+    "impact": {
+      "title": "Project Impact",
+      "item1": {
+        "title": "Scientific Accessibility",
+        "description": "We facilitate access to advanced analysis tools for students, researchers, and astronomy enthusiasts."
+      },
+      "item2": {
+        "title": "Education and Inspiration",
+        "description": "We inspire the next generation of scientists by showing how AI can revolutionize astronomy."
+      },
+      "item3": {
+        "title": "Collaborative Discovery",
+        "description": "We promote collaboration between citizen scientists and professionals in discovering new worlds."
+      },
+      "item4": {
+        "title": "Technological Innovation",
+        "description": "We demonstrate the power of artificial intelligence applied to space exploration and big data analysis."
+      }
+    }
+  },
+  "team": {
+    "header": {
+      "badge": "Our Team",
+      "title": "Cosmos Explorers",
+      "subtitle": "A multidisciplinary team of Computer Systems, Mechatronics, and Mechanical Engineering united by the passion to discover new worlds beyond our solar system."
+    },
+    "stats": {
+      "members": "Members",
+      "specialties": "Specialties",
+      "dedication": "Dedication"
+    },
+    "members": {
+      "member1": {
+        "name": "Alfredo Barranco Ahued",
+        "role": "Frontend Developer",
+        "specialty": "React & Node.js",
+        "bio": "Software engineer specialized in interactive web applications and scientific data visualization."
+      },
+      "member2": {
+        "name": "Iñigo Quintana Delgadillo",
+        "role": "Developer",
+        "specialty": "Astrophysics & Data Science",
+        "bio": "Specialist in astronomical data analysis with 10 years of experience in exoplanet research."
+      },
+      "member3": {
+        "name": "Eng. Daniel Martínez Maimone",
+        "role": "Data Scientist",
+        "specialty": "Astrophysics & Machine Learning",
+        "bio": "Expert in artificial intelligence models for classification and prediction of astronomical phenomena."
+      },
+      "member4": {
+        "name": "Eng. Ismael Ricardo López Delgado",
+        "role": "Astronomy Specialist",
+        "specialty": "Spectroscopic Analysis",
+        "bio": "Astronomer with experience in characterization of planetary atmospheres and search for biosignatures."
+      },
+      "member5": {
+        "name": "José Pablo Alonso Hernández",
+        "role": "UX/UI Designer",
+        "specialty": "Interface Design",
+        "bio": "Creative designer focused on creating intuitive user experiences for scientific applications."
+      }
+    }
+  }
+}
