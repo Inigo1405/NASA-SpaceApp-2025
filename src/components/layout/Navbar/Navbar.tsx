@@ -28,23 +28,21 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="backdrop-blur-lg bg-gradient-to-br from-black via-slate-950 to-slate-900 sticky top-0 z-50 border-b border-slate-800/30">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="flex justify-between items-center h-14">
+    <nav className="backdrop-blur-lg bg-gradient-to-br from-black via-slate-950 to-slate-900 sticky top-0 z-50 border-b border-slate-800/30 h-24">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-full">
+        <div className="flex justify-between items-center h-full">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <h1 className="text-lg font-semibold text-slate-200 tracking-wide">
-              EXOD-IA
-            </h1>
+          <Link to="/" className="flex items-center mt-4 group">
+            <img src="src/assets/LogoEXODIA.png" alt="Logo EXOD-IA" className='w-50 h-50 absolute object-contain' />
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex space-x-6">
+          <ul className="hidden md:flex space-x-8 items-center">
             {navItems.map((item) => (
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className={`text-sm font-medium transition-all duration-200 relative ${
+                  className={`text-md font-medium transition-all duration-200 relative inline-flex items-center py-2 px-2 ${
                     location.pathname === item.path
                       ? 'text-white'
                       : 'text-slate-400 hover:text-slate-200'
@@ -52,7 +50,7 @@ const Navbar = () => {
                 >
                   {item.label}
                   {location.pathname === item.path && (
-                    <span className="absolute -bottom-[17px] left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500/0 via-purple-500 to-purple-500/0" />
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500/0 via-purple-500 to-purple-500/0" />
                   )}
                 </Link>
               </li>

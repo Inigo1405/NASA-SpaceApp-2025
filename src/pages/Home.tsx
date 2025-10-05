@@ -1,57 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { Planet } from '../types';
 
-// Datos de constelaciones principales con estrellas
-const constellations = [
-  {
-    name: 'Orion',
-    stars: [
-      { x: 25, y: 45, magnitude: 1 }, // Betelgeuse
-      { x: 28, y: 55, magnitude: 2 }, // Bellatrix
-      { x: 30, y: 60, magnitude: 0 }, // Rigel
-      { x: 26, y: 50, magnitude: 2 }, // Mintaka
-      { x: 27, y: 51, magnitude: 2 }, // Alnilam
-      { x: 28, y: 52, magnitude: 2 }, // Alnitak
-    ],
-    connections: [[0,1], [1,3], [3,4], [4,5], [5,2], [2,0]]
-  },
-  {
-    name: 'Ursa Major',
-    stars: [
-      { x: 70, y: 20, magnitude: 2 },
-      { x: 75, y: 22, magnitude: 2 },
-      { x: 77, y: 25, magnitude: 2 },
-      { x: 76, y: 28, magnitude: 2 },
-      { x: 72, y: 27, magnitude: 2 },
-      { x: 69, y: 25, magnitude: 2 },
-      { x: 67, y: 23, magnitude: 2 },
-    ],
-    connections: [[0,1], [1,2], [2,3], [3,4], [4,5], [5,6]]
-  },
-  {
-    name: 'Cassiopeia',
-    stars: [
-      { x: 80, y: 15, magnitude: 2 },
-      { x: 83, y: 17, magnitude: 2 },
-      { x: 85, y: 20, magnitude: 2 },
-      { x: 87, y: 17, magnitude: 2 },
-      { x: 90, y: 15, magnitude: 2 },
-    ],
-    connections: [[0,1], [1,2], [2,3], [3,4]]
-  },
-  {
-    name: 'Crux',
-    stars: [
-      { x: 15, y: 75, magnitude: 1 },
-      { x: 18, y: 72, magnitude: 2 },
-      { x: 17, y: 78, magnitude: 2 },
-      { x: 20, y: 75, magnitude: 2 },
-    ],
-    connections: [[0,1], [0,2], [0,3]]
-  }
-];
-
 const Home = () => {
+  const navigate = useNavigate();
+  
   // Datos de ejemplo de exoplanetas con coordenadas celestes más realistas
   const [exoplanets] = useState<Planet[]>([
     { id: 1, name: 'Kepler-452b', status: 'confirmed', distance: '1,400', type: 'Super-Tierra', x: 35, y: 42 },
@@ -69,10 +22,7 @@ const Home = () => {
     { id: 13, name: 'KOI-3678.01', status: 'false_positive', distance: '---', type: '---', x: 78, y: 72 },
   ]);
 
-  const [selectedPlanet, setSelectedPlanet] = useState<Planet | null>(null);
   const [hoveredPlanet, setHoveredPlanet] = useState<Planet | null>(null);
-  const [showCoordinates, setShowCoordinates] = useState(true);
-  const [showConstellations, setShowConstellations] = useState(true);
 
   const getStatusColor = (status: string) => {
     switch(status) {
@@ -93,9 +43,7 @@ const Home = () => {
   };
 
   const handlePlanetClick = (planet: Planet) => {
-    setSelectedPlanet(planet);
-    // Aquí puedes agregar navegación a página de detalle
-    console.log('Ver detalles de:', planet.name);
+    navigate('/planet-information', { state: { planet } });
   };
 
   return (
@@ -131,214 +79,72 @@ const Home = () => {
 
           {/* Main Cards Container */}
           <div className="gap-6 mb-12">
-            {/* Celestial Map Card */}
+            {/* Star Map Card */}
             <div className=" rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40">
-              <div className="mb-6 flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">El Universo de EXOD-IA</h2>
-                  <p className="text-slate-400">Proyección equirectangular del cielo nocturno con exoplanetas</p>
-                </div>
-                <div className="flex gap-3">
-                  <button 
-                    onClick={() => setShowConstellations(!showConstellations)}
-                    className="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-600/30 text-slate-300 hover:bg-slate-700/50 transition-all text-sm"
-                  >
-                    {showConstellations ? '⭐ Ocultar' : '⭐ Mostrar'} Constelaciones
-                  </button>
-                  <button 
-                    onClick={() => setShowCoordinates(!showCoordinates)}
-                    className="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-600/30 text-slate-300 hover:bg-slate-700/50 transition-all text-sm"
-                  >
-                    {showCoordinates ? '📐 Ocultar' : '📐 Mostrar'} Coordenadas
-                  </button>
-                </div>
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-white mb-2">Mapa Estelar</h2>
+                <p className="text-slate-400">Distribución de exoplanetas detectados</p>
               </div>
 
-              {/* Celestial Map */}
-              <div className="relative bg-gradient-to-b from-indigo-950 via-slate-950 to-black rounded-2xl border border-slate-700/30 overflow-hidden shadow-inner" style={{ height: '600px' }}>
-                {/* Deep space gradient background */}
-                <div className="absolute inset-0 bg-gradient-radial from-indigo-900/10 via-transparent to-transparent opacity-50" />
-                
-                {/* Nebula clouds */}
+                {/* Star Map */}
+              <div className="relative bg-gradient-to-br from-black via-slate-950 to-slate-900 rounded-2xl border border-slate-700/30 overflow-hidden shadow-inner" style={{ height: '500px' }}>
+                {/* Nebula-like background effects */}
                 <div className="absolute inset-0">
-                  <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }} />
-                  <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
-                  <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-indigo-600/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
+                  <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-purple-600/8 rounded-full blur-3xl" />
+                  <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-indigo-600/5 rounded-full blur-3xl" />
+                  <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/3 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
                 </div>
 
-                {/* Milky Way band */}
-                <div className="absolute inset-0 opacity-20">
-                  <div className="absolute h-32 w-full top-1/2 transform -translate-y-1/2 rotate-12 bg-gradient-to-r from-transparent via-slate-300/20 to-transparent blur-xl" />
-                </div>
-
-                {/* Coordinate Grid System */}
-                {showCoordinates && (
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
-                    {/* Declination lines (horizontal) */}
-                    {[...Array(9)].map((_, i) => {
-                      const y = (i + 1) * 10;
-                      const dec = 90 - (i + 1) * 20; // +90° to -90°
-                      return (
-                        <g key={`dec-${i}`}>
-                          <line
-                            x1="0"
-                            y1={`${y}%`}
-                            x2="100%"
-                            y2={`${y}%`}
-                            stroke="rgba(100, 150, 200, 0.15)"
-                            strokeWidth="1"
-                            strokeDasharray="4,4"
-                          />
-                          <text
-                            x="2%"
-                            y={`${y}%`}
-                            fill="rgba(150, 180, 220, 0.6)"
-                            fontSize="10"
-                            dy="-4"
-                          >
-                            {dec > 0 ? '+' : ''}{dec}°
-                          </text>
-                        </g>
-                      );
-                    })}
-                    
-                    {/* Right Ascension lines (vertical) */}
-                    {[...Array(12)].map((_, i) => {
-                      const x = (i + 1) * 8.33;
-                      const ra = (i + 1) * 2; // 0h to 24h
-                      return (
-                        <g key={`ra-${i}`}>
-                          <line
-                            x1={`${x}%`}
-                            y1="0"
-                            x2={`${x}%`}
-                            y2="100%"
-                            stroke="rgba(100, 150, 200, 0.15)"
-                            strokeWidth="1"
-                            strokeDasharray="4,4"
-                          />
-                          <text
-                            x={`${x}%`}
-                            y="3%"
-                            fill="rgba(150, 180, 220, 0.6)"
-                            fontSize="10"
-                            textAnchor="middle"
-                          >
-                            {ra}h
-                          </text>
-                        </g>
-                      );
-                    })}
-                    
-                    {/* Celestial Equator */}
-                    <line
-                      x1="0"
-                      y1="50%"
-                      x2="100%"
-                      y2="50%"
-                      stroke="rgba(100, 200, 255, 0.3)"
-                      strokeWidth="2"
-                      strokeDasharray="8,4"
+                {/* Background stars field */}
+                <div className="absolute inset-0">
+                  {[...Array(150)].map((_, i) => (
+                    <div
+                      key={`bg-star-${i}`}
+                      className="absolute bg-white rounded-full"
+                      style={{
+                        width: Math.random() > 0.9 ? '1.5px' : '1px',
+                        height: Math.random() > 0.9 ? '1.5px' : '1px',
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                        opacity: Math.random() * 0.4 + 0.1,
+                      }}
                     />
-                    <text x="50%" y="50%" fill="rgba(100, 200, 255, 0.5)" fontSize="11" textAnchor="middle" dy="-8">
-                      Ecuador Celeste
-                    </text>
-                  </svg>
-                )}
-
-                {/* Background star field with varying magnitudes */}
-                <div className="absolute inset-0">
-                  {[...Array(300)].map((_, i) => {
-                    const magnitude = Math.random();
-                    const size = magnitude > 0.9 ? 2.5 : magnitude > 0.7 ? 1.8 : magnitude > 0.5 ? 1.2 : 0.8;
-                    const brightness = magnitude > 0.9 ? 0.9 : magnitude > 0.7 ? 0.7 : magnitude > 0.5 ? 0.5 : 0.3;
-                    
-                    return (
-                      <div
-                        key={`star-${i}`}
-                        className="absolute rounded-full animate-pulse"
-                        style={{
-                          width: `${size}px`,
-                          height: `${size}px`,
-                          top: `${Math.random() * 100}%`,
-                          left: `${Math.random() * 100}%`,
-                          backgroundColor: magnitude > 0.95 ? '#E0F4FF' : magnitude > 0.8 ? '#FFF8DC' : '#FFFFFF',
-                          opacity: brightness,
-                          boxShadow: magnitude > 0.9 ? `0 0 ${size * 2}px rgba(255, 255, 255, 0.8)` : 'none',
-                          animationDelay: `${Math.random() * 5}s`,
-                          animationDuration: `${Math.random() * 3 + 2}s`,
-                        }}
-                      />
-                    );
-                  })}
+                  ))}
                 </div>
 
-                {/* Constellation patterns */}
-                {showConstellations && (
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none z-20">
-                    {constellations.map((constellation, idx) => (
-                      <g key={`const-${idx}`}>
-                        {/* Constellation lines */}
-                        {constellation.connections.map((conn, i) => {
-                          const star1 = constellation.stars[conn[0]];
-                          const star2 = constellation.stars[conn[1]];
-                          return (
-                            <line
-                              key={`line-${idx}-${i}`}
-                              x1={`${star1.x}%`}
-                              y1={`${star1.y}%`}
-                              x2={`${star2.x}%`}
-                              y2={`${star2.y}%`}
-                              stroke="rgba(100, 150, 255, 0.3)"
-                              strokeWidth="1.5"
-                            />
-                          );
-                        })}
-                        
-                        {/* Constellation stars */}
-                        {constellation.stars.map((star, i) => {
-                          const starSize = 6 - star.magnitude;
-                          return (
-                            <circle
-                              key={`star-${idx}-${i}`}
-                              cx={`${star.x}%`}
-                              cy={`${star.y}%`}
-                              r={starSize}
-                              fill="rgba(200, 220, 255, 0.9)"
-                              filter="url(#glow)"
-                            />
-                          );
-                        })}
-                        
-                        {/* Constellation label */}
-                        <text
-                          x={`${constellation.stars[0].x}%`}
-                          y={`${constellation.stars[0].y - 3}%`}
-                          fill="rgba(150, 180, 255, 0.8)"
-                          fontSize="11"
-                          fontWeight="600"
-                          textAnchor="middle"
-                          style={{ textShadow: '0 0 4px rgba(0,0,0,0.8)' }}
-                        >
-                          {constellation.name}
-                        </text>
-                      </g>
-                    ))}
-                    
-                    {/* SVG Filters */}
-                    <defs>
-                      <filter id="glow">
-                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                        <feMerge>
-                          <feMergeNode in="coloredBlur"/>
-                          <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
-                      </filter>
-                    </defs>
-                  </svg>
-                )}
+                {/* Subtle constellation lines */}
+                <svg className="absolute inset-0 w-full h-full opacity-20">
+                  {exoplanets.map((planet, i) => {
+                    if (i < exoplanets.length - 1 && Math.random() > 0.6) {
+                      const nextPlanet = exoplanets[i + 1];
+                      return (
+                        <line
+                          key={`line-${i}`}
+                          x1={`${planet.x}%`}
+                          y1={`${planet.y}%`}
+                          x2={`${nextPlanet.x}%`}
+                          y2={`${nextPlanet.y}%`}
+                          stroke="rgba(100, 100, 150, 0.2)"
+                          strokeWidth="1"
+                          strokeDasharray="2,3"
+                        />
+                      );
+                    }
+                    return null;
+                  })}
+                </svg>
 
-                {/* Exoplanets overlay */}
+                {/* Coordinate reference lines (subtle) */}
+                <div className="absolute inset-0 opacity-5">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={`h-line-${i}`} className="absolute w-full border-t border-slate-600" style={{ top: `${(i + 1) * 16.66}%` }} />
+                  ))}
+                  {[...Array(5)].map((_, i) => (
+                    <div key={`v-line-${i}`} className="absolute h-full border-l border-slate-600" style={{ left: `${(i + 1) * 16.66}%` }} />
+                  ))}
+                </div>
+
+                {/* Exoplanets on map */}
                 {exoplanets.map((planet) => {
                   const colors = getStatusColor(planet.status);
                   const isHovered = hoveredPlanet?.id === planet.id;
@@ -346,89 +152,48 @@ const Home = () => {
                   return (
                     <div
                       key={planet.id}
-                      className="absolute cursor-pointer group z-30"
-                      style={{ 
-                        left: `${planet.x}%`, 
-                        top: `${planet.y}%`,
-                        transform: 'translate(-50%, -50%)'
-                      }}
+                      className="absolute cursor-pointer group"
+                      style={{ left: `${planet.x}%`, top: `${planet.y}%` }}
                       onMouseEnter={() => setHoveredPlanet(planet)}
                       onMouseLeave={() => setHoveredPlanet(null)}
                       onClick={() => handlePlanetClick(planet)}
                     >
-                      {/* Outer glow ring */}
-                      <div 
-                        className={`absolute top-1/2 left-1/2 w-10 h-10 rounded-full ${colors.bg} opacity-15 blur-lg transition-all duration-300 ${isHovered ? 'scale-150 opacity-25' : 'scale-100'}`}
-                        style={{ transform: 'translate(-50%, -50%)' }}
-                      />
+                      {/* Glow effect */}
+                      <div className={`absolute top-1/2 left-1/2 w-8 h-8 rounded-full ${colors.bg} opacity-20 blur-md transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${isHovered ? 'scale-150' : 'scale-100'}`} />
                       
-                      {/* Inner ring */}
-                      <div 
-                        className={`absolute top-1/2 left-1/2 w-6 h-6 rounded-full border-2 ${colors.border} opacity-40 transition-all duration-300 ${isHovered ? 'scale-125' : 'scale-100'}`}
-                        style={{ transform: 'translate(-50%, -50%)' }}
-                      />
+                      {/* Planet dot with pulse */}
+                      <div className={`absolute top-1/2 left-1/2 w-3 h-3 rounded-full ${colors.bg} shadow-lg ${colors.shadow} transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${isHovered ? 'scale-150' : 'scale-100'} animate-pulse`} style={{ animationDuration: '3s' }} />
                       
-                      {/* Planet marker */}
-                      <div 
-                        className={`absolute top-1/2 left-1/2 w-4 h-4 rounded-full ${colors.bg} shadow-lg ${colors.shadow} transition-all duration-300 border-2 border-white/30 ${isHovered ? 'scale-125' : 'scale-100'}`}
-                        style={{ transform: 'translate(-50%, -50%)' }}
-                      />
-                      
-                      {/* Crosshair for precision */}
+                      {/* Planet ring (for selected/hovered) */}
                       {isHovered && (
-                        <>
-                          <div 
-                            className="absolute w-16 h-0.5 bg-white/40 top-1/2 left-1/2"
-                            style={{ transform: 'translate(-50%, -50%)' }}
-                          />
-                          <div 
-                            className="absolute w-0.5 h-16 bg-white/40 top-1/2 left-1/2"
-                            style={{ transform: 'translate(-50%, -50%)' }}
-                          />
-                        </>
+                        <div className={`absolute top-1/2 left-1/2 w-6 h-6 rounded-full border-2 ${colors.border} opacity-50 transform -translate-x-1/2 -translate-y-1/2 animate-ping`} style={{ animationDuration: '2s' }} />
                       )}
                       
-                      {/* Enhanced Tooltip */}
+                      {/* Tooltip */}
                       {isHovered && (
-                        <div 
-                          className="absolute bottom-full left-1/2 mb-4 px-5 py-3 bg-slate-900/98 backdrop-blur-md border border-slate-500/50 rounded-xl whitespace-nowrap z-50 shadow-2xl"
-                          style={{ transform: 'translateX(-50%)' }}
-                        >
-                          <div className="text-white font-bold text-base mb-1">{planet.name}</div>
-                          <div className="flex items-center gap-2 text-xs">
-                            <span className={`px-2 py-0.5 rounded-full ${colors.bg} bg-opacity-30 border ${colors.border}`}>
-                              {getStatusLabel(planet.status)}
-                            </span>
-                            <span className="text-slate-400">|</span>
-                            <span className="text-slate-300">{planet.distance} años luz</span>
-                          </div>
-                          <div className="text-slate-400 text-xs mt-1">{planet.type}</div>
-                          <div 
-                            className="absolute bottom-0 left-1/2 rotate-45 w-2.5 h-2.5 bg-slate-900 border-r border-b border-slate-500/50"
-                            style={{ transform: 'translateX(-50%) translateY(50%) rotate(45deg)' }}
-                          ></div>
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-2 bg-slate-900/95 backdrop-blur-sm border border-slate-600/40 rounded-lg whitespace-nowrap z-50 shadow-xl">
+                          <div className="text-white font-semibold text-sm">{planet.name}</div>
+                          <div className="text-slate-400 text-xs">{getStatusLabel(planet.status)}</div>
+                          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-slate-900 border-r border-b border-slate-600/40"></div>
                         </div>
                       )}
                     </div>
                   );
                 })}
-              </div>
-              {/* Enhanced Legend */}
-              <div className="mt-8 space-y-4">
-                <div className="flex flex-wrap gap-6 justify-center items-center py-4 px-6 bg-slate-800/20 rounded-xl border border-slate-700/30">
-                  <div className="text-slate-300 font-semibold">Estado de Exoplanetas:</div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50 border-2 border-white/30" />
-                    <span className="text-slate-300 text-sm">Confirmados</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-full bg-amber-400 shadow-lg shadow-amber-400/50 border-2 border-white/30" />
-                    <span className="text-slate-300 text-sm">Candidatos</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-full bg-rose-400 shadow-lg shadow-rose-400/50 border-2 border-white/30" />
-                    <span className="text-slate-300 text-sm">Falsos Positivos</span>
-                  </div>
+                </div>
+              {/* Legend */}
+              <div className="mt-6 flex flex-wrap gap-4 justify-center">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50" />
+                  <span className="text-slate-300 text-sm">Confirmados</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-amber-400 shadow-lg shadow-amber-400/50" />
+                  <span className="text-slate-300 text-sm">Candidatos</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-rose-400 shadow-lg shadow-rose-400/50" />
+                  <span className="text-slate-300 text-sm">Falsos Positivos</span>
                 </div>
               </div>
             </div>
@@ -483,7 +248,7 @@ const Home = () => {
             </div>
 
           {/* Exoplanets List Card */}
-          <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40 mb-20">
+          <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40 mt-12 mb-20">
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-white mb-2">Exoplanetas Analizados</h2>
               <p className="text-slate-400">Click en cualquier exoplaneta para ver sus detalles</p>
