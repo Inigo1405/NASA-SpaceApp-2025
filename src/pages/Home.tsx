@@ -187,21 +187,108 @@ const Home = () => {
                       <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-500 rounded-full blur-sm transform -translate-x-1/2 shadow-lg shadow-blue-500/50" />
                     </div>
                     
-                    {/* Central planet */}
+                    {/* Central space station */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="relative">
-                        <div className="w-32 h-32 bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 rounded-full shadow-2xl shadow-purple-500/50 animate-pulse" style={{ animationDuration: '4s' }} />
-                        <div className="absolute inset-0 w-32 h-32 bg-gradient-to-tl from-purple-400 via-transparent to-transparent rounded-full opacity-60" />
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                          <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                          </svg>
-                        </div>
+                      <div className="relative animate-float">
+                        {/* Space Station SVG */}
+                        <svg className="w-56 h-56" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          {/* Solar panels - Left */}
+                          <g opacity="0.9">
+                            <rect x="20" y="90" width="60" height="60" fill="url(#solarGradientHome)" stroke="#7C3AED" strokeWidth="2" />
+                            <line x1="30" y1="90" x2="30" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="40" y1="90" x2="40" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="50" y1="90" x2="50" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="60" y1="90" x2="60" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="70" y1="90" x2="70" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="20" y1="100" x2="80" y2="100" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                            <line x1="20" y1="110" x2="80" y2="110" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                            <line x1="20" y1="120" x2="80" y2="120" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                            <line x1="20" y1="130" x2="80" y2="130" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                            <line x1="20" y1="140" x2="80" y2="140" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                          </g>
+                          
+                          {/* Solar panels - Right */}
+                          <g opacity="0.9">
+                            <rect x="160" y="90" width="60" height="60" fill="url(#solarGradientHome)" stroke="#7C3AED" strokeWidth="2" />
+                            <line x1="170" y1="90" x2="170" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="180" y1="90" x2="180" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="190" y1="90" x2="190" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="200" y1="90" x2="200" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="210" y1="90" x2="210" y2="150" stroke="#8B5CF6" strokeWidth="1" opacity="0.5" />
+                            <line x1="160" y1="100" x2="220" y2="100" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                            <line x1="160" y1="110" x2="220" y2="110" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                            <line x1="160" y1="120" x2="220" y2="120" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                            <line x1="160" y1="130" x2="220" y2="130" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                            <line x1="160" y1="140" x2="220" y2="140" stroke="#8B5CF6" strokeWidth="1" opacity="0.3" />
+                          </g>
+                          
+                          {/* Connection arms */}
+                          <rect x="80" y="115" width="80" height="10" fill="#6366F1" stroke="#818CF8" strokeWidth="1" />
+                          <rect x="82" y="117" width="76" height="6" fill="url(#armGradientHome)" />
+                          
+                          {/* Central module - main body */}
+                          <ellipse cx="120" cy="120" rx="35" ry="30" fill="url(#moduleGradientHome)" stroke="#818CF8" strokeWidth="2" />
+                          
+                          {/* Module details */}
+                          <ellipse cx="120" cy="115" rx="28" ry="23" fill="#312E81" opacity="0.3" />
+                          
+                          {/* Windows */}
+                          <circle cx="110" cy="115" r="6" fill="#A78BFA" opacity="0.9" />
+                          <circle cx="130" cy="115" r="6" fill="#A78BFA" opacity="0.9" />
+                          <circle cx="120" cy="125" r="5" fill="#C4B5FD" opacity="0.8" />
+                          
+                          {/* Window reflections */}
+                          <circle cx="108" cy="113" r="2" fill="#DDD6FE" opacity="0.9" />
+                          <circle cx="128" cy="113" r="2" fill="#DDD6FE" opacity="0.9" />
+                          <circle cx="118" cy="123" r="1.5" fill="#DDD6FE" opacity="0.9" />
+                          
+                          {/* Antenna array - top */}
+                          <line x1="120" y1="90" x2="120" y2="70" stroke="#818CF8" strokeWidth="2" />
+                          <circle cx="120" cy="70" r="4" fill="#A78BFA" opacity="0.9" />
+                          <line x1="120" y1="70" x2="110" y2="60" stroke="#818CF8" strokeWidth="1.5" />
+                          <line x1="120" y1="70" x2="130" y2="60" stroke="#818CF8" strokeWidth="1.5" />
+                          <circle cx="110" cy="60" r="2" fill="#C4B5FD" />
+                          <circle cx="130" cy="60" r="2" fill="#C4B5FD" />
+                          
+                          {/* Communications dish - bottom */}
+                          <ellipse cx="120" cy="155" rx="15" ry="8" fill="#4C1D95" stroke="#818CF8" strokeWidth="1.5" />
+                          <ellipse cx="120" cy="153" rx="12" ry="6" fill="#312E81" />
+                          <line x1="120" y1="150" x2="120" y2="163" stroke="#818CF8" strokeWidth="2" />
+                          
+                          {/* Status lights */}
+                          <circle cx="105" cy="130" r="1.5" fill="#F472B6" className="animate-pulse" />
+                          <circle cx="135" cy="130" r="1.5" fill="#34D399" className="animate-pulse" />
+                          
+                          {/* Panel details on module */}
+                          <rect x="100" y="120" width="8" height="12" rx="1" fill="#4C1D95" opacity="0.6" />
+                          <rect x="132" y="120" width="8" height="12" rx="1" fill="#4C1D95" opacity="0.6" />
+                          
+                          <defs>
+                            <linearGradient id="solarGradientHome" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#5B21B6" stopOpacity="0.8" />
+                              <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.6" />
+                              <stop offset="100%" stopColor="#5B21B6" stopOpacity="0.8" />
+                            </linearGradient>
+                            <linearGradient id="moduleGradientHome" x1="0%" y1="0%" x2="0%" y2="100%">
+                              <stop offset="0%" stopColor="#E0E7FF" />
+                              <stop offset="50%" stopColor="#C7D2FE" />
+                              <stop offset="100%" stopColor="#A5B4FC" />
+                            </linearGradient>
+                            <linearGradient id="armGradientHome" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#818CF8" />
+                              <stop offset="50%" stopColor="#A5B4FC" />
+                              <stop offset="100%" stopColor="#818CF8" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                        
+                        {/* Glow effect behind station */}
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-purple-500/30 rounded-full blur-3xl -z-10" />
                       </div>
                       
                       {/* Rings */}
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border-2 border-purple-500/30 rounded-full animate-ping" style={{ animationDuration: '3s' }} />
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-indigo-500/20 rounded-full" />
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border-2 border-purple-500/30 rounded-full animate-ping" style={{ animationDuration: '3s' }} />
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-indigo-500/20 rounded-full" />
                     </div>
                   </div>
                 </div>
@@ -596,6 +683,32 @@ const Home = () => {
         
         .animate-float-slow {
           animation: float-slow 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) rotate(-3deg);
+          }
+          50% {
+            transform: translateY(-15px) rotate(3deg);
+          }
+        }
+        
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        
+        .animate-spin-slow {
+          animation: spin-slow 15s linear infinite;
         }
       `}</style>
     </div>
