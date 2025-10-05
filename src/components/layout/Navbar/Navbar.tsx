@@ -24,18 +24,18 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center group h-14 md:h-24 relative z-10">
             {/* Logo grande solo en escritorio */}
-            <img 
-              src="/LogoEXODIA.png" 
+            {/* <img 
+              src="../../assets/LogoEXODIA.png" 
               alt="Logo EXOD-IA" 
               className="hidden md:block object-contain h-25 w-auto transition-all duration-200"
               style={{ maxWidth: '200px' }}
-            />
+            /> */}
             {/* Logo simplify solo en móvil */}
-            <img
+            {/* <img
               src="/LogoSimplify.png"
               alt="Logo Simplify"
               className="block md:hidden object-contain h-8 w-8 transition-all duration-200"
-            />
+            /> */}
           </Link>
 
           {/* Desktop Navigation */}

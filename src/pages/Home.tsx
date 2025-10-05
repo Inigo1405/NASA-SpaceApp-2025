@@ -120,10 +120,7 @@ const Home = () => {
 
               <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
                 {/* Left side - Text content */}
-                <div className="space-y-6">
-                  <div className="inline-flex items-center px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30">
-                    <span className="text-purple-300 text-sm font-semibold">✨ Función Principal</span>
-                  </div>
+                <div className="space-y-5">
                   
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                     Predice
@@ -162,12 +159,12 @@ const Home = () => {
                   {/* Stats */}
                   <div className="grid grid-cols-3 gap-4 pt-6">
                     <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-purple-400">5000+</div>
-                      <div className="text-xs md:text-sm text-slate-400 mt-1">Exoplanetas</div>
+                      <div className="text-2xl md:text-3xl font-bold text-purple-400">+15,000</div>
+                      <div className="text-xs md:text-sm text-slate-400 mt-1">Registros de Exoplanetas en Tránsito</div>
                     </div>
                     <div className="text-center border-x border-slate-700">
-                      <div className="text-2xl md:text-3xl font-bold text-indigo-400">95%</div>
-                      <div className="text-xs md:text-sm text-slate-400 mt-1">Precisión IA</div>
+                      <div className="text-2xl md:text-3xl font-bold text-indigo-400">+72%</div>
+                      <div className="text-xs md:text-sm text-slate-400 mt-1">Precisión</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl md:text-3xl font-bold text-blue-400">24/7</div>
