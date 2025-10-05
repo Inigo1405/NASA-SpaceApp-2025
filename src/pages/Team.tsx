@@ -26,7 +26,7 @@ const Team = () => {
       bio: 'Ingeniero de software especializado en aplicaciones web interactivas y visualización de datos científicos.',
       avatar: (
         <img
-          src="../assets/Alfredo.jpg"
+          src="/Alfredo.jpg"
           alt="Alfredo Barranco Ahued"
           className="w-28 h-28 rounded-full object-cover"
         />
@@ -44,7 +44,7 @@ const Team = () => {
       bio: 'Especialista en análisis de datos astronómicos con 10 años de experiencia en investigación de exoplanetas.',
       avatar: (
         <img
-          src="../assets/Pingul.jpg"
+          src="/Pingul.jpg"
           alt="Iñigo Quintana Delgadillo"
           className="w-28 h-28 rounded-full object-cover"
         />
@@ -62,7 +62,7 @@ const Team = () => {
       bio: 'Experto en modelos de inteligencia artificial para clasificación y predicción de fenómenos astronómicos.',
       avatar: (
         <img
-          src="../assets/Dani.png"
+          src="/Dani.png"
           alt="Daniel Martínez Maimone"
           className="w-28 h-28 rounded-full object-cover"
         />
@@ -79,7 +79,7 @@ const Team = () => {
       bio: 'Astrónoma con experiencia en caracterización de atmósferas planetarias y búsqueda de biosignaturas.',
       avatar: (
         <img
-          src="../assets/Isma.jpg"
+          src="/Isma.jpg"
           alt="Ismael Ricardo López Delgado"
           className="w-28 h-28 rounded-full object-cover"
         />
@@ -97,7 +97,7 @@ const Team = () => {
       bio: 'Diseñador creativo enfocado en crear experiencias de usuario intuitivas para aplicaciones científicas.',
       avatar: (
         <img
-          src="../assets/JP.jpg"
+          src="/JP.jpg"
           alt="José Pablo Alonso Hernández"
           className="w-28 h-28 rounded-full object-cover"
         />
