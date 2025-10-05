@@ -11,7 +11,6 @@ interface MethodologyStep {
 
 const Methodology = () => {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
-  const [activePhase, setActivePhase] = useState<'data' | 'model' | 'validation'>('data');
 
   const methodologySteps: MethodologyStep[] = [
     {
@@ -142,7 +141,7 @@ const Methodology = () => {
           
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in">
-            <h1 className="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
               Metodología del Proyecto
             </h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
@@ -151,44 +150,9 @@ const Methodology = () => {
             </p>
           </div>
 
-          {/* Phase Selector */}
-          <div className="flex justify-center gap-4 mb-12">
-            <button
-              onClick={() => setActivePhase('data')}
-              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                activePhase === 'data'
-                  ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/50'
-                  : 'bg-slate-800/50 text-slate-400 hover:bg-slate-700/50'
-              }`}
-            >
-              📊 Datos
-            </button>
-            <button
-              onClick={() => setActivePhase('model')}
-              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                activePhase === 'model'
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
-                  : 'bg-slate-800/50 text-slate-400 hover:bg-slate-700/50'
-              }`}
-            >
-              🤖 Modelo
-            </button>
-            <button
-              onClick={() => setActivePhase('validation')}
-              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                activePhase === 'validation'
-                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/50'
-                  : 'bg-slate-800/50 text-slate-400 hover:bg-slate-700/50'
-              }`}
-            >
-              ✅ Validación
-            </button>
-          </div>
-
           {/* Model Performance Metrics */}
           <div className="bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-lg rounded-3xl p-8 border border-slate-700/30 shadow-2xl mb-12">
-            <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-              <span className="text-4xl">📈</span>
+            <h2 className="text-3xl font-bold text-white mb-6">
               Métricas de Rendimiento del Modelo
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -264,20 +228,19 @@ const Methodology = () => {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { name: 'Python', icon: '🐍' },
-                { name: 'TensorFlow', icon: '🧠' },
-                { name: 'Scikit-learn', icon: '📚' },
-                { name: 'Pandas', icon: '🐼' },
-                { name: 'NumPy', icon: '🔢' },
-                { name: 'Matplotlib', icon: '📊' },
-                { name: 'Jupyter', icon: '📓' },
-                { name: 'React', icon: '⚛️' },
+                { name: 'Python'},
+                { name: 'TensorFlow'},
+                { name: 'Scikit-learn'},
+                { name: 'Pandas'},
+                { name: 'NumPy'},
+                { name: 'Matplotlib'},
+                { name: 'Jupyter'},
+                { name: 'React'},
               ].map((tech, index) => (
                 <div
                   key={index}
                   className="bg-slate-900/50 rounded-xl p-4 border border-slate-700/30 hover:border-slate-600/50 transition-all duration-300 hover:scale-105 flex items-center gap-3"
                 >
-                  <span className="text-3xl">{tech.icon}</span>
                   <span className="text-white font-semibold">{tech.name}</span>
                 </div>
               ))}

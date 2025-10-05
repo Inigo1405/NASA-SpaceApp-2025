@@ -20,8 +20,20 @@ const Team = () => {
   const teamMembers: TeamMember[] = [
     {
       id: 1,
-      name: 'Dr. María González',
-      role: 'Líder del Proyecto',
+      name: 'Alfredo Barranco Ahued',
+      role: 'Desarrollador Frontend',
+      specialty: 'React & Node.js',
+      bio: 'Ingeniero de software especializado en aplicaciones web interactivas y visualización de datos científicos.',
+      avatar: '👩‍💻',
+      links: {
+        linkedin: 'https://linkedin.com',
+        github: 'https://github.com',
+      },
+    },
+    {
+      id: 2,
+      name: 'Iñigo Quintana Delgadillo',
+      role: 'Desarrollador ',
       specialty: 'Astrofísica & Machine Learning',
       bio: 'Especialista en análisis de datos astronómicos con 10 años de experiencia en investigación de exoplanetas.',
       avatar: '👨‍🚀',
@@ -32,20 +44,8 @@ const Team = () => {
       },
     },
     {
-      id: 2,
-      name: 'Carlos Rodríguez',
-      role: 'Desarrollador Full Stack',
-      specialty: 'React & Node.js',
-      bio: 'Ingeniero de software especializado en aplicaciones web interactivas y visualización de datos científicos.',
-      avatar: '👩‍💻',
-      links: {
-        linkedin: 'https://linkedin.com',
-        github: 'https://github.com',
-      },
-    },
-    {
       id: 3,
-      name: 'Ana Martínez',
+      name: 'Daniel Martínez Maimone',
       role: 'Científica de Datos',
       specialty: 'Python & Deep Learning',
       bio: 'Experta en modelos de inteligencia artificial para clasificación y predicción de fenómenos astronómicos.',
@@ -57,18 +57,7 @@ const Team = () => {
     },
     {
       id: 4,
-      name: 'Jorge López',
-      role: 'Diseñador UX/UI',
-      specialty: 'Diseño de Interfaces',
-      bio: 'Diseñador creativo enfocado en crear experiencias de usuario intuitivas para aplicaciones científicas.',
-      avatar: '🎨',
-      links: {
-        linkedin: 'https://linkedin.com',
-      },
-    },
-    {
-      id: 5,
-      name: 'Laura Fernández',
+      name: 'Ismael Ricardo López Delgado',
       role: 'Especialista en Astronomía',
       specialty: 'Análisis Espectroscópico',
       bio: 'Astrónoma con experiencia en caracterización de atmósferas planetarias y búsqueda de biosignaturas.',
@@ -76,6 +65,17 @@ const Team = () => {
       links: {
         linkedin: 'https://linkedin.com',
         email: 'laura@example.com',
+      },
+    },
+    {
+      id: 5,
+      name: 'José Pablo Alonso Hernández',
+      role: 'Diseñador UX/UI',
+      specialty: 'Diseño de Interfaces',
+      bio: 'Diseñador creativo enfocado en crear experiencias de usuario intuitivas para aplicaciones científicas.',
+      avatar: '🎨',
+      links: {
+        linkedin: 'https://linkedin.com',
       },
     },
   ];
