@@ -56,7 +56,7 @@ const Team = () => {
     },
     {
       id: 3,
-      name: 'Daniel Martínez Maimone',
+      name: 'Ing. Daniel Martínez Maimone',
       role: 'Científico de Datos',
       specialty: 'Astrofísica & Machine Learning',
       bio: 'Experto en modelos de inteligencia artificial para clasificación y predicción de fenómenos astronómicos.',
@@ -73,7 +73,7 @@ const Team = () => {
     },
     {
       id: 4,
-      name: 'Ismael Ricardo López Delgado',
+      name: 'Ing. Ismael Ricardo López Delgado',
       role: 'Especialista en Astronomía',
       specialty: 'Análisis Espectroscópico',
       bio: 'Astrónoma con experiencia en caracterización de atmósferas planetarias y búsqueda de biosignaturas.',

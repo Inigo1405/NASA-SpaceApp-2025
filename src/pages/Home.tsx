@@ -94,6 +94,151 @@ const Home = () => {
       <section className="relative z-10 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 pt-20">
         <div className="max-w-7xl mx-auto w-full">
 
+          {/* Hero CTA - Predicción de Exoplanetas */}
+          <div className="mb-12 relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 via-indigo-600/30 to-blue-600/30 rounded-3xl blur-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+            
+            <div className="relative bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-slate-600/40 shadow-2xl overflow-hidden">
+              {/* Animated stars in background */}
+              <div className="absolute inset-0 overflow-hidden">
+                {Array.from({ length: 30 }).map((_, i) => (
+                  <div
+                    key={`hero-star-${i}`}
+                    className="absolute bg-white rounded-full animate-pulse"
+                    style={{
+                      width: Math.random() > 0.8 ? '2px' : '1px',
+                      height: Math.random() > 0.8 ? '2px' : '1px',
+                      top: `${Math.random() * 100}%`,
+                      left: `${Math.random() * 100}%`,
+                      opacity: Math.random() * 0.5 + 0.1,
+                      animationDelay: `${Math.random() * 3}s`,
+                      animationDuration: `${Math.random() * 2 + 2}s`,
+                    }}
+                  />
+                ))}
+              </div>
+
+              <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+                {/* Left side - Text content */}
+                <div className="space-y-6">
+                  <div className="inline-flex items-center px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30">
+                    <span className="text-purple-300 text-sm font-semibold">✨ Función Principal</span>
+                  </div>
+                  
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                    Predice
+                    <span className="block mt-2 bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+                      Exoplanetas
+                    </span>
+                  </h1>
+                  
+                  <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
+                    Utiliza nuestra IA avanzada para predecir y analizar exoplanetas potenciales en el universo. 
+                    Descubre nuevos mundos con tecnología de vanguardia.
+                  </p>
+
+                  <div className="flex flex-wrap gap-4 pt-4">
+                    <button
+                      onClick={() => navigate('/predict')}
+                      className="group/btn relative px-8 py-4 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300 overflow-hidden"
+                    >
+                      <span className="relative z-10 flex items-center gap-2">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Comenzar Predicción
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
+                    </button>
+                    
+                    <button
+                      onClick={() => navigate('/methodology')}
+                      className="px-8 py-4 bg-slate-800/50 backdrop-blur-sm text-slate-200 font-semibold rounded-xl border border-slate-600/50 hover:bg-slate-700/50 hover:border-slate-500 transition-all duration-300"
+                    >
+                      Ver Metodología
+                    </button>
+                  </div>
+
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-4 pt-6">
+                    <div className="text-center">
+                      <div className="text-2xl md:text-3xl font-bold text-purple-400">5000+</div>
+                      <div className="text-xs md:text-sm text-slate-400 mt-1">Exoplanetas</div>
+                    </div>
+                    <div className="text-center border-x border-slate-700">
+                      <div className="text-2xl md:text-3xl font-bold text-indigo-400">95%</div>
+                      <div className="text-xs md:text-sm text-slate-400 mt-1">Precisión IA</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl md:text-3xl font-bold text-blue-400">24/7</div>
+                      <div className="text-xs md:text-sm text-slate-400 mt-1">Disponible</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right side - Visual element */}
+                <div className="hidden md:flex items-center justify-center">
+                  <div className="relative w-80 h-80">
+                    {/* Orbiting elements */}
+                    <div className="absolute inset-0 animate-spin-slow">
+                      <div className="absolute top-0 left-1/2 w-4 h-4 bg-purple-500 rounded-full blur-sm transform -translate-x-1/2 shadow-lg shadow-purple-500/50" />
+                    </div>
+                    <div className="absolute inset-4 animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '20s' }}>
+                      <div className="absolute top-0 left-1/2 w-3 h-3 bg-indigo-500 rounded-full blur-sm transform -translate-x-1/2 shadow-lg shadow-indigo-500/50" />
+                    </div>
+                    <div className="absolute inset-8 animate-spin-slow" style={{ animationDuration: '25s' }}>
+                      <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-500 rounded-full blur-sm transform -translate-x-1/2 shadow-lg shadow-blue-500/50" />
+                    </div>
+                    
+                    {/* Central planet */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      <div className="relative">
+                        <div className="w-32 h-32 bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 rounded-full shadow-2xl shadow-purple-500/50 animate-pulse" style={{ animationDuration: '4s' }} />
+                        <div className="absolute inset-0 w-32 h-32 bg-gradient-to-tl from-purple-400 via-transparent to-transparent rounded-full opacity-60" />
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                          <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                          </svg>
+                        </div>
+                      </div>
+                      
+                      {/* Rings */}
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border-2 border-purple-500/30 rounded-full animate-ping" style={{ animationDuration: '3s' }} />
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-indigo-500/20 rounded-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Scroll Indicator - Minimal Exoplanet Theme */}
+          <div className="flex flex-col items-center justify-center mb-8 animate-bounce">
+            <div className="text-slate-400 text-sm font-medium mb-2">Explora más</div>
+            <div className="relative flex flex-col items-center">
+              {/* Minimal exoplanet icon */}
+              <svg width="48" height="48" viewBox="0 0 48 48" className="block" fill="none">
+                {/* Planet body */}
+                <circle cx="24" cy="28" r="13" fill="#a5b4fc" fillOpacity="0.85" />
+                {/* Subtle ring */}
+                <ellipse cx="24" cy="28" rx="16" ry="5" fill="none" stroke="#7c3aed" strokeWidth="2" opacity="0.35" />
+                {/* Small moon */}
+                <circle cx="36" cy="20" r="2" fill="#f0abfc" opacity="0.8" />
+                {/* Down arrow inside planet */}
+                <g>
+                  <path d="M24 23v7" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M21 27l3 3 3-3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </g>
+              </svg>
+            </div>
+            {/* Animated chevrons */}
+            <div className="mt-2 space-y-1">
+              <svg className="w-6 h-6 text-slate-500 animate-bounce-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ animationDelay: '0s' }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+
           {/* Main Cards Container */}
           <div className="gap-6 mb-12">
             {/* Star Map Card */}
@@ -249,24 +394,6 @@ const Home = () => {
                   </div>
                   <div className="text-slate-300 text-sm font-medium">Total Analizado</div>
                   <div className="text-slate-500 text-xs">Procesados</div>
-                </div>
-              </div>
-
-              {/* Success Rate Indicator */}
-              <div className="mt-4 p-4 bg-slate-800/30 rounded-xl border border-slate-700/20">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-slate-300 text-sm font-medium">Tasa de Confirmación</span>
-                  <span className="text-emerald-400 font-bold">
-                    {Math.round((exoplanets.filter(p => p.status === 'confirmed').length / exoplanets.length) * 100)}%
-                  </span>
-                </div>
-                <div className="w-full bg-slate-700/50 rounded-full h-2">
-                  <div 
-                    className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-2 rounded-full transition-all duration-500"
-                    style={{ 
-                      width: `${(exoplanets.filter(p => p.status === 'confirmed').length / exoplanets.length) * 100}%` 
-                    }}
-                  ></div>
                 </div>
               </div>
             </div>

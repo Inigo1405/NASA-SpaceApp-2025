@@ -116,7 +116,7 @@ const About = () => {
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Análisis Preciso</h3>
               <p className="text-slate-400 text-sm">
-                Alta precisión en la clasificación de exoplanetas confirmados y candidatos
+                Precisión superior al 72% en la clasificación de exoplanetas confirmados, candidatos planetarios y falsos positivos.
               </p>
             </div>
 
@@ -143,7 +143,7 @@ const About = () => {
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Datos Reales</h3>
               <p className="text-slate-400 text-sm">
-                Información actualizada de las misiones Kepler y TESS de la NASA
+                Información actualizada de las misiones Kepler, K2 y TESS proporcionadas por la NASA.
               </p>
             </div>
           </div>
