@@ -33,7 +33,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-full">
           {/* Logo */}
           <Link to="/" className="flex items-center mt-4 group">
-            <img src="src/assets/LogoEXODIA.png" alt="Logo EXOD-IA" className='w-50 h-50 absolute object-contain' />
+            <img src="public/LogoEXODIA.png" alt="Logo EXOD-IA" className='w-50 h-50 absolute object-contain' />
           </Link>
 
           {/* Desktop Navigation */}
