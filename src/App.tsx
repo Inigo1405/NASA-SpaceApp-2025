@@ -4,6 +4,7 @@ import MainLayout from './components/layout/MainLayout';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import PlanetInformation from './pages/PlanetInformation';
+import Team from './pages/Team';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<MainLayout><Home /></MainLayout>} />
         <Route path="/planet-information" element={<MainLayout><PlanetInformation /></MainLayout>} />
         <Route path="/planet-information/:id" element={<MainLayout><PlanetInformation /></MainLayout>} />
+        <Route path="/team" element={<MainLayout><Team /></MainLayout>} />
         <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
       </Routes>
     </BrowserRouter>
