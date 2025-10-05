@@ -209,31 +209,57 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Scroll Indicator - Minimal Exoplanet Theme */}
-          <div className="flex flex-col items-center justify-center mb-8 animate-bounce">
-            <div className="text-slate-400 text-sm font-medium mb-2">Explora más</div>
+          {/* Scroll Indicator - TESS Telescope Theme */}
+          <div className="flex flex-col items-center justify-center mb-8 opacity-70 hover:opacity-100 transition-opacity duration-500">
+            <div className="text-slate-400 text-sm font-medium mb-3">Explora más</div>
             <div className="relative flex flex-col items-center">
-              {/* Minimal exoplanet icon */}
-              <svg width="48" height="48" viewBox="0 0 48 48" className="block" fill="none">
-                {/* Planet body */}
-                <circle cx="24" cy="28" r="13" fill="#a5b4fc" fillOpacity="0.85" />
-                {/* Subtle ring */}
-                <ellipse cx="24" cy="28" rx="16" ry="5" fill="none" stroke="#7c3aed" strokeWidth="2" opacity="0.35" />
-                {/* Small moon */}
-                <circle cx="36" cy="20" r="2" fill="#f0abfc" opacity="0.8" />
-                {/* Down arrow inside planet */}
-                <g>
-                  <path d="M24 23v7" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M21 27l3 3 3-3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              {/* TESS Telescope SVG */}
+              <svg width="64" height="64" viewBox="0 0 64 64" className="block" fill="none">
+                {/* Glow effect */}
+                <defs>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                {/* Left solar panel */}
+                <rect x="8" y="22" width="12" height="20" fill="#4f46e5" fillOpacity="0.6" stroke="#6366f1" strokeWidth="1.5"/>
+                <line x1="11" y1="24" x2="11" y2="40" stroke="#818cf8" strokeWidth="0.5" opacity="0.5"/>
+                <line x1="14" y1="24" x2="14" y2="40" stroke="#818cf8" strokeWidth="0.5" opacity="0.5"/>
+                <line x1="17" y1="24" x2="17" y2="40" stroke="#818cf8" strokeWidth="0.5" opacity="0.5"/>
+                
+                {/* Right solar panel */}
+                <rect x="44" y="22" width="12" height="20" fill="#4f46e5" fillOpacity="0.6" stroke="#6366f1" strokeWidth="1.5"/>
+                <line x1="47" y1="24" x2="47" y2="40" stroke="#818cf8" strokeWidth="0.5" opacity="0.5"/>
+                <line x1="50" y1="24" x2="50" y2="40" stroke="#818cf8" strokeWidth="0.5" opacity="0.5"/>
+                <line x1="53" y1="24" x2="53" y2="40" stroke="#818cf8" strokeWidth="0.5" opacity="0.5"/>
+                
+                {/* Main body */}
+                <rect x="24" y="20" width="16" height="24" fill="#1e293b" stroke="#475569" strokeWidth="1.5"/>
+                <rect x="26" y="22" width="12" height="8" fill="#312e81" fillOpacity="0.5"/>
+                
+                {/* Camera/lens array */}
+                <circle cx="29" cy="26" r="2" fill="#8b5cf6" fillOpacity="0.8" filter="url(#glow)"/>
+                <circle cx="35" cy="26" r="2" fill="#8b5cf6" fillOpacity="0.8" filter="url(#glow)"/>
+                <circle cx="32" cy="35" r="2.5" fill="#a78bfa" fillOpacity="0.9" filter="url(#glow)"/>
+                
+                {/* Details */}
+                <line x1="26" y1="32" x2="38" y2="32" stroke="#475569" strokeWidth="0.5"/>
+                <line x1="26" y1="40" x2="38" y2="40" stroke="#475569" strokeWidth="0.5"/>
+                
+                {/* Down arrow below telescope */}
+                <g className="animate-float-slow">
+                  <path d="M32 48v8" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" opacity="0.6"/>
+                  <path d="M29 54l3 3 3-3" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
                 </g>
               </svg>
             </div>
-            {/* Animated chevrons */}
-            <div className="mt-2 space-y-1">
-              <svg className="w-6 h-6 text-slate-500 animate-bounce-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ animationDelay: '0s' }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
+            {/* Subtle hint text */}
+            <div className="mt-3 text-slate-500 text-xs">Desliza para ver el mapa</div>
           </div>
 
           {/* Main Cards Container */}
@@ -557,6 +583,19 @@ const Home = () => {
         .animate-gradient {
           background-size: 200% 200%;
           animation: gradient 4s ease infinite;
+        }
+
+        @keyframes float-slow {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(6px);
+          }
+        }
+        
+        .animate-float-slow {
+          animation: float-slow 3s ease-in-out infinite;
         }
       `}</style>
     </div>

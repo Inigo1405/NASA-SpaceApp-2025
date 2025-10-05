@@ -8,6 +8,7 @@ import PlanetInformation from './pages/PlanetInformation';
 import Team from './pages/Team';
 import Methodology from './pages/Methodology';
 import About from './pages/About';
+import Predict from './pages/Predict';
 
 // Componente para manejar el scroll restoration
 const ScrollToTop = () => {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/planet-information/:id" element={<MainLayout><PlanetInformation /></MainLayout>} />
         <Route path="/team" element={<MainLayout><Team /></MainLayout>} />
         <Route path="/methodology" element={<MainLayout><Methodology /></MainLayout>} />
+        <Route path="/Predict" element={<MainLayout><Predict /></MainLayout>} />
         <Route path="/about" element={<MainLayout><About /></MainLayout>} />
         <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
       </Routes>
