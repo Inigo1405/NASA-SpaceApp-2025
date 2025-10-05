@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Planet } from '../types';
 
@@ -21,6 +21,30 @@ const Home = () => {
     { id: 12, name: 'KOI-2700.02', status: 'false_positive', distance: '---', type: '---', x: 32, y: 38 },
     { id: 13, name: 'KOI-3678.01', status: 'false_positive', distance: '---', type: '---', x: 78, y: 72 },
   ]);
+
+  // Generar estrellas de fondo del mapa estelar solo una vez
+  const starMapBgStars = useMemo(() => {
+    return Array.from({ length: 150 }, () => ({
+      width: Math.random() > 0.9 ? '1.5px' : '1px',
+      height: Math.random() > 0.9 ? '1.5px' : '1px',
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      opacity: Math.random() * 0.4 + 0.1,
+    }));
+  }, []);
+
+  // Generar estrellas del fondo general solo una vez
+  const mainBgStars = useMemo(() => {
+    return Array.from({ length: 80 }, () => ({
+      width: Math.random() > 0.8 ? '2px' : '1px',
+      height: Math.random() > 0.8 ? '2px' : '1px',
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      opacity: Math.random() * 0.6 + 0.2,
+      animationDelay: `${Math.random() * 3}s`,
+      animationDuration: `${Math.random() * 2 + 2}s`,
+    }));
+  }, []);
 
   const [hoveredPlanet, setHoveredPlanet] = useState<Planet | null>(null);
 
@@ -50,19 +74,11 @@ const Home = () => {
     <div className="relative min-h-screen bg-gradient-to-br from-black via-slate-950 to-slate-900 overflow-hidden">
       {/* Enhanced Stars Background */}
       <div className="absolute inset-0">
-        {[...Array(80)].map((_, i) => (
+        {mainBgStars.map((star, i) => (
           <div
             key={i}
             className="absolute bg-white rounded-full animate-pulse"
-            style={{
-              width: Math.random() > 0.8 ? '2px' : '1px',
-              height: Math.random() > 0.8 ? '2px' : '1px',
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.6 + 0.2,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 2 + 2}s`,
-            }}
+            style={star}
           />
         ))}
       </div>
@@ -97,17 +113,11 @@ const Home = () => {
 
                 {/* Background stars field */}
                 <div className="absolute inset-0">
-                  {[...Array(150)].map((_, i) => (
+                  {starMapBgStars.map((star, i) => (
                     <div
                       key={`bg-star-${i}`}
                       className="absolute bg-white rounded-full"
-                      style={{
-                        width: Math.random() > 0.9 ? '1.5px' : '1px',
-                        height: Math.random() > 0.9 ? '1.5px' : '1px',
-                        top: `${Math.random() * 100}%`,
-                        left: `${Math.random() * 100}%`,
-                        opacity: Math.random() * 0.4 + 0.1,
-                      }}
+                      style={star}
                     />
                   ))}
                 </div>

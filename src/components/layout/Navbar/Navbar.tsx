@@ -7,6 +7,7 @@ const navItems: NavItem[] = [
   { path: '/', label: 'Inicio' },
   { path: '/dashboard', label: 'Dashboard' },
   { path: '/about', label: 'Acerca de' },
+  { path: '/methodology', label: 'Metodología' },
   { path: '/team', label: 'Equipo' },
 ];
 
