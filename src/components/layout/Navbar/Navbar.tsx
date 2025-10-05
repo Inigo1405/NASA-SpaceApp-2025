@@ -28,72 +28,50 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-gradient-to-r from-black via-slate-900 to-black shadow-lg shadow-blue-500/10 sticky top-0 z-50 border-b border-blue-500/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className="backdrop-blur-lg bg-gradient-to-br from-black via-slate-950 to-slate-900 sticky top-0 z-50 border-b border-slate-800/30">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex justify-between items-center h-14">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 via-cyan-500 to-slate-400 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:shadow-cyan-500/80 transition-all group-hover:scale-110">
-              <span className="text-white font-bold text-xl">🚀</span>
-            </div>
-            <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-slate-300">
-              Space Explorer
+          <Link to="/" className="flex items-center space-x-3 group">
+            <h1 className="text-lg font-semibold text-slate-200 tracking-wide">
+              EXOD-IA
             </h1>
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex space-x-1">
+          <ul className="hidden md:flex space-x-6">
             {navItems.map((item) => (
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`text-sm font-medium transition-all duration-200 relative ${
                     location.pathname === item.path
-                      ? 'text-white bg-blue-600/50 shadow-lg shadow-blue-500/30 border border-blue-400/30'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/50 border border-transparent hover:border-blue-500/20'
+                      ? 'text-white'
+                      : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
                   {item.label}
+                  {location.pathname === item.path && (
+                    <span className="absolute -bottom-[17px] left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500/0 via-purple-500 to-purple-500/0" />
+                  )}
                 </Link>
               </li>
             ))}
           </ul>
 
           {/* User Menu - Desktop */}
-          <div className="hidden md:flex items-center space-x-4">
-            {/* Notifications */}
-            <button className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-colors relative border border-transparent hover:border-blue-500/20">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                />
-              </svg>
-              <span className="absolute top-1 right-1 w-2 h-2 bg-cyan-400 rounded-full animate-pulse shadow-lg shadow-cyan-400/50"></span>
-            </button>
-
+          <div className="hidden md:flex items-center">
             {/* User Dropdown */}
             <div className="relative" ref={userMenuRef}>
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-800/50 transition-colors border border-transparent hover:border-blue-500/20"
+                className="flex items-center space-x-2 p-1.5 rounded-lg hover:bg-slate-800/30 transition-all duration-200 group"
               >
-                <div className="w-9 h-9 bg-gradient-to-br from-blue-500 via-cyan-500 to-slate-400 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/50">
-                  <span className="text-white font-semibold text-sm">JD</span>
-                </div>
-                <div className="text-left">
-                  <p className="text-sm font-medium text-slate-200">John Doe</p>
-                  <p className="text-xs text-slate-400">Explorador</p>
+                <div className="w-7 h-7 bg-gradient-to-br from-purple-600/60 to-indigo-600/40 rounded-full flex items-center justify-center">
+                  <span className="text-white font-medium text-xs">JD</span>
                 </div>
                 <svg
-                  className={`w-4 h-4 text-slate-400 transition-transform ${
+                  className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
                     isUserMenuOpen ? 'rotate-180' : ''
                   }`}
                   fill="none"
@@ -111,14 +89,14 @@ const Navbar = () => {
 
               {/* Dropdown Menu */}
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-slate-900 rounded-lg shadow-lg shadow-blue-500/20 py-1 border border-blue-500/30 backdrop-blur-sm">
+                <div className="absolute right-0 mt-2 w-44 bg-slate-900/95 backdrop-blur-md rounded-lg shadow-xl border border-slate-800/50 py-1 overflow-hidden">
                   <Link
                     to="/profile"
-                    className="flex items-center px-4 py-2 text-sm text-slate-300 hover:bg-slate-800/50 hover:text-cyan-400 transition-colors"
+                    className="flex items-center px-4 py-2.5 text-sm text-slate-300 hover:bg-slate-800/50 hover:text-white transition-colors"
                     onClick={() => setIsUserMenuOpen(false)}
                   >
                     <svg
-                      className="w-4 h-4 mr-3"
+                      className="w-4 h-4 mr-3 text-slate-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -134,11 +112,11 @@ const Navbar = () => {
                   </Link>
                   <Link
                     to="/settings"
-                    className="flex items-center px-4 py-2 text-sm text-slate-300 hover:bg-slate-800/50 hover:text-cyan-400 transition-colors"
+                    className="flex items-center px-4 py-2.5 text-sm text-slate-300 hover:bg-slate-800/50 hover:text-white transition-colors"
                     onClick={() => setIsUserMenuOpen(false)}
                   >
                     <svg
-                      className="w-4 h-4 mr-3"
+                      className="w-4 h-4 mr-3 text-slate-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -158,8 +136,8 @@ const Navbar = () => {
                     </svg>
                     Configuración
                   </Link>
-                  <hr className="my-1 border-blue-500/20" />
-                  <button className="flex items-center w-full px-4 py-2 text-sm text-red-400 hover:bg-slate-800/50 hover:text-red-300 transition-colors">
+                  <div className="my-1 h-px bg-slate-800/50" />
+                  <button className="flex items-center w-full px-4 py-2.5 text-sm text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition-colors">
                     <svg
                       className="w-4 h-4 mr-3"
                       fill="none"
@@ -183,7 +161,7 @@ const Navbar = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/30 transition-all"
           >
             <span className="sr-only">Abrir menú</span>
             {!isMobileMenuOpen ? (
@@ -201,16 +179,16 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-black/95 backdrop-blur-sm border-t border-blue-500/20">
-          <div className="px-4 pt-2 pb-3 space-y-1">
+        <div className="md:hidden backdrop-blur-lg bg-slate-950/50 border-t border-slate-800/30">
+          <div className="px-4 pt-2 pb-4 space-y-1">
             {/* User Info Mobile */}
-            <div className="flex items-center space-x-3 px-3 py-3 bg-slate-900/50 rounded-lg mb-3 border border-blue-500/30">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 via-cyan-500 to-slate-400 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/50">
-                <span className="text-white font-semibold">JD</span>
+            <div className="flex items-center space-x-3 px-3 py-3 mb-3">
+              <div className="w-9 h-9 bg-gradient-to-br from-purple-600/60 to-indigo-600/40 rounded-full flex items-center justify-center">
+                <span className="text-white font-medium text-sm">JD</span>
               </div>
               <div>
                 <p className="text-sm font-medium text-slate-200">John Doe</p>
-                <p className="text-xs text-slate-400">john@spaceexplorer.com</p>
+                <p className="text-xs text-slate-500">john@spaceexplorer.com</p>
               </div>
             </div>
 
@@ -220,33 +198,33 @@ const Navbar = () => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${
+                className={`block px-3 py-2.5 text-sm font-medium transition-colors ${
                   location.pathname === item.path
-                    ? 'text-white bg-blue-600/50 border border-blue-400/30'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+                    ? 'text-white bg-slate-800/30 rounded-lg'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 {item.label}
               </Link>
             ))}
 
-            <hr className="my-2 border-blue-500/20" />
+            <div className="my-3 h-px bg-slate-800/50" />
 
             <Link
               to="/profile"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50"
+              className="block px-3 py-2.5 text-sm font-medium text-slate-400 hover:text-slate-200 transition-colors"
             >
               Mi Perfil
             </Link>
             <Link
               to="/settings"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50"
+              className="block px-3 py-2.5 text-sm font-medium text-slate-400 hover:text-slate-200 transition-colors"
             >
               Configuración
             </Link>
-            <button className="w-full text-left px-3 py-2 rounded-lg text-base font-medium text-red-400 hover:bg-slate-800/50 hover:text-red-300">
+            <button className="w-full text-left px-3 py-2.5 text-sm font-medium text-rose-400 hover:text-rose-300 transition-colors">
               Cerrar Sesión
             </button>
           </div>

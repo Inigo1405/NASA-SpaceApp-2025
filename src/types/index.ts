@@ -3,3 +3,13 @@ export interface NavItem {
   label: string;
   icon?: string;
 }
+
+export interface Planet {
+  name: string;
+  status: string;
+  distance: string;
+  type: string;
+  x: number;
+  y: number;
+  id: number;
+}
