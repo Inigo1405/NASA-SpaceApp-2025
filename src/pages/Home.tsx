@@ -47,6 +47,7 @@ const Home = () => {
   }, []);
 
   const [hoveredPlanet, setHoveredPlanet] = useState<Planet | null>(null);
+  const [activeTab, setActiveTab] = useState<'kepler' | 'exodia'>('exodia');
 
   const getStatusColor = (status: string) => {
     switch(status) {
@@ -219,7 +220,7 @@ const Home = () => {
               <div className="space-y-4">
                 <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-slate-300 font-semibold">Confirmados</span>
+                    <span className="text-slate-300 font-semibold">Confirmados Exoplanetas</span>
                     <span className="text-3xl font-bold text-emerald-400">
                       {exoplanets.filter(p => p.status === 'confirmed').length}
                     </span>
@@ -229,7 +230,7 @@ const Home = () => {
 
                 <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-slate-300 font-semibold">Candidatos</span>
+                    <span className="text-slate-300 font-semibold">Candidatos Planetarios</span>
                     <span className="text-3xl font-bold text-amber-400">
                       {exoplanets.filter(p => p.status === 'candidate').length}
                     </span>
@@ -264,6 +265,34 @@ const Home = () => {
               <p className="text-slate-400">Click en cualquier exoplaneta para ver sus detalles</p>
             </div>
 
+            {/* Tabs */}
+            <div className="mb-6">
+              <div className="border-b border-slate-700/30">
+                <nav className="flex space-x-8">
+                  <button
+                    onClick={() => setActiveTab('exodia')}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                      activeTab === 'exodia'
+                        ? 'border-blue-400 text-blue-400'
+                        : 'border-transparent text-slate-400 hover:text-slate-300 hover:border-slate-300'
+                    }`}
+                  >
+                    EXODIA
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('kepler')}
+                    className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                      activeTab === 'kepler'
+                        ? 'border-blue-400 text-blue-400'
+                        : 'border-transparent text-slate-400 hover:text-slate-300 hover:border-slate-300'
+                    }`}
+                  >
+                    Kepler
+                  </button>
+                </nav>
+              </div>
+            </div>
+
             {/* Table */}
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -277,35 +306,51 @@ const Home = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {exoplanets.map((planet) => {
-                    const colors = getStatusColor(planet.status);
-                    return (
-                      <tr 
-                        key={planet.id}
-                        className="border-b border-slate-800/50 hover:bg-slate-700/10 transition-colors cursor-pointer"
-                        onClick={() => handlePlanetClick(planet)}
-                      >
-                        <td className="py-4 px-4">
-                          <div className="flex items-center space-x-3">
-                            <div className={`w-2 h-2 rounded-full ${colors.bg} shadow-lg ${colors.shadow}`} />
-                            <span className="text-white font-medium">{planet.name}</span>
+                  {activeTab === 'kepler' ? (
+                    exoplanets.map((planet) => {
+                      const colors = getStatusColor(planet.status);
+                      return (
+                        <tr 
+                          key={planet.id}
+                          className="border-b border-slate-800/50 hover:bg-slate-700/10 transition-colors cursor-pointer"
+                          onClick={() => handlePlanetClick(planet)}
+                        >
+                          <td className="py-4 px-4">
+                            <div className="flex items-center space-x-3">
+                              <div className={`w-2 h-2 rounded-full ${colors.bg} shadow-lg ${colors.shadow}`} />
+                              <span className="text-white font-medium">{planet.name}</span>
+                            </div>
+                          </td>
+                          <td className="py-4 px-4">
+                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} bg-opacity-20 border ${colors.border} border-opacity-30`}>
+                              {getStatusLabel(planet.status)}
+                            </span>
+                          </td>
+                          <td className="py-4 px-4 text-slate-300">{planet.distance}</td>
+                          <td className="py-4 px-4 text-slate-300">{planet.type}</td>
+                          <td className="py-4 px-4">
+                            <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan={5} className="py-12 text-center">
+                        <div className="flex flex-col items-center space-y-3">
+                          <div className="w-16 h-16 rounded-full bg-slate-700/30 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                            </svg>
                           </div>
-                        </td>
-                        <td className="py-4 px-4">
-                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} bg-opacity-20 border ${colors.border} border-opacity-30`}>
-                            {getStatusLabel(planet.status)}
-                          </span>
-                        </td>
-                        <td className="py-4 px-4 text-slate-300">{planet.distance}</td>
-                        <td className="py-4 px-4 text-slate-300">{planet.type}</td>
-                        <td className="py-4 px-4">
-                          <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                          <div className="text-slate-400 font-medium">No hay datos EXODIA disponibles</div>
+                          <div className="text-slate-500 text-sm">Los datos de EXODIA estarán disponibles próximamente</div>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
