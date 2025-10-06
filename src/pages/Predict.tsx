@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useTranslation } from 'react-i18next';
 const Predict = () => {
      axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -62,6 +62,7 @@ const Predict = () => {
           });
           setResult(null);
      };
+     const { t } = useTranslation()
 
      return (
           <div className="relative min-h-screen bg-gradient-to-br from-black via-slate-950 to-slate-900 overflow-hidden">
