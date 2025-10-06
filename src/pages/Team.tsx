@@ -104,7 +104,8 @@ const Team = () => {
         />
       ),
       links: {
-        linkedin: 'https://linkedin.com',
+        linkedin: 'https://www.linkedin.com/in/jphajp/',
+        github: 'https://github.com/JPHAJP'
       },
     },
   ];
