@@ -251,5 +251,88 @@
       "confidence": "Confianza",
       "habitabilityIndex": "Índice de Habitabilidad"
     }
+  },
+  "methodology": {
+    "header": {
+      "title": "Metodología del Proyecto",
+      "subtitle": "Proceso de desarrollo del modelo de Machine Learning para la clasificación de exoplanetas basado en datos de la misión Kepler"
+    },
+    "performance": {
+      "title": "Métricas de Rendimiento del Modelo",
+      "accuracy": "Precisión",
+      "precision": "Precisión",
+      "f1Score": "F1-Score"
+    },
+    "process": {
+      "title": "Proceso de Desarrollo",
+      "details": "Detalles del Proceso"
+    },
+    "steps": {
+      "step1": {
+        "title": "Recolección de Datos",
+        "description": "Obtención y preparación de datos del archivo Kepler de la NASA",
+        "details": [
+          "Descarga del dataset oficial de Kepler desde NASA Exoplanet Archive",
+          "Extracción de características clave: curvas de luz, parámetros orbitales",
+          "Identificación de variables relevantes para clasificación",
+          "Limpieza inicial de datos faltantes o corruptos"
+        ]
+      },
+      "step2": {
+        "title": "Preprocesamiento",
+        "description": "Limpieza y transformación de datos para el modelo",
+        "details": [
+          "Manejo de valores faltantes mediante imputación estadística",
+          "Detección y eliminación de outliers",
+          "Balanceo de clases (confirmados, candidatos, falsos positivos)",
+          "Feature engineering: creación de características derivadas"
+        ]
+      },
+      "step3": {
+        "title": "Selección de Características",
+        "description": "Identificación de las variables más relevantes",
+        "details": [
+          "Análisis de correlación entre variables",
+          "Evaluación de importancia de características",
+          "Selección final basada en métricas de relevancia"
+        ]
+      },
+      "step4": {
+        "title": "Diseño del Modelo",
+        "description": "Arquitectura y entrenamiento del modelo de Machine Learning",
+        "details": [
+          "Evaluación de múltiples algoritmos (Random Forest, SVM)",
+          "División de datos en conjuntos de entrenamiento (70%), validación (15%) y prueba (15%)"
+        ]
+      },
+      "step5": {
+        "title": "Validación y Optimización",
+        "description": "Evaluación del rendimiento y ajuste fino del modelo",
+        "details": [
+          "Cálculo de métricas: Accuracy, Precision, F1-Score",
+          "Análisis de matriz de confusión",
+          "Curvas ROC y AUC para cada clase",
+          "Pruebas con datos no vistos"
+        ]
+      },
+      "step6": {
+        "title": "Despliegue e Integración",
+        "description": "Implementación del modelo en la aplicación web",
+        "details": [
+          "Exportación del modelo entrenado",
+          "Creación de API para inferencia en tiempo real",
+          "Integración con interfaz de usuario",
+          "Monitoreo continuo del rendimiento"
+        ]
+      }
+    },
+    "technologies": {
+      "title": "Tecnologías Utilizadas"
+    },
+    "dataSource": {
+      "title": "Fuente de Datos",
+      "description": "Este proyecto utiliza datos oficiales de la misión Kepler de la NASA, disponibles públicamente en el NASA Exoplanet Archive.",
+      "linkText": "Visitar NASA Exoplanet Archive"
+    }
   }
 }

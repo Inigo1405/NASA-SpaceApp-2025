@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface MethodologyStep {
   id: number;
@@ -10,89 +11,56 @@ interface MethodologyStep {
 }
 
 const Methodology = () => {
+  const { t } = useTranslation();
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
 
   const methodologySteps: MethodologyStep[] = [
     {
       id: 1,
-      title: 'Recolección de Datos',
-      description: 'Obtención y preparación de datos del archivo Kepler de la NASA',
+      title: t('methodology.steps.step1.title'),
+      description: t('methodology.steps.step1.description'),
       icon: '🛰️',
-      details: [
-        'Descarga del dataset oficial de Kepler desde NASA Exoplanet Archive',
-        'Extracción de características clave: curvas de luz, parámetros orbitales',
-        'Identificación de variables relevantes para clasificación',
-        'Limpieza inicial de datos faltantes o corruptos',
-      ],
+      details: t('methodology.steps.step1.details', { returnObjects: true }) as string[],
       color: 'from-cyan-500/20 to-blue-500/20',
     },
     {
       id: 2,
-      title: 'Preprocesamiento',
-      description: 'Limpieza y transformación de datos para el modelo',
+      title: t('methodology.steps.step2.title'),
+      description: t('methodology.steps.step2.description'),
       icon: '⚙️',
-      details: [
-        'Normalización de curvas de luz y características numéricas',
-        'Manejo de valores faltantes mediante imputación estadística',
-        'Detección y eliminación de outliers',
-        'Balanceo de clases (confirmados, candidatos, falsos positivos)',
-        'Feature engineering: creación de características derivadas',
-      ],
+      details: t('methodology.steps.step2.details', { returnObjects: true }) as string[],
       color: 'from-purple-500/20 to-pink-500/20',
     },
     {
       id: 3,
-      title: 'Selección de Características',
-      description: 'Identificación de las variables más relevantes',
+      title: t('methodology.steps.step3.title'),
+      description: t('methodology.steps.step3.description'),
       icon: '🎯',
-      details: [
-        'Análisis de correlación entre variables',
-        'Aplicación de técnicas de reducción de dimensionalidad (PCA)',
-        'Evaluación de importancia de características',
-        'Selección final basada en métricas de relevancia',
-      ],
+      details: t('methodology.steps.step3.details', { returnObjects: true }) as string[],
       color: 'from-emerald-500/20 to-teal-500/20',
     },
     {
       id: 4,
-      title: 'Diseño del Modelo',
-      description: 'Arquitectura y entrenamiento del modelo de Machine Learning',
+      title: t('methodology.steps.step4.title'),
+      description: t('methodology.steps.step4.description'),
       icon: '🤖',
-      details: [
-        'Evaluación de múltiples algoritmos (Random Forest, SVM, Neural Networks)',
-        'Implementación de arquitectura de red neuronal profunda',
-        'Definición de hiperparámetros mediante Grid Search',
-        'División de datos en conjuntos de entrenamiento (70%), validación (15%) y prueba (15%)',
-        'Entrenamiento con validación cruzada (k-fold)',
-      ],
+      details: t('methodology.steps.step4.details', { returnObjects: true }) as string[],
       color: 'from-amber-500/20 to-orange-500/20',
     },
     {
       id: 5,
-      title: 'Validación y Optimización',
-      description: 'Evaluación del rendimiento y ajuste fino del modelo',
+      title: t('methodology.steps.step5.title'),
+      description: t('methodology.steps.step5.description'),
       icon: '📊',
-      details: [
-        'Cálculo de métricas: Accuracy, Precision, Recall, F1-Score',
-        'Análisis de matriz de confusión',
-        'Curvas ROC y AUC para cada clase',
-        'Optimización de umbrales de decisión',
-        'Pruebas con datos no vistos',
-      ],
+      details: t('methodology.steps.step5.details', { returnObjects: true }) as string[],
       color: 'from-rose-500/20 to-red-500/20',
     },
     {
       id: 6,
-      title: 'Despliegue e Integración',
-      description: 'Implementación del modelo en la aplicación web',
+      title: t('methodology.steps.step6.title'),
+      description: t('methodology.steps.step6.description'),
       icon: '🚀',
-      details: [
-        'Exportación del modelo entrenado',
-        'Creación de API para inferencia en tiempo real',
-        'Integración con interfaz de usuario',
-        'Monitoreo continuo del rendimiento',
-        'Documentación técnica completa',
-      ],
+      details: t('methodology.steps.step6.details', { returnObjects: true }) as string[],
       color: 'from-indigo-500/20 to-violet-500/20',
     },
   ];
@@ -107,9 +75,9 @@ const Methodology = () => {
   ];
 
   const modelMetrics = [
-    { label: 'Accuracy', value: '72.17%', color: 'text-emerald-400' },
-    { label: 'Precision', value: '73.0%', color: 'text-blue-400' },
-    { label: 'F1-Score', value: '72.40%', color: 'text-amber-400' },
+    { label: t('methodology.performance.accuracy'), value: '72.17%', color: 'text-emerald-400' },
+    { label: t('methodology.performance.precision'), value: '73.0%', color: 'text-blue-400' },
+    { label: t('methodology.performance.f1Score'), value: '72.40%', color: 'text-amber-400' },
   ];
 
   const toggleStep = (id: number) => {
@@ -150,18 +118,17 @@ const Methodology = () => {
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in">
             <h1 className="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
-              Metodología del Proyecto
+              {t('methodology.header.title')}
             </h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Proceso de desarrollo del modelo de Machine Learning para la clasificación 
-              de exoplanetas basado en datos de la misión Kepler
+              {t('methodology.header.subtitle')}
             </p>
           </div>
 
           {/* Model Performance Metrics */}
           <div className="bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-lg rounded-3xl p-8 border border-slate-700/30 shadow-2xl mb-12">
             <h2 className="text-3xl font-bold text-white mb-6">
-              Métricas de Rendimiento del Modelo
+              {t('methodology.performance.title')}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {modelMetrics.map((metric, index) => (
@@ -179,7 +146,7 @@ const Methodology = () => {
           {/* Methodology Steps */}
           <div className="space-y-6">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              Proceso de Desarrollo
+              {t('methodology.process.title')}
             </h2>
             {methodologySteps.map((step) => (
               <div
@@ -211,7 +178,7 @@ const Methodology = () => {
                   <div className="px-6 pb-6 animate-fade-in">
                     <div className="bg-slate-900/50 rounded-xl p-6 border border-slate-700/30">
                       <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                        <span>📋</span> Detalles del Proceso
+                        <span>📋</span> {t('methodology.process.details')}
                       </h4>
                       <ul className="space-y-3">
                         {step.details.map((detail, idx) => (
@@ -231,7 +198,7 @@ const Methodology = () => {
           {/* Technologies Used */}
           <div className="mt-16 bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-lg rounded-3xl p-8 border border-slate-700/30 shadow-2xl">
             <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-              Tecnologías Utilizadas
+              {t('methodology.technologies.title')}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {tools.map((tech, index) => (
@@ -249,11 +216,10 @@ const Methodology = () => {
           <div className="mt-12 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 backdrop-blur-lg rounded-3xl p-8 border border-indigo-500/30 shadow-2xl">
             <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
               <span className="text-3xl">🌌</span>
-              Fuente de Datos
+              {t('methodology.dataSource.title')}
             </h2>
             <p className="text-slate-300 text-lg mb-4">
-              Este proyecto utiliza datos oficiales de la misión Kepler de la NASA, 
-              disponibles públicamente en el NASA Exoplanet Archive.
+              {t('methodology.dataSource.description')}
             </p>
             <a
               href="https://exoplanetarchive.ipac.caltech.edu/"
@@ -262,7 +228,7 @@ const Methodology = () => {
               className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg shadow-indigo-600/50"
             >
               <span>🔗</span>
-              Visitar NASA Exoplanet Archive
+              {t('methodology.dataSource.linkText')}
             </a>
           </div>
 

@@ -251,5 +251,88 @@
       "confidence": "Confidence",
       "habitabilityIndex": "Habitability Index"
     }
+  },
+  "methodology": {
+    "header": {
+      "title": "Project Methodology",
+      "subtitle": "Machine Learning model development process for exoplanet classification based on Kepler mission data"
+    },
+    "performance": {
+      "title": "Model Performance Metrics",
+      "accuracy": "Accuracy",
+      "precision": "Precision",
+      "f1Score": "F1-Score"
+    },
+    "process": {
+      "title": "Development Process",
+      "details": "Process Details"
+    },
+    "steps": {
+      "step1": {
+        "title": "Data Collection",
+        "description": "Obtaining and preparing data from NASA's Kepler archive",
+        "details": [
+          "Download of the official Kepler dataset from NASA Exoplanet Archive",
+          "Extraction of key features: light curves, orbital parameters",
+          "Identification of relevant variables for classification",
+          "Initial cleaning of missing or corrupted data"
+        ]
+      },
+      "step2": {
+        "title": "Preprocessing",
+        "description": "Data cleaning and transformation for the model",
+        "details": [
+          "Handling missing values through statistical imputation",
+          "Detection and removal of outliers",
+          "Class balancing (confirmed, candidates, false positives)",
+          "Feature engineering: creation of derived characteristics"
+        ]
+      },
+      "step3": {
+        "title": "Feature Selection",
+        "description": "Identification of the most relevant variables",
+        "details": [
+          "Correlation analysis between variables",
+          "Evaluation of feature importance",
+          "Final selection based on relevance metrics"
+        ]
+      },
+      "step4": {
+        "title": "Model Design",
+        "description": "Architecture and training of the Machine Learning model",
+        "details": [
+          "Evaluation of multiple algorithms (Random Forest, SVM)",
+          "Data split into training (70%), validation (15%) and test (15%) sets"
+        ]
+      },
+      "step5": {
+        "title": "Validation and Optimization",
+        "description": "Performance evaluation and model fine-tuning",
+        "details": [
+          "Calculation of metrics: Accuracy, Precision, F1-Score",
+          "Confusion matrix analysis",
+          "ROC curves and AUC for each class",
+          "Testing with unseen data"
+        ]
+      },
+      "step6": {
+        "title": "Deployment and Integration",
+        "description": "Model implementation in the web application",
+        "details": [
+          "Export of the trained model",
+          "Creation of API for real-time inference",
+          "Integration with user interface",
+          "Continuous performance monitoring"
+        ]
+      }
+    },
+    "technologies": {
+      "title": "Technologies Used"
+    },
+    "dataSource": {
+      "title": "Data Source",
+      "description": "This project uses official data from NASA's Kepler mission, publicly available in the NASA Exoplanet Archive.",
+      "linkText": "Visit NASA Exoplanet Archive"
+    }
   }
 }
