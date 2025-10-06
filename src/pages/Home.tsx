@@ -107,7 +107,7 @@ const Home = () => {
   }, []);
 
   const [hoveredPlanet, setHoveredPlanet] = useState<Planet | null>(null);
-  const [activeTab, setActiveTab] = useState<'kepler' | 'exodia' | 'k2' | 'tess'>('exodia');
+  const [activeTab, setActiveTab] = useState<'kepler' | 'k2' | 'tess'>('kepler');
   
   // Paginación
   const [currentPageKepler, setCurrentPageKepler] = useState(1);
@@ -141,7 +141,7 @@ const Home = () => {
   };
 
   const handlePlanetClick = (planet: Planet) => {
-    navigate('/planet-information', { state: { planet } });
+    navigate(`/planet-information/kepler/${planet.name}`, { state: { planet } });
   };
 
   const getK2Status = (_disposition: string) => {
@@ -664,16 +664,7 @@ const Home = () => {
             <div className="mb-6">
               <div className="border-b border-slate-700/30">
                 <nav className="flex space-x-8">
-                  <button
-                    onClick={() => setActiveTab('exodia')}
-                    className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                      activeTab === 'exodia'
-                        ? 'border-blue-400 text-blue-400'
-                        : 'border-transparent text-slate-400 hover:text-slate-300 hover:border-slate-300'
-                    }`}
-                  >
-                    EXODIA
-                  </button>
+                  {/* EXODIA tab eliminado */}
                   <button
                     onClick={() => setActiveTab('kepler')}
                     className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
@@ -742,14 +733,7 @@ const Home = () => {
                         <th className="text-left text-slate-400 font-semibold py-4 px-4"></th>
                       </>
                     )}
-                    {activeTab === 'exodia' && (
-                      <>
-                        <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.name')}</th>
-                        <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.status')}</th>
-                        <th className="text-left text-slate-400 font-semibold py-4 px-4">Info</th>
-                        <th className="text-left text-slate-400 font-semibold py-4 px-4"></th>
-                      </>
-                    )}
+                    {/* EXODIA columnas eliminadas */}
                   </tr>
                 </thead>
                 <tbody>
@@ -868,7 +852,7 @@ const Home = () => {
                           <tr
                             key={`tess-${index}`}
                             className="border-b border-slate-800/50 hover:bg-slate-700/20 transition-colors cursor-pointer"
-                            onClick={() => navigate(`/planet-information/tess/${encodeURIComponent(planet.name)}`)}
+                            onClick={() => navigate(`/planet-information/tess/${encodeURIComponent(planet.toi)}`)}
                           >
                             <td className="py-4 px-4">
                               <div className="flex items-center space-x-3">
@@ -916,8 +900,7 @@ const Home = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                             </svg>
                           </div>
-                          <div className="text-slate-400 font-medium">{t('home.exoplanetsList.noData.exodia')}</div>
-                          <div className="text-slate-500 text-sm">{t('home.exoplanetsList.noData.exodiaDesc')}</div>
+                          {/* Mensaje EXODIA eliminado */}
                         </div>
                       </td>
                     </tr>
