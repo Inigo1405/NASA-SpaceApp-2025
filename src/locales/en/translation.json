@@ -163,20 +163,20 @@
       "member2": {
         "name": "Iñigo Quintana Delgadillo",
         "role": "Developer",
-        "specialty": "Astrophysics & Data Science",
-        "bio": "Specialist in astronomical data analysis with 10 years of experience in exoplanet research."
+        "specialty": "Data Science & Frontend",
+        "bio": "Specialist in data analysis and web development."
       },
       "member3": {
         "name": "Eng. Daniel Martínez Maimone",
         "role": "Data Scientist",
-        "specialty": "Astrophysics & Machine Learning",
-        "bio": "Expert in artificial intelligence models for classification and prediction of astronomical phenomena."
+        "specialty": "Machine Learning",
+        "bio": "Expert in artificial intelligence models for classification and prediction."
       },
       "member4": {
         "name": "Eng. Ismael Ricardo López Delgado",
-        "role": "Astronomy Specialist",
-        "specialty": "Spectroscopic Analysis",
-        "bio": "Astronomer with experience in characterization of planetary atmospheres and search for biosignatures."
+        "role": "Data Analyst",
+        "specialty": "Mechanical Engineer",
+        "bio": "Astronomer with experience as a content creator."
       },
       "member5": {
         "name": "José Pablo Alonso Hernández",

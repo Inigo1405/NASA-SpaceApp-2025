@@ -163,14 +163,14 @@
       "member2": {
         "name": "Iñigo Quintana Delgadillo",
         "role": "Desarrollador",
-        "specialty": "Astrofísica & Ciencias de Datos",
-        "bio": "Especialista en análisis de datos astronómicos con 10 años de experiencia en investigación de exoplanetas."
+        "specialty": "Ciencias de Datos y Frontend",
+        "bio": "Especialista en análisis de datos y desarrollador web."
       },
       "member3": {
         "name": "Ing. Daniel Martínez Maimone",
         "role": "Científico de Datos",
-        "specialty": "Astrofísica & Machine Learning",
-        "bio": "Experto en modelos de inteligencia artificial para clasificación y predicción de fenómenos astronómicos."
+        "specialty": "Machine Learning",
+        "bio": "Experto en modelos de inteligencia artificial para clasificación y predicción."
       },
       "member4": {
         "name": "Ing. Ismael Ricardo López Delgado",
