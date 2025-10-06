@@ -1,28 +1,86 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { Planet } from '../types';
+import axios from 'axios';
 
 const Home = () => {
+  axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const { t } = useTranslation();
-  
-  // Datos de ejemplo de exoplanetas con coordenadas celestes más realistas
-  const [exoplanets] = useState<Planet[]>([
-    { id: 1, name: 'Kepler-452b', status: 'confirmed', distance: '1,400', type: 'Super-Tierra', x: 35, y: 42 },
-    { id: 2, name: 'TRAPPIST-1e', status: 'confirmed', distance: '39', type: 'Terrestre', x: 55, y: 65 },
-    { id: 3, name: 'Proxima Centauri b', status: 'confirmed', distance: '4.2', type: 'Terrestre', x: 12, y: 70 },
-    { id: 4, name: 'TOI-700 d', status: 'confirmed', distance: '101', type: 'Terrestre', x: 88, y: 35 },
-    { id: 5, name: 'K2-18b', status: 'confirmed', distance: '124', type: 'Mini-Neptuno', x: 42, y: 48 },
-    { id: 6, name: 'LHS 1140 b', status: 'confirmed', distance: '40', type: 'Super-Tierra', x: 62, y: 58 },
-    { id: 7, name: 'KOI-4878.01', status: 'candidate', distance: '1,075', type: 'Desconocido', x: 22, y: 82 },
-    { id: 8, name: 'KOI-5715.01', status: 'candidate', distance: '2,300', type: 'Desconocido', x: 92, y: 28 },
-    { id: 9, name: 'KOI-3284.01', status: 'candidate', distance: '1,650', type: 'Desconocido', x: 48, y: 18 },
-    { id: 10, name: 'KOI-2124.01', status: 'candidate', distance: '890', type: 'Desconocido', x: 38, y: 88 },
-    { id: 11, name: 'KOI-1843.03', status: 'false_positive', distance: '---', type: '---', x: 68, y: 52 },
-    { id: 12, name: 'KOI-2700.02', status: 'false_positive', distance: '---', type: '---', x: 32, y: 38 },
-    { id: 13, name: 'KOI-3678.01', status: 'false_positive', distance: '---', type: '---', x: 78, y: 72 },
-  ]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [exoplanetsKepler, setExoplanetsKepler] = useState<any[]>([]);
+  const [exoplanetsK2, setExoplanetsK2] = useState<any[]>([]);
+  const [exoplanetsTess, setExoplanetsTess] = useState<any[]>([]);
+  const [starMapPlanets, setStarMapPlanets] = useState<Planet[]>([]);
+
+  // Función para seleccionar elementos aleatorios de un array
+  const getRandomElements = (arr: any[], count: number) => {
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, Math.min(count, arr.length));
+  };
+
+  // Helper functions para formatear datos de cada misión
+  const getKeplerStatus = (disposition: string) => {
+    if (disposition === 'CONFIRMED') return 'confirmed';
+    if (disposition === 'CANDIDATE') return 'candidate';
+    if (disposition === 'FALSE POSITIVE') return 'false_positive';
+    return 'unknown';
+  };
+
+  const formatKeplerData = (data: any) => ({
+    name: data.kepler_name || data.kepoi_name || 'Unknown',
+    status: getKeplerStatus(data.koi_disposition),
+    kepid: data.kepid,
+    disposition: data.koi_disposition,
+    pdisposition: data.koi_pdisposition
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const responseKepler = await axios.get('/kepler?limit=1000');
+        const responseK2 = await axios.get('/k2?limit=1000');
+        const responseTess = await axios.get('/tess?limit=1000');
+
+        console.log('Kepler response:', responseKepler.data);
+        console.log('K2 response:', responseK2.data);
+        console.log('TESS response:', responseTess.data);
+        
+        // Los datos vienen paginados, accedemos al array 'data'
+        const keplerData = responseKepler.data.data || [];
+        setExoplanetsKepler(keplerData);
+        setExoplanetsK2(responseK2.data.data || []);
+        setExoplanetsTess(responseTess.data.data || []);
+
+        // Seleccionar 15 exoplanetas aleatorios de Kepler para el mapa estelar
+        if (keplerData.length > 0) {
+          const randomKepler = getRandomElements(keplerData, 15);
+          const mappedPlanets: Planet[] = randomKepler.map((data, index) => {
+            const formatted = formatKeplerData(data);
+            return {
+              id: index + 1,
+              name: formatted.name,
+              status: formatted.status,
+              distance: '---', // Kepler no tiene distancia en este dataset
+              type: 'Kepler',
+              x: Math.random() * 90 + 5, // Coordenadas aleatorias entre 5% y 95%
+              y: Math.random() * 90 + 5
+            };
+          });
+          setStarMapPlanets(mappedPlanets);
+        }
+
+      } catch (error) {
+        console.error('Error al obtener exoplanetas:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   // Generar estrellas de fondo del mapa estelar solo una vez
   const starMapBgStars = useMemo(() => {
@@ -50,6 +108,19 @@ const Home = () => {
 
   const [hoveredPlanet, setHoveredPlanet] = useState<Planet | null>(null);
   const [activeTab, setActiveTab] = useState<'kepler' | 'exodia' | 'k2' | 'tess'>('exodia');
+  
+  // Paginación
+  const [currentPageKepler, setCurrentPageKepler] = useState(1);
+  const [currentPageK2, setCurrentPageK2] = useState(1);
+  const [currentPageTess, setCurrentPageTess] = useState(1);
+  const itemsPerPage = 25;
+
+  // Reset página cuando cambia el tab activo
+  useEffect(() => {
+    setCurrentPageKepler(1);
+    setCurrentPageK2(1);
+    setCurrentPageTess(1);
+  }, [activeTab]);
 
   const getStatusColor = (status: string) => {
     switch(status) {
@@ -69,20 +140,64 @@ const Home = () => {
     }
   };
 
-  const getPlanetTypeLabel = (type: string) => {
-    switch(type) {
-      case 'Super-Tierra': return t('home.planetTypes.superEarth');
-      case 'Terrestre': return t('home.planetTypes.terrestrial');
-      case 'Mini-Neptuno': return t('home.planetTypes.miniNeptune');
-      case 'Desconocido': return t('home.planetTypes.unknown');
-      case '---': return '---';
-      default: return type;
-    }
-  };
-
   const handlePlanetClick = (planet: Planet) => {
     navigate('/planet-information', { state: { planet } });
   };
+
+  const getK2Status = (_disposition: string) => {
+    // K2 no tiene campo de disposición claro en el ejemplo, asumiremos confirmados
+    return 'confirmed';
+  };
+
+  const getTessStatus = (disposition: string) => {
+    if (disposition === 'PC') return 'confirmed'; // Planet Candidate confirmado
+    if (disposition === 'FP') return 'false_positive'; // False Positive
+    if (disposition === 'CP') return 'confirmed'; // Confirmed Planet
+    return 'candidate';
+  };
+
+  const formatK2Data = (data: any) => ({
+    name: data.pl_name || 'Unknown',
+    hostname: data.hostname,
+    epicHostname: data.epic_hostname,
+    ticId: data.tic_id,
+    status: getK2Status('')
+  });
+
+  const formatTessData = (data: any) => ({
+    name: `TOI ${data.toi}`,
+    toi: data.toi,
+    tid: data.tid,
+    status: getTessStatus(data.tfopwg_disp),
+    disposition: data.tfopwg_disp,
+    planetNum: data.pl_pnum
+  });
+
+  // Funciones de paginación
+  const getPaginatedData = (data: any[], currentPage: number) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return data.slice(startIndex, endIndex);
+  };
+
+  const getTotalPages = (dataLength: number) => {
+    return Math.ceil(dataLength / itemsPerPage);
+  };
+
+  const handlePageChange = (page: number, mission: 'kepler' | 'k2' | 'tess') => {
+    if (mission === 'kepler') setCurrentPageKepler(page);
+    if (mission === 'k2') setCurrentPageK2(page);
+    if (mission === 'tess') setCurrentPageTess(page);
+  };
+
+  // Datos paginados
+  const paginatedKepler = getPaginatedData(exoplanetsKepler, currentPageKepler);
+  const paginatedK2 = getPaginatedData(exoplanetsK2, currentPageK2);
+  const paginatedTess = getPaginatedData(exoplanetsTess, currentPageTess);
+
+  const totalPagesKepler = getTotalPages(exoplanetsKepler.length);
+  const totalPagesK2 = getTotalPages(exoplanetsK2.length);
+  const totalPagesTess = getTotalPages(exoplanetsTess.length);
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-black via-slate-950 to-slate-900 overflow-hidden">
@@ -372,6 +487,24 @@ const Home = () => {
 
                 {/* Star Map */}
               <div className="relative bg-gradient-to-br from-black via-slate-950 to-slate-900 rounded-2xl border border-slate-700/30 overflow-hidden shadow-inner" style={{ height: '500px' }}>
+                {/* Loader */}
+                {isLoading && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm z-50">
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="relative">
+                        <div className="w-16 h-16 border-4 border-slate-700 border-t-purple-500 rounded-full animate-spin"></div>
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                          <svg className="w-6 h-6 text-purple-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fillRule="evenodd" clipRule="evenodd"></path>
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="text-slate-300 font-medium">{t('home.loading.starMap')}</div>
+                      <div className="text-slate-500 text-sm">{t('home.loading.pleaseWait')}</div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Nebula-like background effects */}
                 <div className="absolute inset-0">
                   <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-purple-600/8 rounded-full blur-3xl" />
@@ -392,9 +525,9 @@ const Home = () => {
 
                 {/* Subtle constellation lines */}
                 <svg className="absolute inset-0 w-full h-full opacity-20">
-                  {exoplanets.map((planet, i) => {
-                    if (i < exoplanets.length - 1 && Math.random() > 0.6) {
-                      const nextPlanet = exoplanets[i + 1];
+                  {starMapPlanets.map((planet, i) => {
+                    if (i < starMapPlanets.length - 1 && Math.random() > 0.6) {
+                      const nextPlanet = starMapPlanets[i + 1];
                       return (
                         <line
                           key={`line-${i}`}
@@ -423,7 +556,7 @@ const Home = () => {
                 </div>
 
                 {/* Exoplanets on map */}
-                {exoplanets.map((planet) => {
+                {starMapPlanets.map((planet) => {
                   const colors = getStatusColor(planet.status);
                   const isHovered = hoveredPlanet?.id === planet.id;
                   
@@ -488,7 +621,7 @@ const Home = () => {
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-emerald-400 mb-1">
-                    {exoplanets.filter(p => p.status === 'confirmed').length}
+                    {exoplanetsKepler.filter(p => getKeplerStatus(p.koi_disposition) === 'confirmed').length}
                   </div>
                   <div className="text-slate-300 text-sm font-medium">{t('home.statistics.confirmedExoplanets')}</div>
                   <div className="text-slate-500 text-xs">{t('home.statistics.verified')}</div>
@@ -496,7 +629,7 @@ const Home = () => {
 
                 <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-amber-400 mb-1">
-                    {exoplanets.filter(p => p.status === 'candidate').length}
+                    {exoplanetsKepler.filter(p => getKeplerStatus(p.koi_disposition) === 'candidate').length}
                   </div>
                   <div className="text-slate-300 text-sm font-medium">{t('home.statistics.candidatePlanets')}</div>
                   <div className="text-slate-500 text-xs">{t('home.statistics.inAnalysis')}</div>
@@ -504,7 +637,7 @@ const Home = () => {
 
                 <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-rose-400 mb-1">
-                    {exoplanets.filter(p => p.status === 'false_positive').length}
+                    {exoplanetsKepler.filter(p => getKeplerStatus(p.koi_disposition) === 'false_positive').length}
                   </div>
                   <div className="text-slate-300 text-sm font-medium">{t('home.statistics.falsePositive')}</div>
                   <div className="text-slate-500 text-xs">{t('home.statistics.discarded')}</div>
@@ -512,7 +645,7 @@ const Home = () => {
 
                 <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-blue-400 mb-1">
-                    {exoplanets.length}
+                    {exoplanetsKepler.length}
                   </div>
                   <div className="text-slate-300 text-sm font-medium">{t('home.statistics.totalAnalyzed')}</div>
                   <div className="text-slate-500 text-xs">{t('home.statistics.processed')}</div>
@@ -580,47 +713,203 @@ const Home = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-slate-700/30">
-                    <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.name')}</th>
-                    <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.status')}</th>
-                    <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.distance')}</th>
-                    <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.type')}</th>
-                    <th className="text-left text-slate-400 font-semibold py-4 px-4"></th>
+                    {activeTab === 'kepler' && (
+                      <>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.name')}</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.status')}</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">KEPID</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">Disposition</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">P-Disposition</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4"></th>
+                      </>
+                    )}
+                    {activeTab === 'k2' && (
+                      <>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.name')}</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">Hostname</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">EPIC</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">TIC ID</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4"></th>
+                      </>
+                    )}
+                    {activeTab === 'tess' && (
+                      <>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.name')}</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.status')}</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">TOI</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">TID</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">Disposition</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4"></th>
+                      </>
+                    )}
+                    {activeTab === 'exodia' && (
+                      <>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.name')}</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">{t('home.exoplanetsList.table.status')}</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4">Info</th>
+                        <th className="text-left text-slate-400 font-semibold py-4 px-4"></th>
+                      </>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
-                  {activeTab === 'kepler' ? (
-                    exoplanets.map((planet) => {
-                      const colors = getStatusColor(planet.status);
-                      return (
-                        <tr 
-                          key={planet.id}
-                          className="border-b border-slate-800/50 hover:bg-slate-700/10 transition-colors cursor-pointer"
-                          onClick={() => handlePlanetClick(planet)}
-                        >
-                          <td className="py-4 px-4">
-                            <div className="flex items-center space-x-3">
-                              <div className={`w-2 h-2 rounded-full ${colors.bg} shadow-lg ${colors.shadow}`} />
-                              <span className="text-white font-medium">{planet.name}</span>
-                            </div>
-                          </td>
-                          <td className="py-4 px-4">
-                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} bg-opacity-20 border ${colors.border} border-opacity-30`}>
-                              {getStatusLabel(planet.status)}
-                            </span>
-                          </td>
-                          <td className="py-4 px-4 text-slate-300">{planet.distance}</td>
-                          <td className="py-4 px-4 text-slate-300">{getPlanetTypeLabel(planet.type)}</td>
-                          <td className="py-4 px-4">
-                            <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  ) : activeTab === 'exodia' ? (
+                  {isLoading ? (
                     <tr>
-                      <td colSpan={5} className="py-12 text-center">
+                      <td colSpan={6} className="py-12 text-center">
+                        <div className="flex flex-col items-center space-y-4">
+                          <div className="relative">
+                            <div className="w-16 h-16 border-4 border-slate-700 border-t-indigo-500 rounded-full animate-spin"></div>
+                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                              <svg className="w-6 h-6 text-indigo-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                          </div>
+                          <div className="text-slate-300 font-medium">{t('home.loading.exoplanets')}</div>
+                          <div className="text-slate-500 text-sm">{t('home.loading.pleaseWait')}</div>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : activeTab === 'kepler' ? (
+                    exoplanetsKepler.length > 0 ? (
+                      paginatedKepler.map((data, index) => {
+                        const planet = formatKeplerData(data);
+                        const colors = getStatusColor(planet.status);
+                        return (
+                          <tr
+                            key={`kepler-${index}`}
+                            className="border-b border-slate-800/50 hover:bg-slate-700/20 transition-colors cursor-pointer"
+                            onClick={() => navigate(`/planet-information/kepler/${encodeURIComponent(planet.name)}`)}
+                          >
+                            <td className="py-4 px-4">
+                              <div className="flex items-center space-x-3">
+                                <div className={`w-2 h-2 rounded-full ${colors.bg} shadow-lg ${colors.shadow}`} />
+                                <span className="text-white font-medium">{planet.name}</span>
+                              </div>
+                            </td>
+                            <td className="py-4 px-4">
+                              <span className={`px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} bg-opacity-20 border ${colors.border} border-opacity-30`}>
+                                {getStatusLabel(planet.status)}
+                              </span>
+                            </td>
+                            <td className="py-4 px-4 text-slate-300">{planet.kepid}</td>
+                            <td className="py-4 px-4 text-slate-300 text-sm">{planet.disposition}</td>
+                            <td className="py-4 px-4 text-slate-300 text-sm">{planet.pdisposition}</td>
+                            <td className="py-4 px-4">
+                              <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td colSpan={6} className="py-12 text-center">
+                          <div className="flex flex-col items-center space-y-3">
+                            <div className="w-16 h-16 rounded-full bg-slate-700/30 flex items-center justify-center">
+                              <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                              </svg>
+                            </div>
+                            <div className="text-slate-400 font-medium">{t('home.exoplanetsList.noData.kepler')}</div>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  ) : activeTab === 'k2' ? (
+                    exoplanetsK2.length > 0 ? (
+                      paginatedK2.map((data, index) => {
+                        const planet = formatK2Data(data);
+                        return (
+                          <tr
+                            key={`k2-${index}`}
+                            className="border-b border-slate-800/50 hover:bg-slate-700/20 transition-colors cursor-pointer"
+                            onClick={() => navigate(`/planet-information/k2/${encodeURIComponent(planet.name)}`)}
+                          >
+                            <td className="py-4 px-4">
+                              <div className="flex items-center space-x-3">
+                                <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50" />
+                                <span className="text-white font-medium">{planet.name}</span>
+                              </div>
+                            </td>
+                            <td className="py-4 px-4 text-slate-300">{planet.hostname}</td>
+                            <td className="py-4 px-4 text-slate-300 text-sm">{planet.epicHostname}</td>
+                            <td className="py-4 px-4 text-slate-300 text-sm">{planet.ticId}</td>
+                            <td className="py-4 px-4">
+                              <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td colSpan={5} className="py-12 text-center">
+                          <div className="flex flex-col items-center space-y-3">
+                            <div className="w-16 h-16 rounded-full bg-slate-700/30 flex items-center justify-center">
+                              <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                              </svg>
+                            </div>
+                            <div className="text-slate-400 font-medium">{t('home.exoplanetsList.noData.k2')}</div>
+                            <div className="text-slate-500 text-sm">{t('home.exoplanetsList.noData.k2Desc')}</div>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  ) : activeTab === 'tess' ? (
+                    exoplanetsTess.length > 0 ? (
+                      paginatedTess.map((data, index) => {
+                        const planet = formatTessData(data);
+                        const colors = getStatusColor(planet.status);
+                        return (
+                          <tr
+                            key={`tess-${index}`}
+                            className="border-b border-slate-800/50 hover:bg-slate-700/20 transition-colors cursor-pointer"
+                            onClick={() => navigate(`/planet-information/tess/${encodeURIComponent(planet.name)}`)}
+                          >
+                            <td className="py-4 px-4">
+                              <div className="flex items-center space-x-3">
+                                <div className={`w-2 h-2 rounded-full ${colors.bg} shadow-lg ${colors.shadow}`} />
+                                <span className="text-white font-medium">{planet.name}</span>
+                              </div>
+                            </td>
+                            <td className="py-4 px-4">
+                              <span className={`px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} bg-opacity-20 border ${colors.border} border-opacity-30`}>
+                                {getStatusLabel(planet.status)}
+                              </span>
+                            </td>
+                            <td className="py-4 px-4 text-slate-300">{planet.toi}</td>
+                            <td className="py-4 px-4 text-slate-300">{planet.tid}</td>
+                            <td className="py-4 px-4 text-slate-300 text-sm">{planet.disposition}</td>
+                            <td className="py-4 px-4">
+                              <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td colSpan={6} className="py-12 text-center">
+                          <div className="flex flex-col items-center space-y-3">
+                            <div className="w-16 h-16 rounded-full bg-slate-700/30 flex items-center justify-center">
+                              <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                              </svg>
+                            </div>
+                            <div className="text-slate-400 font-medium">{t('home.exoplanetsList.noData.tess')}</div>
+                            <div className="text-slate-500 text-sm">{t('home.exoplanetsList.noData.tessDesc')}</div>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  ) : (
+                    <tr>
+                      <td colSpan={4} className="py-12 text-center">
                         <div className="flex flex-col items-center space-y-3">
                           <div className="w-16 h-16 rounded-full bg-slate-700/30 flex items-center justify-center">
                             <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -632,38 +921,213 @@ const Home = () => {
                         </div>
                       </td>
                     </tr>
-                  ) : activeTab === 'k2' ? (
-                    <tr>
-                      <td colSpan={5} className="py-12 text-center">
-                        <div className="flex flex-col items-center space-y-3">
-                          <div className="w-16 h-16 rounded-full bg-slate-700/30 flex items-center justify-center">
-                            <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                            </svg>
-                          </div>
-                          <div className="text-slate-400 font-medium">{t('home.exoplanetsList.noData.k2')}</div>
-                          <div className="text-slate-500 text-sm">{t('home.exoplanetsList.noData.k2Desc')}</div>
-                        </div>
-                      </td>
-                    </tr>
-                  ) : (
-                    <tr>
-                      <td colSpan={5} className="py-12 text-center">
-                        <div className="flex flex-col items-center space-y-3">
-                          <div className="w-16 h-16 rounded-full bg-slate-700/30 flex items-center justify-center">
-                            <svg className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                            </svg>
-                          </div>
-                          <div className="text-slate-400 font-medium">{t('home.exoplanetsList.noData.tess')}</div>
-                          <div className="text-slate-500 text-sm">{t('home.exoplanetsList.noData.tessDesc')}</div>
-                        </div>
-                      </td>
-                    </tr>
                   )}
                 </tbody>
               </table>
             </div>
+
+            {/* Paginación */}
+            {!isLoading && (
+              <>
+                {activeTab === 'kepler' && exoplanetsKepler.length > 0 && totalPagesKepler > 1 && (
+                  <div className="mt-6 flex items-center justify-between border-t border-slate-700/30 pt-6">
+                    <div className="text-sm text-slate-400">
+                      Mostrando {((currentPageKepler - 1) * itemsPerPage) + 1} - {Math.min(currentPageKepler * itemsPerPage, exoplanetsKepler.length)} de {exoplanetsKepler.length} exoplanetas
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handlePageChange(currentPageKepler - 1, 'kepler')}
+                        disabled={currentPageKepler === 1}
+                        className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                          currentPageKepler === 1
+                            ? 'bg-slate-800/50 text-slate-600 cursor-not-allowed'
+                            : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                        }`}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                      </button>
+                      
+                      <div className="flex space-x-1">
+                        {Array.from({ length: Math.min(5, totalPagesKepler) }, (_, i) => {
+                          let pageNumber;
+                          if (totalPagesKepler <= 5) {
+                            pageNumber = i + 1;
+                          } else if (currentPageKepler <= 3) {
+                            pageNumber = i + 1;
+                          } else if (currentPageKepler >= totalPagesKepler - 2) {
+                            pageNumber = totalPagesKepler - 4 + i;
+                          } else {
+                            pageNumber = currentPageKepler - 2 + i;
+                          }
+                          
+                          return (
+                            <button
+                              key={pageNumber}
+                              onClick={() => handlePageChange(pageNumber, 'kepler')}
+                              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                                currentPageKepler === pageNumber
+                                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30'
+                                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                              }`}
+                            >
+                              {pageNumber}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <button
+                        onClick={() => handlePageChange(currentPageKepler + 1, 'kepler')}
+                        disabled={currentPageKepler === totalPagesKepler}
+                        className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                          currentPageKepler === totalPagesKepler
+                            ? 'bg-slate-800/50 text-slate-600 cursor-not-allowed'
+                            : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                        }`}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'k2' && exoplanetsK2.length > 0 && totalPagesK2 > 1 && (
+                  <div className="mt-6 flex items-center justify-between border-t border-slate-700/30 pt-6">
+                    <div className="text-sm text-slate-400">
+                      Mostrando {((currentPageK2 - 1) * itemsPerPage) + 1} - {Math.min(currentPageK2 * itemsPerPage, exoplanetsK2.length)} de {exoplanetsK2.length} exoplanetas
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handlePageChange(currentPageK2 - 1, 'k2')}
+                        disabled={currentPageK2 === 1}
+                        className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                          currentPageK2 === 1
+                            ? 'bg-slate-800/50 text-slate-600 cursor-not-allowed'
+                            : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                        }`}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                      </button>
+                      
+                      <div className="flex space-x-1">
+                        {Array.from({ length: Math.min(5, totalPagesK2) }, (_, i) => {
+                          let pageNumber;
+                          if (totalPagesK2 <= 5) {
+                            pageNumber = i + 1;
+                          } else if (currentPageK2 <= 3) {
+                            pageNumber = i + 1;
+                          } else if (currentPageK2 >= totalPagesK2 - 2) {
+                            pageNumber = totalPagesK2 - 4 + i;
+                          } else {
+                            pageNumber = currentPageK2 - 2 + i;
+                          }
+                          
+                          return (
+                            <button
+                              key={pageNumber}
+                              onClick={() => handlePageChange(pageNumber, 'k2')}
+                              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                                currentPageK2 === pageNumber
+                                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30'
+                                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                              }`}
+                            >
+                              {pageNumber}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <button
+                        onClick={() => handlePageChange(currentPageK2 + 1, 'k2')}
+                        disabled={currentPageK2 === totalPagesK2}
+                        className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                          currentPageK2 === totalPagesK2
+                            ? 'bg-slate-800/50 text-slate-600 cursor-not-allowed'
+                            : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                        }`}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'tess' && exoplanetsTess.length > 0 && totalPagesTess > 1 && (
+                  <div className="mt-6 flex items-center justify-between border-t border-slate-700/30 pt-6">
+                    <div className="text-sm text-slate-400">
+                      Mostrando {((currentPageTess - 1) * itemsPerPage) + 1} - {Math.min(currentPageTess * itemsPerPage, exoplanetsTess.length)} de {exoplanetsTess.length} exoplanetas
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handlePageChange(currentPageTess - 1, 'tess')}
+                        disabled={currentPageTess === 1}
+                        className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                          currentPageTess === 1
+                            ? 'bg-slate-800/50 text-slate-600 cursor-not-allowed'
+                            : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                        }`}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                      </button>
+                      
+                      <div className="flex space-x-1">
+                        {Array.from({ length: Math.min(5, totalPagesTess) }, (_, i) => {
+                          let pageNumber;
+                          if (totalPagesTess <= 5) {
+                            pageNumber = i + 1;
+                          } else if (currentPageTess <= 3) {
+                            pageNumber = i + 1;
+                          } else if (currentPageTess >= totalPagesTess - 2) {
+                            pageNumber = totalPagesTess - 4 + i;
+                          } else {
+                            pageNumber = currentPageTess - 2 + i;
+                          }
+                          
+                          return (
+                            <button
+                              key={pageNumber}
+                              onClick={() => handlePageChange(pageNumber, 'tess')}
+                              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                                currentPageTess === pageNumber
+                                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30'
+                                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                              }`}
+                            >
+                              {pageNumber}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <button
+                        onClick={() => handlePageChange(currentPageTess + 1, 'tess')}
+                        disabled={currentPageTess === totalPagesTess}
+                        className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                          currentPageTess === totalPagesTess
+                            ? 'bg-slate-800/50 text-slate-600 cursor-not-allowed'
+                            : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                        }`}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </section>

@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const Predict = () => {
+     axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+
      const [formData, setFormData] = useState({
           planetName: '',
           orbitalPeriod: '',
@@ -199,7 +202,7 @@ const Predict = () => {
                                              {/* koi_prad - Planetary Radius (Earth radii) */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Radio Planetario (× Tierra)
+                                                       Radio Planetario (⊕ Tierra)
                                                   </label>
                                                   <input
                                                        type="number"
