@@ -87,8 +87,7 @@ const Team = () => {
         />
       ),
       links: {
-        linkedin: 'https://linkedin.com',
-        email: 'laura@example.com',
+        linkedin: 'https://www.linkedin.com/in/ismael-ricardo-l%C3%B3pez-delgado-692773357/'
       },
     },
     {

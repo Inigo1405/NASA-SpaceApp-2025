@@ -14,7 +14,8 @@ const Home = () => {
   const [exoplanetsK2, setExoplanetsK2] = useState<any[]>([]);
   const [exoplanetsTess, setExoplanetsTess] = useState<any[]>([]);
   const [starMapPlanets, setStarMapPlanets] = useState<Planet[]>([]);
-
+  const [summaryData, setSummaryData] = useState<any>(null);
+  
   // Función para seleccionar elementos aleatorios de un array
   const getRandomElements = (arr: any[], count: number) => {
     const shuffled = [...arr].sort(() => 0.5 - Math.random());
@@ -41,13 +42,12 @@ const Home = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const responseKepler = await axios.get('/kepler?limit=1000');
-        const responseK2 = await axios.get('/k2?limit=1000');
-        const responseTess = await axios.get('/tess?limit=1000');
+        const responseKepler = await axios.get('/kepler?limit=500');
+        const responseK2 = await axios.get('/k2?limit=500');
+        const responseTess = await axios.get('/tess?limit=500');
 
-        console.log('Kepler response:', responseKepler.data);
-        console.log('K2 response:', responseK2.data);
-        console.log('TESS response:', responseTess.data);
+        const responseSumary = await axios.get('/keplerSummary');
+        setSummaryData(responseSumary.data);
         
         // Los datos vienen paginados, accedemos al array 'data'
         const keplerData = responseKepler.data.data || [];
@@ -621,7 +621,7 @@ const Home = () => {
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-emerald-400 mb-1">
-                    {exoplanetsKepler.filter(p => getKeplerStatus(p.koi_disposition) === 'confirmed').length}
+                    {summaryData?.CONFIRMED}
                   </div>
                   <div className="text-slate-300 text-sm font-medium">{t('home.statistics.confirmedExoplanets')}</div>
                   <div className="text-slate-500 text-xs">{t('home.statistics.verified')}</div>
@@ -629,7 +629,7 @@ const Home = () => {
 
                 <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-amber-400 mb-1">
-                    {exoplanetsKepler.filter(p => getKeplerStatus(p.koi_disposition) === 'candidate').length}
+                    {summaryData?.CANDIDATE}
                   </div>
                   <div className="text-slate-300 text-sm font-medium">{t('home.statistics.candidatePlanets')}</div>
                   <div className="text-slate-500 text-xs">{t('home.statistics.inAnalysis')}</div>
@@ -637,7 +637,7 @@ const Home = () => {
 
                 <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-rose-400 mb-1">
-                    {exoplanetsKepler.filter(p => getKeplerStatus(p.koi_disposition) === 'false_positive').length}
+                    {summaryData?.['FALSE POSITIVE']}
                   </div>
                   <div className="text-slate-300 text-sm font-medium">{t('home.statistics.falsePositive')}</div>
                   <div className="text-slate-500 text-xs">{t('home.statistics.discarded')}</div>
@@ -645,7 +645,7 @@ const Home = () => {
 
                 <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-blue-400 mb-1">
-                    {exoplanetsKepler.length}
+                    {summaryData?.TOTAL}
                   </div>
                   <div className="text-slate-300 text-sm font-medium">{t('home.statistics.totalAnalyzed')}</div>
                   <div className="text-slate-500 text-xs">{t('home.statistics.processed')}</div>
