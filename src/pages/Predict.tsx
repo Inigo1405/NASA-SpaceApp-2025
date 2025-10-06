@@ -1,10 +1,31 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+
+interface PredictionResult {
+     label: string;
+     probabilities: {
+          CANDIDATE: number;
+          CONFIRMED: number;
+          'FALSE POSITIVE': number;
+     };
+     recognized: string[];
+     unknown: string[];
+     missing: string[];
+     feature_order: string[];
+     engineered: {
+          duty_cycle: number;
+          log_koi_period: number;
+          log_koi_depth: number;
+          teq_proxy: number;
+          log_koi_snr: number;
+     };
+}
+
 const Predict = () => {
      axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
-     const [formData, setFormData] = useState({
+     const initialData = {
           planetName: '',
           orbitalPeriod: '',
           transitDuration: '',
@@ -17,10 +38,12 @@ const Predict = () => {
           stellarRadius: '',
           stellarEffectiveTemperature: '',
           stellarNoiseRatio: ''
-     });
+     };
+
+     const [formData, setFormData] = useState(initialData);
 
      const [isLoading, setIsLoading] = useState(false);
-     const [result, setResult] = useState<any>(null);
+     const [result, setResult] = useState<PredictionResult | null>(null);
 
      const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           const { name, value } = e.target;
@@ -32,37 +55,49 @@ const Predict = () => {
 
      const handleSubmit = async (e: React.FormEvent) => {
           e.preventDefault();
-          setIsLoading(true);
-          
-          // Aquí irá la llamada a la API
-          setTimeout(() => {
-               setIsLoading(false);
-               setResult({
-                    prediction: 'Confirmed',
-                    confidence: 0.87,
-                    habitabilityIndex: 0.75
-               });
-          }, 2000);
+          await getPrediction();
      };
 
      const handleReset = () => {
-          setFormData({
-               planetName: '',
-               orbitalPeriod: '',
-               transitDuration: '',
-               impactParameter: '',
-               transitDepth: '',
-               planetaryRadius: '',
-               stellarSurfaceGravity: '',
-               orbitSemiMajorAxis: '',
-               stellarMetallicity: '',
-               stellarRadius: '',
-               stellarEffectiveTemperature: '',
-               stellarNoiseRatio: ''
-          });
+          setFormData(initialData);
           setResult(null);
      };
      const { t } = useTranslation()
+
+     const getPrediction = async () => {
+          try {
+               setIsLoading(true);
+               setResult(null);
+               
+               const { planetName, ...dataToSend } = formData;
+
+               const features = {
+                    koi_period: Number(dataToSend.orbitalPeriod),
+                    koi_duration: Number(dataToSend.transitDuration),
+                    koi_impact: Number(dataToSend.impactParameter),
+                    koi_depth: Number(dataToSend.transitDepth),
+                    koi_prad: Number(dataToSend.planetaryRadius),
+                    koi_slogg: Number(dataToSend.stellarSurfaceGravity),
+                    koi_sma: Number(dataToSend.orbitSemiMajorAxis),
+                    koi_smet: Number(dataToSend.stellarMetallicity),
+                    koi_srad: Number(dataToSend.stellarRadius),
+                    koi_steff: Number(dataToSend.stellarEffectiveTemperature),
+                    koi_snr: Number(dataToSend.stellarNoiseRatio)
+               };
+
+               const response = await axios.post('/predict', { features });
+               console.log('API Response:', response);
+               
+               if (response.data) {
+                    setResult(response.data);
+               }
+          } catch (error) {
+               console.error('Error al obtener la predicción:', error);
+               alert('Error al procesar la predicción. Por favor, verifica los datos e intenta nuevamente.');
+          } finally {
+               setIsLoading(false);
+          }
+     };
 
      return (
           <div className="relative min-h-screen bg-gradient-to-br from-black via-slate-950 to-slate-900 overflow-hidden">
@@ -316,6 +351,7 @@ const Predict = () => {
                                         {/* Action Buttons */}
                                         <div className="flex flex-col sm:flex-row gap-4 mt-8">
                                              <button
+                                                  onClick={getPrediction}
                                                   type="submit"
                                                   disabled={isLoading}
                                                   className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
@@ -376,19 +412,92 @@ const Predict = () => {
                                              </h3>
                                              
                                              <div className="space-y-4">
-                                                  <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
-                                                       <div className="text-slate-400 text-xs mb-1">{t('predict.results.prediction')}</div>
-                                                       <div className="text-emerald-400 text-lg font-bold">{result.prediction}</div>
+                                                  {/* Main Prediction */}
+                                                  <div className={`${
+                                                       result.label === 'CONFIRMED' ? 'bg-emerald-500/10 border-emerald-500/30' :
+                                                       result.label === 'CANDIDATE' ? 'bg-yellow-500/10 border-yellow-500/30' :
+                                                       'bg-red-500/10 border-red-500/30'
+                                                  } border rounded-xl p-4`}>
+                                                       <div className="text-slate-400 text-xs mb-1">Clasificación</div>
+                                                       <div className={`text-lg font-bold ${
+                                                            result.label === 'CONFIRMED' ? 'text-emerald-400' :
+                                                            result.label === 'CANDIDATE' ? 'text-yellow-400' :
+                                                            'text-red-400'
+                                                       }`}>
+                                                            {result.label}
+                                                       </div>
                                                   </div>
-                                                  
-                                                  <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4">
-                                                       <div className="text-slate-400 text-xs mb-1">{t('predict.results.confidence')}</div>
-                                                       <div className="text-blue-400 text-lg font-bold">{(result.confidence * 100).toFixed(1)}%</div>
+
+                                                  {/* Probabilities */}
+                                                  <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4">
+                                                       <div className="text-slate-400 text-xs mb-3 font-semibold">Probabilidades</div>
+                                                       <div className="space-y-3">
+                                                            <div>
+                                                                 <div className="flex justify-between text-sm mb-1">
+                                                                      <span className="text-emerald-400">CONFIRMED</span>
+                                                                      <span className="text-white font-semibold">{(result.probabilities.CONFIRMED * 100).toFixed(2)}%</span>
+                                                                 </div>
+                                                                 <div className="w-full bg-slate-700/30 rounded-full h-2">
+                                                                      <div 
+                                                                           className="bg-emerald-500 h-2 rounded-full transition-all duration-500"
+                                                                           style={{ width: `${result.probabilities.CONFIRMED * 100}%` }}
+                                                                      />
+                                                                 </div>
+                                                            </div>
+                                                            
+                                                            <div>
+                                                                 <div className="flex justify-between text-sm mb-1">
+                                                                      <span className="text-yellow-400">CANDIDATE</span>
+                                                                      <span className="text-white font-semibold">{(result.probabilities.CANDIDATE * 100).toFixed(2)}%</span>
+                                                                 </div>
+                                                                 <div className="w-full bg-slate-700/30 rounded-full h-2">
+                                                                      <div 
+                                                                           className="bg-yellow-500 h-2 rounded-full transition-all duration-500"
+                                                                           style={{ width: `${result.probabilities.CANDIDATE * 100}%` }}
+                                                                      />
+                                                                 </div>
+                                                            </div>
+                                                            
+                                                            <div>
+                                                                 <div className="flex justify-between text-sm mb-1">
+                                                                      <span className="text-red-400">FALSE POSITIVE</span>
+                                                                      <span className="text-white font-semibold">{(result.probabilities['FALSE POSITIVE'] * 100).toFixed(2)}%</span>
+                                                                 </div>
+                                                                 <div className="w-full bg-slate-700/30 rounded-full h-2">
+                                                                      <div 
+                                                                           className="bg-red-500 h-2 rounded-full transition-all duration-500"
+                                                                           style={{ width: `${result.probabilities['FALSE POSITIVE'] * 100}%` }}
+                                                                      />
+                                                                 </div>
+                                                            </div>
+                                                       </div>
                                                   </div>
-                                                  
-                                                  <div className="bg-purple-500/5 border border-purple-500/20 rounded-xl p-4">
-                                                       <div className="text-slate-400 text-xs mb-1">{t('predict.results.habitabilityIndex')}</div>
-                                                       <div className="text-purple-400 text-lg font-bold">{result.habitabilityIndex}</div>
+
+                                                  {/* Engineered Features */}
+                                                  <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4">
+                                                       <div className="text-slate-400 text-xs mb-3 font-semibold">Características Calculadas</div>
+                                                       <div className="space-y-2 text-sm">
+                                                            <div className="flex justify-between">
+                                                                 <span className="text-slate-400">Duty Cycle:</span>
+                                                                 <span className="text-white font-mono">{result.engineered.duty_cycle.toFixed(4)}</span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                 <span className="text-slate-400">Log Period:</span>
+                                                                 <span className="text-white font-mono">{result.engineered.log_koi_period.toFixed(4)}</span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                 <span className="text-slate-400">Log Depth:</span>
+                                                                 <span className="text-white font-mono">{result.engineered.log_koi_depth.toFixed(4)}</span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                 <span className="text-slate-400">Teq Proxy:</span>
+                                                                 <span className="text-white font-mono">{result.engineered.teq_proxy.toFixed(0)} K</span>
+                                                            </div>
+                                                            <div className="flex justify-between">
+                                                                 <span className="text-slate-400">Log SNR:</span>
+                                                                 <span className="text-white font-mono">{result.engineered.log_koi_snr.toFixed(4)}</span>
+                                                            </div>
+                                                       </div>
                                                   </div>
                                              </div>
                                         </div>
