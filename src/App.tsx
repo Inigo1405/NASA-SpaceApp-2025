@@ -37,7 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout><Home /></MainLayout>} />
         <Route path="/planet-information" element={<MainLayout><PlanetInformation /></MainLayout>} />
-        <Route path="/planet-information/:id" element={<MainLayout><PlanetInformation /></MainLayout>} />
+        <Route path="/planet-information/:telescope/:name" element={<MainLayout><PlanetInformation /></MainLayout>} />
         <Route path="/team" element={<MainLayout><Team /></MainLayout>} />
         <Route path="/methodology" element={<MainLayout><Methodology /></MainLayout>} />
         <Route path="/Predict" element={<MainLayout><Predict /></MainLayout>} />

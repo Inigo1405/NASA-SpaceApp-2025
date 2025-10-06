@@ -1,19 +1,22 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 const Predict = () => {
-     const { t } = useTranslation();
+     axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+
      const [formData, setFormData] = useState({
           planetName: '',
           orbitalPeriod: '',
           transitDuration: '',
-          planetRadius: '',
-          stellarMagnitude: '',
+          impactParameter: '',
+          transitDepth: '',
+          planetaryRadius: '',
+          stellarSurfaceGravity: '',
+          orbitSemiMajorAxis: '',
+          stellarMetallicity: '',
           stellarRadius: '',
-          stellarMass: '',
-          distance: '',
-          equilibriumTemp: '',
-          insolationFlux: ''
+          stellarEffectiveTemperature: '',
+          stellarNoiseRatio: ''
      });
 
      const [isLoading, setIsLoading] = useState(false);
@@ -47,13 +50,15 @@ const Predict = () => {
                planetName: '',
                orbitalPeriod: '',
                transitDuration: '',
-               planetRadius: '',
-               stellarMagnitude: '',
+               impactParameter: '',
+               transitDepth: '',
+               planetaryRadius: '',
+               stellarSurfaceGravity: '',
+               orbitSemiMajorAxis: '',
+               stellarMetallicity: '',
                stellarRadius: '',
-               stellarMass: '',
-               distance: '',
-               equilibriumTemp: '',
-               insolationFlux: ''
+               stellarEffectiveTemperature: '',
+               stellarNoiseRatio: ''
           });
           setResult(null);
      };
@@ -118,7 +123,7 @@ const Predict = () => {
                                              {/* Planet Name */}
                                              <div className="md:col-span-2">
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       {t('predict.form.fields.planetName.label')}
+                                                       Nombre del Exoplaneta
                                                   </label>
                                                   <input
                                                        type="text"
@@ -130,7 +135,7 @@ const Predict = () => {
                                                   />
                                              </div>
 
-                                             {/* Orbital Period */}
+                                             {/* koi_period - Orbital Period (days) */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
                                                        {t('predict.form.fields.orbitalPeriod.label')}
@@ -146,7 +151,7 @@ const Predict = () => {
                                                   />
                                              </div>
 
-                                             {/* Transit Duration */}
+                                             {/* koi_duration - Transit Duration (hours) */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
                                                        {t('predict.form.fields.transitDuration.label')}
@@ -162,115 +167,147 @@ const Predict = () => {
                                                   />
                                              </div>
 
-                                             {/* Planet Radius */}
+                                             {/* koi_impact - Impact Parameter */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       {t('predict.form.fields.planetRadius.label')}
+                                                       Parámetro de impacto
                                                   </label>
                                                   <input
                                                        type="number"
-                                                       name="planetRadius"
-                                                       value={formData.planetRadius}
+                                                       name="impactParameter"
+                                                       value={formData.impactParameter}
                                                        onChange={handleChange}
-                                                       placeholder={t('predict.form.fields.planetRadius.placeholder')}
-                                                       step="0.01"
-                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
-                                                  />
-                                             </div>
-
-                                             {/* Equilibrium Temperature */}
-                                             <div>
-                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       {t('predict.form.fields.equilibriumTemp.label')}
-                                                  </label>
-                                                  <input
-                                                       type="number"
-                                                       name="equilibriumTemp"
-                                                       value={formData.equilibriumTemp}
-                                                       onChange={handleChange}
-                                                       placeholder={t('predict.form.fields.equilibriumTemp.placeholder')}
+                                                       placeholder="0.5"
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
                                                   />
                                              </div>
 
-                                             {/* Stellar Magnitude */}
+                                             {/* koi_depth - Transit Depth (parts per million)*/}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       {t('predict.form.fields.stellarMagnitude.label')}
+                                                       Profundidad del Tránsito (ppm)
                                                   </label>
                                                   <input
                                                        type="number"
-                                                       name="stellarMagnitude"
-                                                       value={formData.stellarMagnitude}
+                                                       name="transitDepth"
+                                                       value={formData.transitDepth}
                                                        onChange={handleChange}
-                                                       placeholder={t('predict.form.fields.stellarMagnitude.placeholder')}
+                                                       placeholder="1200"
+                                                       step="0.01"
+                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
+                                                  />
+                                             </div>
+
+                                             {/* koi_prad - Planetary Radius (Earth radii) */}
+                                             <div>
+                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
+                                                       Radio Planetario (⊕ Tierra)
+                                                  </label>
+                                                  <input
+                                                       type="number"
+                                                       name="planetaryRadius"
+                                                       value={formData.planetaryRadius}
+                                                       onChange={handleChange}
+                                                       placeholder="1.6"
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all"
                                                   />
                                              </div>
 
-                                             {/* Stellar Radius */}
+                                             {/* koi_slogg - Stellar Surface Gravity (log10(cm s-2)) */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       {t('predict.form.fields.stellarRadius.label')}
+                                                       Gravedad de la superficie estelar (log10(cm s-2))
+                                                  </label>
+                                                  <input
+                                                       type="number"
+                                                       name="stellarSurfaceGravity"
+                                                       value={formData.stellarSurfaceGravity}
+                                                       onChange={handleChange}
+                                                       placeholder="4.5"
+                                                       step="0.01"
+                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all"
+                                                  />
+                                             </div>
+
+                                             {/* koi_sma - Orbit Semi-Major Axis (Astronomical Unit (au)) */}
+                                             <div>
+                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
+                                                       Semieje mayor de la órbita (AU)
+                                                  </label>
+                                                  <input
+                                                       type="number"
+                                                       name="orbitSemiMajorAxis"
+                                                       value={formData.orbitSemiMajorAxis}
+                                                       onChange={handleChange}
+                                                       placeholder={t('predict.form.fields.stellarMass.placeholder')}
+                                                       step="0.01"
+                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all"
+                                                  />
+                                             </div>
+
+                                             {/* koi_smet - Stellar Metallicity */}
+                                             <div>
+                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
+                                                       Metalicidad estelar
+                                                  </label>
+                                                  <input
+                                                       type="number"
+                                                       name="stellarMetallicity"
+                                                       value={formData.stellarMetallicity}
+                                                       onChange={handleChange}
+                                                       placeholder="0.0"
+                                                       step="0.01"
+                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all"
+                                                  />
+                                             </div>
+
+                                             {/* koi_srad - Stellar Radius (solar radii) */}
+                                             <div>
+                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
+                                                       Radio estelar (solar radii)
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="stellarRadius"
                                                        value={formData.stellarRadius}
                                                        onChange={handleChange}
-                                                       placeholder={t('predict.form.fields.stellarRadius.placeholder')}
-                                                       step="0.01"
-                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all"
-                                                  />
-                                             </div>
-
-                                             {/* Stellar Mass */}
-                                             <div>
-                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       {t('predict.form.fields.stellarMass.label')}
-                                                  </label>
-                                                  <input
-                                                       type="number"
-                                                       name="stellarMass"
-                                                       value={formData.stellarMass}
-                                                       onChange={handleChange}
-                                                       placeholder={t('predict.form.fields.stellarMass.placeholder')}
-                                                       step="0.01"
-                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 transition-all"
-                                                  />
-                                             </div>
-
-                                             {/* Distance */}
-                                             <div>
-                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       {t('predict.form.fields.distance.label')}
-                                                  </label>
-                                                  <input
-                                                       type="number"
-                                                       name="distance"
-                                                       value={formData.distance}
-                                                       onChange={handleChange}
-                                                       placeholder={t('predict.form.fields.distance.placeholder')}
-                                                       step="0.01"
-                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all"
-                                                  />
-                                             </div>
-
-                                             {/* Insolation Flux */}
-                                             <div>
-                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       {t('predict.form.fields.insolationFlux.label')}
-                                                  </label>
-                                                  <input
-                                                       type="number"
-                                                       name="insolationFlux"
-                                                       value={formData.insolationFlux}
-                                                       onChange={handleChange}
                                                        placeholder={t('predict.form.fields.insolationFlux.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 transition-all"
+                                                  />
+                                             </div>
+
+                                             {/* koi_steff - Stellar Effective Temperature (Kelvin) */}
+                                             <div>
+                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
+                                                       Temperatura efectiva estelar (K)
+                                                  </label>
+                                                  <input
+                                                       type="number"
+                                                       name="stellarEffectiveTemperature"
+                                                       value={formData.stellarEffectiveTemperature}
+                                                       onChange={handleChange}
+                                                       placeholder="5778"
+                                                       step="1"
+                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 transition-all"
+                                                  />
+                                             </div>
+
+                                             {/* koi_snr - Stellar Noise Ratio */}
+                                             <div>
+                                                  <label className="block text-slate-300 text-sm font-semibold mb-2">
+                                                       Relación de Ruido Estelar (SNR)
+                                                  </label>
+                                                  <input
+                                                       type="number"
+                                                       name="stellarNoiseRatio"
+                                                       value={formData.stellarNoiseRatio}
+                                                       onChange={handleChange}
+                                                       placeholder="15.0"
+                                                       step="0.1"
+                                                       className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all"
                                                   />
                                              </div>
                                         </div>
@@ -375,6 +412,18 @@ const Predict = () => {
                     
                     .animate-fade-in {
                          animation: fade-in 0.5s ease-out;
+                    }
+
+                    /* Ocultar las flechas de los inputs numéricos */
+                    input[type="number"]::-webkit-inner-spin-button,
+                    input[type="number"]::-webkit-outer-spin-button {
+                         -webkit-appearance: none;
+                         margin: 0;
+                    }
+                    
+                    input[type="number"] {
+                         -moz-appearance: textfield;
+                         appearance: textfield;
                     }
                `}</style>
           </div>

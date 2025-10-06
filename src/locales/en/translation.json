@@ -40,7 +40,7 @@
     },
     "statistics": {
       "title": "Analysis Statistics",
-      "subtitle": "Summary of classified objects",
+      "subtitle": "Summary of classified objects of the Kepler mission",
       "confirmedExoplanets": "Confirmed Exoplanets",
       "verified": "Verified",
       "candidatePlanets": "Planetary Candidates",
@@ -64,6 +64,8 @@
       "noData": {
         "exodia": "No EXODIA data available",
         "exodiaDesc": "EXODIA data will be available soon",
+        "kepler": "No Kepler data available",
+        "keplerDesc": "Kepler data will be available soon",
         "k2": "No K2 data available",
         "k2Desc": "K2 data will be available soon",
         "tess": "No TESS data available",
@@ -81,6 +83,11 @@
       "terrestrial": "Terrestrial",
       "miniNeptune": "Mini-Neptune",
       "unknown": "Unknown"
+    },
+    "loading": {
+      "starMap": "Loading star map...",
+      "exoplanets": "Loading exoplanets...",
+      "pleaseWait": "Please wait"
     }
   },
   "about": {
