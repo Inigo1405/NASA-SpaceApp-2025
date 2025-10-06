@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Predict = () => {
+     const { t } = useTranslation();
      const [formData, setFormData] = useState({
           planetName: '',
           orbitalPeriod: '',
@@ -91,13 +93,13 @@ const Predict = () => {
                               <div className="flex items-center justify-center space-x-3 mb-4">
                                    <div className="w-3 h-3 rounded-full bg-blue-400 shadow-lg shadow-blue-400/50 animate-pulse" />
                                    <h1 className="text-4xl md:text-5xl font-bold text-white">
-                                        Predicción de Exoplanetas
+                                        {t('predict.header.title')}
                                    </h1>
                                    <div className="w-3 h-3 rounded-full bg-purple-400 shadow-lg shadow-purple-400/50 animate-pulse" 
                                         style={{ animationDelay: '0.5s' }} />
                               </div>
                               <p className="text-slate-300 text-lg max-w-2xl mx-auto">
-                                   Ingresa los parámetros observacionales para predecir las características y habitabilidad de un exoplaneta
+                                   {t('predict.header.subtitle')}
                               </p>
                          </div>
 
@@ -109,21 +111,21 @@ const Predict = () => {
                                              <svg className="w-6 h-6 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                                              </svg>
-                                             Parámetros del Planeta
+                                             {t('predict.form.title')}
                                         </h2>
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                              {/* Planet Name */}
                                              <div className="md:col-span-2">
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Nombre del Planeta
+                                                       {t('predict.form.fields.planetName.label')}
                                                   </label>
                                                   <input
                                                        type="text"
                                                        name="planetName"
                                                        value={formData.planetName}
                                                        onChange={handleChange}
-                                                       placeholder="Ej: Kepler-452b"
+                                                       placeholder={t('predict.form.fields.planetName.placeholder')}
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
                                                   />
                                              </div>
@@ -131,14 +133,14 @@ const Predict = () => {
                                              {/* Orbital Period */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Período Orbital (días)
+                                                       {t('predict.form.fields.orbitalPeriod.label')}
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="orbitalPeriod"
                                                        value={formData.orbitalPeriod}
                                                        onChange={handleChange}
-                                                       placeholder="385"
+                                                       placeholder={t('predict.form.fields.orbitalPeriod.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                                                   />
@@ -147,14 +149,14 @@ const Predict = () => {
                                              {/* Transit Duration */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Duración del Tránsito (horas)
+                                                       {t('predict.form.fields.transitDuration.label')}
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="transitDuration"
                                                        value={formData.transitDuration}
                                                        onChange={handleChange}
-                                                       placeholder="8.5"
+                                                       placeholder={t('predict.form.fields.transitDuration.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                                                   />
@@ -163,14 +165,14 @@ const Predict = () => {
                                              {/* Planet Radius */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Radio (× Tierra)
+                                                       {t('predict.form.fields.planetRadius.label')}
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="planetRadius"
                                                        value={formData.planetRadius}
                                                        onChange={handleChange}
-                                                       placeholder="1.6"
+                                                       placeholder={t('predict.form.fields.planetRadius.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
                                                   />
@@ -179,14 +181,14 @@ const Predict = () => {
                                              {/* Equilibrium Temperature */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Temperatura Equilibrio (K)
+                                                       {t('predict.form.fields.equilibriumTemp.label')}
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="equilibriumTemp"
                                                        value={formData.equilibriumTemp}
                                                        onChange={handleChange}
-                                                       placeholder="265"
+                                                       placeholder={t('predict.form.fields.equilibriumTemp.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
                                                   />
@@ -195,14 +197,14 @@ const Predict = () => {
                                              {/* Stellar Magnitude */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Magnitud Estelar
+                                                       {t('predict.form.fields.stellarMagnitude.label')}
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="stellarMagnitude"
                                                        value={formData.stellarMagnitude}
                                                        onChange={handleChange}
-                                                       placeholder="13.4"
+                                                       placeholder={t('predict.form.fields.stellarMagnitude.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all"
                                                   />
@@ -211,14 +213,14 @@ const Predict = () => {
                                              {/* Stellar Radius */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Radio Estelar (× Sol)
+                                                       {t('predict.form.fields.stellarRadius.label')}
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="stellarRadius"
                                                        value={formData.stellarRadius}
                                                        onChange={handleChange}
-                                                       placeholder="1.1"
+                                                       placeholder={t('predict.form.fields.stellarRadius.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all"
                                                   />
@@ -227,14 +229,14 @@ const Predict = () => {
                                              {/* Stellar Mass */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Masa Estelar (× Sol)
+                                                       {t('predict.form.fields.stellarMass.label')}
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="stellarMass"
                                                        value={formData.stellarMass}
                                                        onChange={handleChange}
-                                                       placeholder="1.0"
+                                                       placeholder={t('predict.form.fields.stellarMass.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 transition-all"
                                                   />
@@ -243,14 +245,14 @@ const Predict = () => {
                                              {/* Distance */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Distancia (años luz)
+                                                       {t('predict.form.fields.distance.label')}
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="distance"
                                                        value={formData.distance}
                                                        onChange={handleChange}
-                                                       placeholder="1400"
+                                                       placeholder={t('predict.form.fields.distance.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all"
                                                   />
@@ -259,14 +261,14 @@ const Predict = () => {
                                              {/* Insolation Flux */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Flujo de Insolación (× Tierra)
+                                                       {t('predict.form.fields.insolationFlux.label')}
                                                   </label>
                                                   <input
                                                        type="number"
                                                        name="insolationFlux"
                                                        value={formData.insolationFlux}
                                                        onChange={handleChange}
-                                                       placeholder="1.1"
+                                                       placeholder={t('predict.form.fields.insolationFlux.placeholder')}
                                                        step="0.01"
                                                        className="w-full bg-slate-800/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 transition-all"
                                                   />
@@ -283,14 +285,14 @@ const Predict = () => {
                                                   {isLoading ? (
                                                        <>
                                                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                                            <span>Procesando...</span>
+                                                            <span>{t('predict.form.buttons.processing')}</span>
                                                        </>
                                                   ) : (
                                                        <>
                                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                                             </svg>
-                                                            <span>Predecir</span>
+                                                            <span>{t('predict.form.buttons.predict')}</span>
                                                        </>
                                                   )}
                                              </button>
@@ -302,7 +304,7 @@ const Predict = () => {
                                                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                                   </svg>
-                                                  <span>Limpiar</span>
+                                                  <span>{t('predict.form.buttons.clear')}</span>
                                              </button>
                                         </div>
                                    </form>
@@ -317,9 +319,9 @@ const Predict = () => {
                                                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                                              </svg>
                                              <div>
-                                                  <h3 className="text-white font-semibold mb-2">Información</h3>
+                                                  <h3 className="text-white font-semibold mb-2">{t('predict.info.title')}</h3>
                                                   <p className="text-slate-400 text-sm leading-relaxed">
-                                                       Completa los campos del formulario con los datos observacionales del exoplaneta para obtener una predicción basada en machine learning.
+                                                       {t('predict.info.description')}
                                                   </p>
                                              </div>
                                         </div>
@@ -332,22 +334,22 @@ const Predict = () => {
                                                   <svg className="w-5 h-5 mr-2 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
                                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                                   </svg>
-                                                  Resultados
+                                                  {t('predict.results.title')}
                                              </h3>
                                              
                                              <div className="space-y-4">
                                                   <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
-                                                       <div className="text-slate-400 text-xs mb-1">Predicción</div>
+                                                       <div className="text-slate-400 text-xs mb-1">{t('predict.results.prediction')}</div>
                                                        <div className="text-emerald-400 text-lg font-bold">{result.prediction}</div>
                                                   </div>
                                                   
                                                   <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4">
-                                                       <div className="text-slate-400 text-xs mb-1">Confianza</div>
+                                                       <div className="text-slate-400 text-xs mb-1">{t('predict.results.confidence')}</div>
                                                        <div className="text-blue-400 text-lg font-bold">{(result.confidence * 100).toFixed(1)}%</div>
                                                   </div>
                                                   
                                                   <div className="bg-purple-500/5 border border-purple-500/20 rounded-xl p-4">
-                                                       <div className="text-slate-400 text-xs mb-1">Índice de Habitabilidad</div>
+                                                       <div className="text-slate-400 text-xs mb-1">{t('predict.results.habitabilityIndex')}</div>
                                                        <div className="text-purple-400 text-lg font-bold">{result.habitabilityIndex}</div>
                                                   </div>
                                              </div>

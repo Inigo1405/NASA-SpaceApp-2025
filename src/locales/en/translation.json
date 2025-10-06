@@ -178,5 +178,71 @@
         "bio": "Creative designer focused on creating intuitive user experiences for scientific applications."
       }
     }
+  },
+  "predict": {
+    "header": {
+      "title": "Exoplanet Prediction",
+      "subtitle": "Enter the observational parameters to predict the characteristics and habitability of an exoplanet"
+    },
+    "form": {
+      "title": "Planet Parameters",
+      "fields": {
+        "planetName": {
+          "label": "Planet Name",
+          "placeholder": "Ex: Kepler-452b"
+        },
+        "orbitalPeriod": {
+          "label": "Orbital Period (days)",
+          "placeholder": "385"
+        },
+        "transitDuration": {
+          "label": "Transit Duration (hours)",
+          "placeholder": "8.5"
+        },
+        "planetRadius": {
+          "label": "Radius (× Earth)",
+          "placeholder": "1.6"
+        },
+        "equilibriumTemp": {
+          "label": "Equilibrium Temperature (K)",
+          "placeholder": "265"
+        },
+        "stellarMagnitude": {
+          "label": "Stellar Magnitude",
+          "placeholder": "13.4"
+        },
+        "stellarRadius": {
+          "label": "Stellar Radius (× Sun)",
+          "placeholder": "1.1"
+        },
+        "stellarMass": {
+          "label": "Stellar Mass (× Sun)",
+          "placeholder": "1.0"
+        },
+        "distance": {
+          "label": "Distance (light years)",
+          "placeholder": "1400"
+        },
+        "insolationFlux": {
+          "label": "Insolation Flux (× Earth)",
+          "placeholder": "1.1"
+        }
+      },
+      "buttons": {
+        "predict": "Predict",
+        "processing": "Processing...",
+        "clear": "Clear"
+      }
+    },
+    "info": {
+      "title": "Information",
+      "description": "Complete the form fields with the observational data of the exoplanet to get a machine learning-based prediction."
+    },
+    "results": {
+      "title": "Results",
+      "prediction": "Prediction",
+      "confidence": "Confidence",
+      "habitabilityIndex": "Habitability Index"
+    }
   }
 }

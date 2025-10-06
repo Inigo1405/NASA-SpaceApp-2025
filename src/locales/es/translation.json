@@ -178,5 +178,71 @@
         "bio": "Diseñador creativo enfocado en crear experiencias de usuario intuitivas para aplicaciones científicas."
       }
     }
+  },
+  "predict": {
+    "header": {
+      "title": "Predicción de Exoplanetas",
+      "subtitle": "Ingresa los parámetros observacionales para predecir las características y habitabilidad de un exoplaneta"
+    },
+    "form": {
+      "title": "Parámetros del Planeta",
+      "fields": {
+        "planetName": {
+          "label": "Nombre del Planeta",
+          "placeholder": "Ej: Kepler-452b"
+        },
+        "orbitalPeriod": {
+          "label": "Período Orbital (días)",
+          "placeholder": "385"
+        },
+        "transitDuration": {
+          "label": "Duración del Tránsito (horas)",
+          "placeholder": "8.5"
+        },
+        "planetRadius": {
+          "label": "Radio (× Tierra)",
+          "placeholder": "1.6"
+        },
+        "equilibriumTemp": {
+          "label": "Temperatura Equilibrio (K)",
+          "placeholder": "265"
+        },
+        "stellarMagnitude": {
+          "label": "Magnitud Estelar",
+          "placeholder": "13.4"
+        },
+        "stellarRadius": {
+          "label": "Radio Estelar (× Sol)",
+          "placeholder": "1.1"
+        },
+        "stellarMass": {
+          "label": "Masa Estelar (× Sol)",
+          "placeholder": "1.0"
+        },
+        "distance": {
+          "label": "Distancia (años luz)",
+          "placeholder": "1400"
+        },
+        "insolationFlux": {
+          "label": "Flujo de Insolación (× Tierra)",
+          "placeholder": "1.1"
+        }
+      },
+      "buttons": {
+        "predict": "Predecir",
+        "processing": "Procesando...",
+        "clear": "Limpiar"
+      }
+    },
+    "info": {
+      "title": "Información",
+      "description": "Completa los campos del formulario con los datos observacionales del exoplaneta para obtener una predicción basada en machine learning."
+    },
+    "results": {
+      "title": "Resultados",
+      "prediction": "Predicción",
+      "confidence": "Confianza",
+      "habitabilityIndex": "Índice de Habitabilidad"
+    }
   }
 }

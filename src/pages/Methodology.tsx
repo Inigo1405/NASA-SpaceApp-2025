@@ -107,10 +107,9 @@ const Methodology = () => {
   ];
 
   const modelMetrics = [
-    { label: 'Accuracy', value: '94.2%', color: 'text-emerald-400' },
-    { label: 'Precision', value: '92.8%', color: 'text-blue-400' },
-    { label: 'Recall', value: '93.5%', color: 'text-purple-400' },
-    { label: 'F1-Score', value: '93.1%', color: 'text-amber-400' },
+    { label: 'Accuracy', value: '72.17%', color: 'text-emerald-400' },
+    { label: 'Precision', value: '73.0%', color: 'text-blue-400' },
+    { label: 'F1-Score', value: '72.40%', color: 'text-amber-400' },
   ];
 
   const toggleStep = (id: number) => {
