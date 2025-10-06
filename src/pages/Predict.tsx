@@ -159,7 +159,7 @@ const Predict = () => {
                                              {/* Planet Name */}
                                              <div className="md:col-span-2">
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Nombre del Exoplaneta
+                                                       {t('predict.form.fields.planetName.label')}
                                                   </label>
                                                   <input
                                                        type="text"
@@ -206,7 +206,7 @@ const Predict = () => {
                                              {/* koi_impact - Impact Parameter */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Parámetro de impacto
+                                                       {t('predict.form.fields.impactParameter.label')}
                                                   </label>
                                                   <input
                                                        type="number"
@@ -222,7 +222,7 @@ const Predict = () => {
                                              {/* koi_depth - Transit Depth (parts per million)*/}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Profundidad del Tránsito (ppm)
+                                                       {t('predict.form.fields.transitDepth.label')}
                                                   </label>
                                                   <input
                                                        type="number"
@@ -238,7 +238,7 @@ const Predict = () => {
                                              {/* koi_prad - Planetary Radius (Earth radii) */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Radio Planetario (⊕ Tierra)
+                                                       {t('predict.form.fields.planetaryRadius.label')}
                                                   </label>
                                                   <input
                                                        type="number"
@@ -254,7 +254,7 @@ const Predict = () => {
                                              {/* koi_slogg - Stellar Surface Gravity (log10(cm s-2)) */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Gravedad de la superficie estelar (log10(cm s-2))
+                                                       {t('predict.form.fields.stellarSurfaceGravity.label')}
                                                   </label>
                                                   <input
                                                        type="number"
@@ -270,7 +270,7 @@ const Predict = () => {
                                              {/* koi_sma - Orbit Semi-Major Axis (Astronomical Unit (au)) */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Semieje mayor de la órbita (AU)
+                                                       {t('predict.form.fields.orbitSemiMajorAxis.label')}
                                                   </label>
                                                   <input
                                                        type="number"
@@ -286,7 +286,7 @@ const Predict = () => {
                                              {/* koi_smet - Stellar Metallicity */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Metalicidad estelar
+                                                       {t('predict.form.fields.stellarMetallicity.label')}
                                                   </label>
                                                   <input
                                                        type="number"
@@ -302,7 +302,7 @@ const Predict = () => {
                                              {/* koi_srad - Stellar Radius (solar radii) */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Radio estelar (solar radii)
+                                                       {t('predict.form.fields.stellarRadius.label')}
                                                   </label>
                                                   <input
                                                        type="number"
@@ -318,7 +318,7 @@ const Predict = () => {
                                              {/* koi_steff - Stellar Effective Temperature (Kelvin) */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Temperatura efectiva estelar (K)
+                                                       {t('predict.form.fields.stellarEffectiveTemperature.label')}
                                                   </label>
                                                   <input
                                                        type="number"
@@ -334,7 +334,7 @@ const Predict = () => {
                                              {/* koi_snr - Stellar Noise Ratio */}
                                              <div>
                                                   <label className="block text-slate-300 text-sm font-semibold mb-2">
-                                                       Relación de Ruido Estelar (SNR)
+                                                       {t('predict.form.fields.stellarNoiseRatio.label')}
                                                   </label>
                                                   <input
                                                        type="number"
@@ -418,7 +418,7 @@ const Predict = () => {
                                                        result.label === 'CANDIDATE' ? 'bg-yellow-500/10 border-yellow-500/30' :
                                                        'bg-red-500/10 border-red-500/30'
                                                   } border rounded-xl p-4`}>
-                                                       <div className="text-slate-400 text-xs mb-1">Clasificación</div>
+                                                       <div className="text-slate-400 text-xs mb-1">{t('predict.results.classification')}</div>
                                                        <div className={`text-lg font-bold ${
                                                             result.label === 'CONFIRMED' ? 'text-emerald-400' :
                                                             result.label === 'CANDIDATE' ? 'text-yellow-400' :
@@ -430,7 +430,7 @@ const Predict = () => {
 
                                                   {/* Probabilities */}
                                                   <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4">
-                                                       <div className="text-slate-400 text-xs mb-3 font-semibold">Probabilidades</div>
+                                                       <div className="text-slate-400 text-xs mb-3 font-semibold">{t('predict.results.probabilities')}</div>
                                                        <div className="space-y-3">
                                                             <div>
                                                                  <div className="flex justify-between text-sm mb-1">
@@ -475,7 +475,7 @@ const Predict = () => {
 
                                                   {/* Engineered Features */}
                                                   <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4">
-                                                       <div className="text-slate-400 text-xs mb-3 font-semibold">Características Calculadas</div>
+                                                       <div className="text-slate-400 text-xs mb-3 font-semibold">{t('predict.results.engineeredFeatures')}</div>
                                                        <div className="space-y-2 text-sm">
                                                             <div className="flex justify-between">
                                                                  <span className="text-slate-400">Duty Cycle:</span>

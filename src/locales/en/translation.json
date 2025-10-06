@@ -195,7 +195,7 @@
       "title": "Planet Parameters",
       "fields": {
         "planetName": {
-          "label": "Planet Name",
+          "label": "Exoplanet Name",
           "placeholder": "Ex: Kepler-452b"
         },
         "orbitalPeriod": {
@@ -206,33 +206,41 @@
           "label": "Transit Duration (hours)",
           "placeholder": "8.5"
         },
-        "planetRadius": {
-          "label": "Radius (× Earth)",
+        "impactParameter": {
+          "label": "Impact Parameter",
+          "placeholder": "0.5"
+        },
+        "transitDepth": {
+          "label": "Transit Depth (ppm)",
+          "placeholder": "1200"
+        },
+        "planetaryRadius": {
+          "label": "Planetary Radius (⊕ Earth)",
           "placeholder": "1.6"
         },
-        "equilibriumTemp": {
-          "label": "Equilibrium Temperature (K)",
-          "placeholder": "265"
+        "stellarSurfaceGravity": {
+          "label": "Stellar Surface Gravity (log10(cm s-2))",
+          "placeholder": "4.5"
         },
-        "stellarMagnitude": {
-          "label": "Stellar Magnitude",
-          "placeholder": "13.4"
+        "orbitSemiMajorAxis": {
+          "label": "Orbit Semi-Major Axis (AU)",
+          "placeholder": "0.04"
+        },
+        "stellarMetallicity": {
+          "label": "Stellar Metallicity",
+          "placeholder": "0.0"
         },
         "stellarRadius": {
-          "label": "Stellar Radius (× Sun)",
-          "placeholder": "1.1"
-        },
-        "stellarMass": {
-          "label": "Stellar Mass (× Sun)",
+          "label": "Stellar Radius (solar radii)",
           "placeholder": "1.0"
         },
-        "distance": {
-          "label": "Distance (light years)",
-          "placeholder": "1400"
+        "stellarEffectiveTemperature": {
+          "label": "Stellar Effective Temperature (K)",
+          "placeholder": "5778"
         },
-        "insolationFlux": {
-          "label": "Insolation Flux (× Earth)",
-          "placeholder": "1.1"
+        "stellarNoiseRatio": {
+          "label": "Stellar Noise Ratio (SNR)",
+          "placeholder": "15.0"
         }
       },
       "buttons": {
@@ -247,9 +255,106 @@
     },
     "results": {
       "title": "Results",
-      "prediction": "Prediction",
-      "confidence": "Confidence",
-      "habitabilityIndex": "Habitability Index"
+      "classification": "Classification",
+      "probabilities": "Probabilities",
+      "engineeredFeatures": "Engineered Features"
+    }
+  },
+  "planetInformation": {
+    "loading": "Loading planet information...",
+    "error": "Planet not found",
+    "backToHome": "Back to home",
+    "backButton": "Back",
+    "mission": "Mission",
+    "discoveredBy": "Exoplanet discovered by the {telescope} mission orbiting the star {star}",
+    "visualizations": {
+      "title": "How does this planet orbit?",
+      "orbitalView": "Orbital View",
+      "starLabel": "Star",
+      "orbitPeriod": "Orbital period: {period} days",
+      "planetRadius": "Planet radius: {radius} ⊕",
+      "transitMethod": "Detection Method: Transit",
+      "transitDescription": "When the planet passes in front of the star, we detect a small decrease in brightness.",
+      "transitDepth": "Transit depth: {depth} ppm",
+      "transitDuration": "Transit duration: {duration} hours",
+      "discoveryMethod": "This is how {telescope} discovered this planet"
+    },
+    "sections": {
+      "identifiers": "Identifiers",
+      "orbitalParameters": "Orbital Parameters",
+      "planetaryCharacteristics": "Planetary Characteristics",
+      "stellarCharacteristics": "Stellar Characteristics",
+      "celestialCoordinates": "Celestial Coordinates",
+      "orbitAndTransit": "Orbit and Transit",
+      "magnitudesAndSystem": "Magnitudes and System"
+    },
+    "fields": {
+      "kepid": "Kepler ID",
+      "kepoiName": "KOI",
+      "keplerName": "Kepler Name",
+      "koiScore": "KOI Score",
+      "pdisposition": "Pipeline Disposition",
+      "period": "Orbital Period (days)",
+      "sma": "Semi-Major Axis (AU)",
+      "eccen": "Eccentricity",
+      "incl": "Inclination (°)",
+      "impact": "Impact Parameter",
+      "dor": "Distance/Stellar Radius",
+      "ror": "Planet Radius/Stellar Radius",
+      "time0bk": "Transit Time (BJD)",
+      "prad": "Planetary Radius (⊕)",
+      "teq": "Equilibrium Temperature (K)",
+      "insol": "Insolation Flux (⊕)",
+      "depth": "Transit Depth (ppm)",
+      "duration": "Transit Duration (hours)",
+      "steff": "Effective Temperature (K)",
+      "srad": "Stellar Radius (☉)",
+      "smass": "Stellar Mass (☉)",
+      "slogg": "log g (cm/s²)",
+      "smet": "Metallicity [Fe/H]",
+      "kepmag": "Kepler Magnitude",
+      "ra": "Right Ascension",
+      "dec": "Declination",
+      "plName": "Planet Name",
+      "hostname": "Star Name",
+      "epicHostname": "EPIC",
+      "ticId": "TIC ID",
+      "gaiaId": "Gaia ID",
+      "disposition": "Disposition",
+      "discoveryMethod": "Discovery Method",
+      "discYear": "Discovery Year",
+      "plOrbper": "Orbital Period (days)",
+      "plRade": "Radius (⊕)",
+      "plRadj": "Radius (♃)",
+      "plTrandep": "Transit Depth (ppm)",
+      "plTrandur": "Transit Duration (hours)",
+      "plTranmid": "Transit Epoch (BJD)",
+      "plImppar": "Impact Parameter",
+      "stTeff": "Effective Temperature (K)",
+      "stRad": "Stellar Radius (☉)",
+      "stMass": "Stellar Mass (☉)",
+      "stMet": "Metallicity [Fe/H]",
+      "stLogg": "log g (cm/s²)",
+      "syDist": "System Distance (pc)",
+      "syVmag": "V Magnitude",
+      "syKmag": "K Magnitude",
+      "syJmag": "J Magnitude",
+      "syHmag": "H Magnitude",
+      "syGaiamag": "Gaia Magnitude",
+      "toi": "TOI",
+      "tid": "TIC ID",
+      "ctoiAlias": "CTOI Alias",
+      "plPnum": "Number of Planets",
+      "plEqt": "Equilibrium Temperature (K)",
+      "plInsol": "Insolation Flux (⊕)",
+      "plTrandurh": "Transit Duration (hours)",
+      "plOrbsmax": "Semi-Major Axis (AU)",
+      "stDist": "Distance (pc)",
+      "stTmag": "TESS Magnitude",
+      "stPmra": "Proper Motion RA (mas/yr)",
+      "stPmdec": "Proper Motion Dec (mas/yr)",
+      "rastr": "RA (format)",
+      "decstr": "Dec (format)"
     }
   },
   "methodology": {

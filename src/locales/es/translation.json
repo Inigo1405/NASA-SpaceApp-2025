@@ -195,7 +195,7 @@
       "title": "Parámetros del Planeta",
       "fields": {
         "planetName": {
-          "label": "Nombre del Planeta",
+          "label": "Nombre del Exoplaneta",
           "placeholder": "Ej: Kepler-452b"
         },
         "orbitalPeriod": {
@@ -206,33 +206,41 @@
           "label": "Duración del Tránsito (horas)",
           "placeholder": "8.5"
         },
-        "planetRadius": {
-          "label": "Radio (× Tierra)",
+        "impactParameter": {
+          "label": "Parámetro de impacto",
+          "placeholder": "0.5"
+        },
+        "transitDepth": {
+          "label": "Profundidad del Tránsito (ppm)",
+          "placeholder": "1200"
+        },
+        "planetaryRadius": {
+          "label": "Radio Planetario (⊕ Tierra)",
           "placeholder": "1.6"
         },
-        "equilibriumTemp": {
-          "label": "Temperatura Equilibrio (K)",
-          "placeholder": "265"
+        "stellarSurfaceGravity": {
+          "label": "Gravedad de la superficie estelar (log10(cm s-2))",
+          "placeholder": "4.5"
         },
-        "stellarMagnitude": {
-          "label": "Magnitud Estelar",
-          "placeholder": "13.4"
+        "orbitSemiMajorAxis": {
+          "label": "Semieje mayor de la órbita (AU)",
+          "placeholder": "0.04"
+        },
+        "stellarMetallicity": {
+          "label": "Metalicidad estelar",
+          "placeholder": "0.0"
         },
         "stellarRadius": {
-          "label": "Radio Estelar (× Sol)",
-          "placeholder": "1.1"
-        },
-        "stellarMass": {
-          "label": "Masa Estelar (× Sol)",
+          "label": "Radio estelar (solar radii)",
           "placeholder": "1.0"
         },
-        "distance": {
-          "label": "Distancia (años luz)",
-          "placeholder": "1400"
+        "stellarEffectiveTemperature": {
+          "label": "Temperatura efectiva estelar (K)",
+          "placeholder": "5778"
         },
-        "insolationFlux": {
-          "label": "Flujo de Insolación (× Tierra)",
-          "placeholder": "1.1"
+        "stellarNoiseRatio": {
+          "label": "Relación de Ruido Estelar (SNR)",
+          "placeholder": "15.0"
         }
       },
       "buttons": {
@@ -247,9 +255,106 @@
     },
     "results": {
       "title": "Resultados",
-      "prediction": "Predicción",
-      "confidence": "Confianza",
-      "habitabilityIndex": "Índice de Habitabilidad"
+      "classification": "Clasificación",
+      "probabilities": "Probabilidades",
+      "engineeredFeatures": "Características Procesadas"
+    }
+  },
+  "planetInformation": {
+    "loading": "Cargando información del planeta...",
+    "error": "Planeta no encontrado",
+    "backToHome": "Volver al inicio",
+    "backButton": "Volver",
+    "mission": "Misión",
+    "discoveredBy": "Exoplaneta descubierto por la misión {telescope} orbitando la estrella {star}",
+    "visualizations": {
+      "title": "¿Cómo orbita este planeta?",
+      "orbitalView": "Vista Orbital",
+      "starLabel": "Estrella",
+      "orbitPeriod": "Período orbital: {period} días",
+      "planetRadius": "Radio del planeta: {radius} ⊕",
+      "transitMethod": "Método de Detección: Tránsito",
+      "transitDescription": "Cuando el planeta pasa frente a la estrella, detectamos una pequeña disminución del brillo.",
+      "transitDepth": "Profundidad del tránsito: {depth} ppm",
+      "transitDuration": "Duración del tránsito: {duration} horas",
+      "discoveryMethod": "Así es como {telescope} descubrió este planeta"
+    },
+    "sections": {
+      "identifiers": "Identificadores",
+      "orbitalParameters": "Parámetros Orbitales",
+      "planetaryCharacteristics": "Características Planetarias",
+      "stellarCharacteristics": "Características Estelares",
+      "celestialCoordinates": "Coordenadas Celestes",
+      "orbitAndTransit": "Órbita y Tránsito",
+      "magnitudesAndSystem": "Magnitudes y Sistema"
+    },
+    "fields": {
+      "kepid": "Kepler ID",
+      "kepoiName": "KOI",
+      "keplerName": "Nombre Kepler",
+      "koiScore": "Puntuación KOI",
+      "pdisposition": "Disposición Pipeline",
+      "period": "Período Orbital (días)",
+      "sma": "Semieje Mayor (AU)",
+      "eccen": "Excentricidad",
+      "incl": "Inclinación (°)",
+      "impact": "Parámetro de Impacto",
+      "dor": "Distancia/Radio Estelar",
+      "ror": "Radio Planetario/Radio Estelar",
+      "time0bk": "Tiempo de Tránsito (BJD)",
+      "prad": "Radio Planetario (⊕)",
+      "teq": "Temperatura de Equilibrio (K)",
+      "insol": "Flujo de Insolación (⊕)",
+      "depth": "Profundidad del Tránsito (ppm)",
+      "duration": "Duración del Tránsito (horas)",
+      "steff": "Temperatura Efectiva (K)",
+      "srad": "Radio Estelar (☉)",
+      "smass": "Masa Estelar (☉)",
+      "slogg": "log g (cm/s²)",
+      "smet": "Metalicidad [Fe/H]",
+      "kepmag": "Magnitud Kepler",
+      "ra": "Ascensión Recta",
+      "dec": "Declinación",
+      "plName": "Nombre del Planeta",
+      "hostname": "Nombre de la Estrella",
+      "epicHostname": "EPIC",
+      "ticId": "TIC ID",
+      "gaiaId": "Gaia ID",
+      "disposition": "Disposición",
+      "discoveryMethod": "Método de Descubrimiento",
+      "discYear": "Año de Descubrimiento",
+      "plOrbper": "Período Orbital (días)",
+      "plRade": "Radio (⊕)",
+      "plRadj": "Radio (♃)",
+      "plTrandep": "Profundidad del Tránsito (ppm)",
+      "plTrandur": "Duración del Tránsito (horas)",
+      "plTranmid": "Época del Tránsito (BJD)",
+      "plImppar": "Parámetro de Impacto",
+      "stTeff": "Temperatura Efectiva (K)",
+      "stRad": "Radio Estelar (☉)",
+      "stMass": "Masa Estelar (☉)",
+      "stMet": "Metalicidad [Fe/H]",
+      "stLogg": "log g (cm/s²)",
+      "syDist": "Distancia al Sistema (pc)",
+      "syVmag": "Magnitud V",
+      "syKmag": "Magnitud K",
+      "syJmag": "Magnitud J",
+      "syHmag": "Magnitud H",
+      "syGaiamag": "Magnitud Gaia",
+      "toi": "TOI",
+      "tid": "TIC ID",
+      "ctoiAlias": "CTOI Alias",
+      "plPnum": "Número de Planetas",
+      "plEqt": "Temperatura de Equilibrio (K)",
+      "plInsol": "Flujo de Insolación (⊕)",
+      "plTrandurh": "Duración del Tránsito (horas)",
+      "plOrbsmax": "Semieje Mayor (AU)",
+      "stDist": "Distancia (pc)",
+      "stTmag": "Magnitud TESS",
+      "stPmra": "Movimiento Propio RA (mas/año)",
+      "stPmdec": "Movimiento Propio Dec (mas/año)",
+      "rastr": "RA (formato)",
+      "decstr": "Dec (formato)"
     }
   },
   "methodology": {

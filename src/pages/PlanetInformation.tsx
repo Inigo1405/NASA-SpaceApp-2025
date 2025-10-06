@@ -1,9 +1,11 @@
 ﻿import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const PlanetInformation = () => {
   axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+  const { t } = useTranslation();
   
   const navigate = useNavigate();
   const { telescope, name } = useParams();
@@ -220,7 +222,7 @@ const PlanetInformation = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-white text-xl mb-4">Cargando información del planeta...</div>
+          <div className="text-white text-xl mb-4">{t('planetInformation.loading')}</div>
           <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto"></div>
         </div>
       </div>
@@ -231,12 +233,12 @@ const PlanetInformation = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-slate-900 flex items-center justify-center px-4">
         <div className="text-center max-w-md">
-          <div className="text-red-400 text-xl mb-4">{error || 'Planeta no encontrado'}</div>
+          <div className="text-red-400 text-xl mb-4">{error || t('planetInformation.error')}</div>
           <button
             onClick={() => navigate('/')}
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
           >
-            Volver al inicio
+            {t('planetInformation.backToHome')}
           </button>
         </div>
       </div>
@@ -316,7 +318,7 @@ const PlanetInformation = () => {
             <svg className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span>Volver al inicio</span>
+            <span>{t('planetInformation.backButton')}</span>
           </button>
 
           {/* HEADER CON INFORMACIÓN BÁSICA */}
@@ -336,7 +338,7 @@ const PlanetInformation = () => {
                   </span>
                 </div>
                 <p className="text-slate-300 text-lg leading-relaxed">
-                  Exoplaneta descubierto por la misión {telescope?.toUpperCase()} orbitando la estrella {starName}
+                  {t('planetInformation.discoveredBy', { telescope: telescope?.toUpperCase(), star: starName })}
                 </p>
               </div>
             </div>
@@ -344,12 +346,12 @@ const PlanetInformation = () => {
 
           {/* VISUALIZACIÓN EDUCATIVA */}
           <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40 mb-8">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">¿Cómo orbita este planeta?</h2>
+            <h2 className="text-2xl font-bold text-white mb-6 text-center">{t('planetInformation.visualizations.title')}</h2>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* VISTA ORBITAL */}
               <div className="text-center">
-                <h3 className="text-lg font-semibold text-white mb-4">Vista Orbital</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">{t('planetInformation.visualizations.orbitalView')}</h3>
                 <svg width="280" height="180" viewBox="0 0 280 180" className="mx-auto">
                   {/* Fondo del espacio */}
                   <rect width="280" height="180" fill="#0f172a" rx="8" />
@@ -406,7 +408,10 @@ const PlanetInformation = () => {
 
               {/* VISTA DE TRÁNSITO */}
               <div className="text-center">
-                <h3 className="text-lg font-semibold text-white mb-4">Método de Detección: Tránsito</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">{t('planetInformation.visualizations.transitMethod')}</h3>
+                <div className="mb-2 text-slate-400 text-sm">
+                  {t('planetInformation.visualizations.transitDescription')}
+                </div>
                 <svg width="280" height="180" viewBox="0 0 280 180" className="mx-auto">
                   {/* Fondo */}
                   <rect width="280" height="180" fill="#0f172a" rx="8" />
@@ -443,13 +448,7 @@ const PlanetInformation = () => {
                     <text x="140" y="5" textAnchor="middle" fontSize="8" fill="#22d3ee">Tránsito</text>
                     <line x1="140" y1="0" x2="140" y2="-5" stroke="#22d3ee" strokeWidth="1" markerEnd="url(#arrow)" />
                   </g>
-                  
-                  {/* Etiquetas explicativas */}
-                  <text x="140" y="25" textAnchor="middle" fontSize="12" fill="#94a3b8">Cuando el planeta pasa</text>
-                  <text x="140" y="40" textAnchor="middle" fontSize="12" fill="#94a3b8">frente a la estrella...</text>
-                  <text x="140" y="55" textAnchor="middle" fontSize="10" fill="#64748b">...detectamos una pequeña disminución del brillo</text>
                 </svg>
-                
                 <div className="mt-4 space-y-2">
                   {transitDepth && (
                     <div className="text-sm text-slate-400">
@@ -510,7 +509,7 @@ const PlanetInformation = () => {
 
               {/* Parámetros Orbitales */}
               <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40">
-                <h2 className="text-2xl font-bold text-white mb-6">Parámetros Orbitales</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{t('planetInformation.sections.orbitalParameters')}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {planet.period && (
                     <div className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-6">
@@ -749,7 +748,7 @@ const PlanetInformation = () => {
 
               {/* Órbita y Tránsito */}
               <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40">
-                <h2 className="text-2xl font-bold text-white mb-6">Órbita y Tránsito</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{t('planetInformation.sections.orbitAndTransit')}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {planet.plOrbper && (
                     <div className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-6">
@@ -798,7 +797,7 @@ const PlanetInformation = () => {
 
               {/* Estrella */}
               <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40">
-                <h2 className="text-2xl font-bold text-white mb-6">Características Estelares</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{t('planetInformation.sections.stellarCharacteristics')}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {planet.stTeff && (
                     <div className="bg-orange-500/5 border border-orange-500/20 rounded-2xl p-6">
@@ -835,7 +834,7 @@ const PlanetInformation = () => {
 
               {/* Magnitudes y Sistema */}
               <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40">
-                <h2 className="text-2xl font-bold text-white mb-6">Magnitudes y Sistema</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{t('planetInformation.sections.magnitudesAndSystem')}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {planet.syDist && (
                     <div className="bg-teal-500/5 border border-teal-500/20 rounded-2xl p-6">
@@ -901,7 +900,7 @@ const PlanetInformation = () => {
             <div className="space-y-6">
               {/* Identificadores */}
               <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/30 shadow-2xl shadow-black/40">
-                <h2 className="text-2xl font-bold text-white mb-6">Identificadores</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">{t('planetInformation.sections.identifiers')}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {planet.toi && (
                     <div className={`${colors.glow} border ${colors.borderGlow} rounded-2xl p-6`}>
